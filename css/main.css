@@ -1449,6 +1449,7 @@ pre code {
   border: 1px solid #eee;
   max-width: 120px;
   padding: 2px;
+  border-radius: 50%;
 }
 .site-author-name {
   color: var(--text-color);
@@ -3004,9 +3005,6 @@ mark.search-keyword {
 .post-block li {
   margin-bottom: 15px;
 }
-.post-block .post-description {
-  display: none;
-}
 .post-block blockquote p {
   color: #969696;
   font-size: 18px;
@@ -3018,4 +3016,29 @@ mark.search-keyword {
 }
 .post-meta {
   justify-content: left;
+}
+.post-body .description {
+  display: flex;
+  flex-direction: row;
+}
+.post-body .description p {
+  margin-right: 30px;
+}
+.post-body img {
+  width: 600px;
+}
+.post-body .thumbnail {
+  width: 300px;
+  align-self: center;
+}
+.post-button {
+  margin-top: 30px;
+}
+@media screen and (max-width: 768px) {
+  .post-body .description {
+    flex-direction: column-reverse;
+  }
+  .post-body .thumbnail {
+    width: 100%;
+  }
 }
