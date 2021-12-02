@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>[Master the Coding Interview] 取得面試機會part1</title>
-    <url>/blog/2021/11/30/Master_The_Coding-interview01/</url>
+    <title>[Master the Coding Interview] 取得面試機會</title>
+    <url>/blog/2021/11/30/Master_The_Coding-interview/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
 <h3 id="1-Resume"><a href="#1-Resume" class="headerlink" title="1. Resume"></a>1. Resume</h3><p>履歷是公司看你的第一印象，他們通常不會很仔細的去看，畢竟有太多太多的應徵者，所以我們不應該花太多時間在著磨履歷上的小地方、字型、顏色等。履歷最好花一天就要搞定，避免浪費時間。</p>
 <p>不過以上是專屬於工程師，如果你是一個設計師或其他職業就要依照職業的特性來製作出符合的履歷，以下是履歷需要著重的四個部分：</p>
@@ -54,6 +54,10 @@
 <li>Recommendations<br>雖然這個在面試時沒有人會看，但多一點的評論也會讓自己的rank提高，容易出現在搜尋結果的上面。</li>
 <li>create connect<br>利用公司來找到linkedln上面正在你想要的公司上班的人，並與他們製造關係或私訊他們。</li>
 </ol>
+<h3 id="3-Portfolio"><a href="#3-Portfolio" class="headerlink" title="3. Portfolio"></a>3. Portfolio</h3><p>和履歷一樣，只要有一個地方可以放上作品以便面試的時候可以展示就好，不需要利用太多時間來設計版面和網頁，但就是一定要有這項東西可以展示。</p>
+<h3 id="4-Email"><a href="#4-Email" class="headerlink" title="4. Email"></a>4. Email</h3><p>公司其實最常會應徵透過朋友介紹的人，如果我們沒有親朋好友在你要面試的公司裡，那Email相對就很重要了，求職雖然可以透過求職網，但如果透過寄信的方式，也可以提高人資看到應徵者訊息的機會，也能增加獲得面試的機會。除了直接寄信詢問職缺外，更好的是與他人建立連結，利用linkedln或是其他東西來取得CEO或HR的Eemail，可以嘗試跟他們約出來聊天，約成功的同時你也算成功拿到面試了。</p>
+<p>總結一下，以上四點是找工作必須要有的四樣東西，那甚麼時候該找工作呢，now，開始找工作你才能知道自己哪裡不足，哪裡需要加強，但這個答案只適用於已經有基本知識的人，如果是個新手工程師，那還是快點準備履歷，快點開始動手寫程式，做大型的project，讓自己更熟練這項技能。</p>
+<p>在找工作的時候當然上面會寫很多必要條件、工作資歷等，千萬不要因此打退堂鼓，上面寫的只是他們公司會用到的技能，也可能是未來你需要學的技能，絕對不是「現在」你就已經要會的技能，唯有拿到面試機會面對面開始才是真的。雖然找工作是一個數量遊戲，投越多家越有取得面試的機會，但與其把履歷灑到求職網上，不如找出大約10家自己喜歡的公司，針對他們個別去做準備，只要做好準備，機會也不一定會比海投來得更小。</p>
 ]]></content>
       <categories>
         <category>Master the Coding Interview</category>
@@ -91,6 +95,48 @@
       </categories>
       <tags>
         <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Master the Coding Interview] BigO介紹</title>
+    <url>/blog/2021/12/02/Master-The-Coding-BigO/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<h3 id="What-is-good-code"><a href="#What-is-good-code" class="headerlink" title="What is good code?"></a>What is good code?</h3><p>什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。</p>
+<h3 id="BigO"><a href="#BigO" class="headerlink" title="BigO"></a>BigO</h3><p>BigO為什麼會存在，因為當我們要判斷一個code好或不好的時候，如果用執行的時間來看的話，因為每個電腦CPU的不同，會有執行速度上的差異，同樣的code不同的設備會有不同的速度，所以不能以時間來做為依據，這時候我們就會用BigO來判斷code執行速度。</p>
+<p>BigO主要是利用程式執行多少步驟來做計算，拿以下的程式碼來說：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printHappy</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&quot;Happy&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printHappy(n);  <span class="comment">//O(n) --&gt;linear time</span></span><br></pre></td></tr></table></figure>
+
+<p>假設今天n是1，那這個for迴圈就會執行1次，n=2就會執行兩次，n=100就會執行100次，以此類推，我們可以發現n跟執行的次數呈現一個正比，並且是線性的增加，透過這個方式我們可以說這個printHappy的函式時間複雜度是O(n)。</p>
+<p>O(1)表示constant time，表示不管甚麼input進去，這個function都會執行一樣數量的步驟，是時間複雜部裡面最好的一種。</p>
+<p><strong>BigO Challenge</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funChallenge</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;  <span class="comment">//O(1)</span></span><br><span class="line">  a = <span class="number">50</span> + <span class="number">3</span>;  <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; input.length; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    anotherFunction(); <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">let</span> stranger = <span class="literal">true</span>; <span class="comment">//O(n)</span></span><br><span class="line">    a++; <span class="comment">//O(n)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a; <span class="comment">//O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，有些人說賦值不能算是一個步驟，但這邊先不討論這部分，所以賦值就給他O(1)，for迴圈的東西就是執行n次，接著將所有的BigO加起來，我們會得到O(3 + 4n)的時間複雜度的，接著我們就會簡化她，把常數消掉後，取最複雜的那個就好，所以這題的答案是O(n)。</p>
+<p>當然我們在面試的時候，不會一行一行的算出來，我們必須一眼就看出時間複雜度為何，以下有四個遵循的規則：</p>
+<ol>
+<li>Worst Case<br>永遠要設定成最糟的情況，因為BigO只會看最壞情況。</li>
+<li>Remove Constants<br>因為input要假設成一個很大很大的數字，所以常數對他們來說不重要。</li>
+<li>Different terms for inputs<br>不同的input要用不同的代數去寫，假設function裡面有兩個迴圈一個有m個element一個n個element的話，會把結果寫成O(m + n)，因為不會知道到你m多還是n多，所以都要寫上去。</li>
+</ol>
+<blockquote>
+<p>如果兩個迴圈都同樣有n個element，並且又是一個巢狀的話，我們就可以把結果寫成O(n^2)，這是一個不好的時間複雜度，很多面試就是要請你把O(^2)變成較好的時間複雜度。</p>
+</blockquote>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i,j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Drop Non Dominants<br>丟掉不重要的部分，假設function裡面有一個時間複雜度是O(n)，一個是O(n^2)，我們會取最複雜的，也就是O(n^2)。</li>
+</ol>
+<p>O(n!)這是最糟糕的時間複雜度，等於說每次執行loop都要加一個element，絕對要避免。</p>
+<p>到這邊已經介紹了3種時間複雜度，接著要回到Scalable這個點上，時間複雜度表示的是他的run time，但除了時間，memory也是注重的一個環節，要符合Scalable，必須考慮時間跟空間，雖然現在的memory越來越大，但她不是無限的，我們仍然要注意使用的大小。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">boo</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">boo(<span class="number">5</span>) <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrayOfHiNTimes</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> hiArray = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    hiArray[i] = <span class="string">&#x27;hi&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arrayOfHiNTimes(<span class="number">6</span>)  <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
+
+<p>第一個function裡面，雖然是一個迴圈，但我們只有在for迴圈裡面宣告一個i，整個函式也只有宣告這個東西，可以說boo function的空間複雜度為O(1)。第二個就不一樣了，因為我們宣告了一個陣列，並且在陣列加入了n個elements，所以arrayOfHiNTimes function的空間複雜度為O(n)。</p>
+<p>通常我們會用空間換取時間或時間換取空間，這沒有甚麼對或錯，看當下的project要怎麼做就好。</p>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>BigO</tag>
       </tags>
   </entry>
 </search>
