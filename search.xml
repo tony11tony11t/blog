@@ -139,4 +139,174 @@
         <tag>React</tag>
       </tags>
   </entry>
+  <entry>
+    <title>[Master the Coding Interview] 解決問題</title>
+    <url>/blog/2021/12/06/Master_The_Coding-slove_coding/</url>
+    <content><![CDATA[<p>在面試的時候解決問題的方法是面試的關鍵，他們可能沒有想要你直接說明正確答案，他們更想看的是過程，你怎麼分析code，怎麼把你的思路跟其他人說，這也是為什麼我們必須將這些知識了解透徹，就像BigO一樣，當你今天在解題的時候一併把BigO考慮進去，這會讓自己很加分，公司要的不是天才，而是可以跟他們一起解決問題的人，只要有解決問題的能力，你就是一個對公司有價值的人。</p>
+<p>我們在面試的時候，需要注意以下的四點：</p>
+<ol>
+<li>Ayalytic Skills-是否可以分析和解決問題</li>
+<li>Coding Skills-是否可以寫出好的、易讀的、簡單的code</li>
+<li>Technical Skills-是否了解對於應徵職業的基本知識</li>
+<li>Comminication Skills-你的個人特質是否符合公司文化 </li>
+</ol>
+<p>我們可以透過以下步驟來解決面試中的白板題：</p>
+<ol>
+<li>將所有重要資訊寫在題目最上面，確定知道所有細節並表現出如何組織她們。</li>
+<li>再次確認input和output。</li>
+<li>找出問題最重要的部分，確認一下有time、memory的限制嗎，最終目標是甚麼?</li>
+<li>不要問太多很小很瑣碎的問題，面試是有時間的，只要知道了前三點要的東西後就可以開始coding了。</li>
+<li> 先用最爛最直覺的解，不用把它寫出來，可以直接用說的，這表示你可以很快的想到怎麼解決問題。</li>
+<li>告訴面試官為什麼這個解不是最好的，可以從時間複雜度的部分告訴她。</li>
+<li>想想是不是有更好的方式，檢視一下是否所有資訊都有考慮進去了。</li>
+<li>在開始寫程式之前，先把等等要做的步驟寫下來。</li>
+<li>在一開始就模組化你要寫下來的程式碼，把問題區分成小塊的部分並且在適當的地方解釋一下。</li>
+<li>正式的開始寫code，要記住知道的訊息越多，在開始寫白板題的時候越不容易出錯，千萬不要在開始寫的時候還甚麼都不清楚。記住一件事，很多人在白板題都沒辦法準時的將最好的答案寫出來，所以要怎麼讓自己表現更好，一步一步的破解，就算最後沒有解出來，也至少有留下了你所知道的部分給面試官看。</li>
+<li>想想有甚麼案例放進去會錯誤，要假設所有人都想破壞你的code，該怎麼做才能預防所有bad inputs。小技巧就是評論自己的code，並且告訴面試官你如何修正自己的code，用討論的方式讓他知道你會注意這些細節。</li>
+<li>不要用一些奇怪的名稱來命名你的變數或函式，讓可讀性也加入你的想法裡。這也可以跟你的面試官講，讓他知道你會注意這個部分。</li>
+<li>測試你的code，如果沒有帶入參數或帶入0、null、undefined等等奇怪的值的時候應該要怎麼做，跟11點類似的概念，也是要讓面試官知道你的想法是最重要的。</li>
+<li>告訴面試官還可以怎麼在改進code，還有其他種方式來解決問題嗎，這是可讀性高的code嗎，有其他特定語法可以來改寫code嗎?小技巧：可以問問面試官看過最有想法的解法是什麼。</li>
+<li>如果面試官很喜歡這個解答，他通常會結束白板題，又或者是問延伸的問題，例如如果記憶體沒那麼大該怎麼辦等，這是Google很常面試的問題，最簡單的回答就是分而治之，divide-and-conquer，把input拆開輸入，最後output再合併。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Complete React Developer in 2022]React基本概念</title>
+    <url>/blog/2021/12/06/React-Tutorial-02/</url>
+    <content><![CDATA[<h2 id="NPM-vs-YARM"><a href="#NPM-vs-YARM" class="headerlink" title="NPM vs YARM"></a>NPM vs YARM</h2><p>npm是node package manage，可以利用這個指令在terminal做很多事情，yarm跟npm一樣，只是yarn是facebook開發的，以下是他們的指令對照：</p>
+<table>
+<thead>
+<tr>
+<th>Install dependencies from package.json</th>
+<th>yarn</th>
+<th>npm install</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Install a package and add to package.json</td>
+<td>yarn add package</td>
+<td>npm install package  –save</td>
+</tr>
+<tr>
+<td>Install a devDependency to package.json</td>
+<td>yarn add package –dev</td>
+<td>npm install package –save-dev</td>
+</tr>
+<tr>
+<td>Remove a dependency from package.json</td>
+<td>yarn remove package</td>
+<td>npm uninstall package –save</td>
+</tr>
+<tr>
+<td>Upgrade a package to its latest version</td>
+<td>yarn upgrade</td>
+<td>npm update –save</td>
+</tr>
+<tr>
+<td>Install a package globally</td>
+<td>yarn global add package</td>
+<td>npm install package -g</td>
+</tr>
+</tbody></table>
+<h2 id="NPX"><a href="#NPX" class="headerlink" title="NPX"></a>NPX</h2><p>npx是建立在npm下面的指令，假設我們在terminal下了下面這段指令：</p>
+<blockquote>
+<p>npm install -g cowsay</p>
+</blockquote>
+<p>表示我利用npm安裝cowsay這個package，-g表示global，安裝在全局，就是整個電腦的環境裡面。如果沒有寫-g表示安裝在當下資料夾裡面。</p>
+<p>如果要解安裝只要在install前加上un即可。那甚麼是npx呢，簡單的理解就是說npx幫你先把package下載下來並且執行，一執行完馬上解安裝，讓你的電腦不會存在這個package以便節省記憶體。npx的寫法只要在後面加上package name和帶入的參數即可。</p>
+<blockquote>
+<p>npx cowsay hiiiiiii~~~</p>
+</blockquote>
+<h2 id="Create-React-App"><a href="#Create-React-App" class="headerlink" title="Create React App"></a>Create React App</h2><p>這是facebook開發的package，用於快速打造react專案，以下介紹幾個地方表示的意義：</p>
+<table>
+<thead>
+<tr>
+<th>package.json</th>
+<th>專案的所有設定都包含在這裡，包含版本、用的套件、腳本等。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>package.json → dependencies</td>
+<td>裡面是所有用到的套件以及版本</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react</td>
+<td>最重要的部分，react的核心庫</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react-dom</td>
+<td>react是一個跨平台的框架，他可以利用react-native來建造手機app，又或者接上VR打造VR的應用程式等。在這邊因為是要開發網頁，所以要引入此package來控制網頁上的DOM。</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react-script</td>
+<td>給CLI用的腳本，透過在scripts裡面設定的指令可以讓CLI讀懂輸入的指令，例如start、build等</td>
+</tr>
+</tbody></table>
+<p>接著打開index.js可以發現程式的進入點，利用render function來渲染畫面，React.StrictMode主要是確認我們沒有用到版本遺棄的指令，讓程式處在一個安全的狀態。這邊有寫到在root這個節點裡面渲染，這個節點的位置在index.html裡面，這個檔案就是我們主要載入的html，react也只會載入這個html並置換裡面內容達到SPA的效果。</p>
+<table>
+<thead>
+<tr>
+<th>start</th>
+<th>開啟server進行網頁預覽</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>build</td>
+<td>將整個react專案打包，資料夾內會產生一個build資料夾，裡面只會有html、css和js，主要是給瀏覽器看的資料，通常我們也只會把build好的檔案丟到server上。</td>
+</tr>
+<tr>
+<td>test</td>
+<td>執行測試專案</td>
+</tr>
+<tr>
+<td>eject</td>
+<td>自訂webpack or babel的設定，當我們執行此指令後，會出現很多設定的檔案，這些設定主要用於build階段，但在此專案創建的時候，create react app這個指令其實都幫我們做了最優化的設定，所以沒事不需要更改。</td>
+</tr>
+</tbody></table>
+<h2 id="componenets"><a href="#componenets" class="headerlink" title="componenets"></a>componenets</h2><p>一段程式碼用來顯示視覺化的UI，UI包含HTML、CSS、javaScript。透過ReactDOM，我們可以把component當作HTML tag來使用。一般來說建立component有兩種方式，class和hooks，hooks，一般我們都會用class來建立，因為很多程式語言都有物件導向的觀念，所以這邊先介紹class版的components</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//建構子，主要是設定state初始值的地方</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//繼承Component，主要用於呼叫Component的建構子</span></span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//設定state</span></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">string</span> : <span class="string">&quot;Hello Tony&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">header</span> <span class="attr">className</span>=<span class="string">&quot;App-header&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;logo&#125;</span> <span class="attr">className</span>=<span class="string">&quot;App-logo&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;logo&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; this.state.string &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">					&#123;/*在onclick裡面加上setState的方法，讓按鈕可以更改string字串*/&#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> this.setState(&#123;string: &#x27;Hello Tang Jia Jun&#x27;&#125;)&#125;&gt;Change Text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這是將範例改成class的形式，按下按鈕可以更改文字內容，這邊的重點是state，react的核心，透過setState可以改變資料內容，利用這個特性可以達成網頁的互動效果。那renden裡面的html內容又是甚麼呢？他是jsx，和html很像，是react用來編譯成html的一種形式，當我們的畫面有變動的時候，也就是setState讓state有更動的時候，就會觸發render的執行，把更改的html送回UI上。</p>
+<p>setState是一個非同步的指令，表示這個指令並不會立即的執行，所以他的第二個參數是callback function，當setState成功後會執行的function，可以利用這個部分來測試setState是否成功。</p>
+<h3 id="Asynchronous-setState"><a href="#Asynchronous-setState" class="headerlink" title="Asynchronous setState"></a>Asynchronous setState</h3><p>當我們在使用setState的時候，因為他是非同步行為，不會即時更改，所以當我們要做類似計數器的功能的時候，要避免以下的寫法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(&#123;<span class="attr">count</span>:<span class="built_in">this</span>.state.count + <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面的程式碼看似沒問題，但因為react會等到適當的時機才執行這段程式碼，我們不能保證每次取到的count值都已經被+1了，有可能兩次的setState都取得同樣的count值，要解決以上問題，就必須在setState裡面帶入函式：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevState, prevProps</span>) =&gt;</span> &#123;</span><br><span class="line">	retrun &#123;<span class="attr">count</span> : prevState.count + <span class="number">1</span>&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>這邊就先停住，更多的資訊可以看這篇 <a href="https://medium.com/javascript-scene/setstate-gate-abc10a9b2d82">https://medium.com/javascript-scene/setstate-gate-abc10a9b2d82</a>，之後會再整理一篇文章說明這個問題。</p>
+<h3 id="Key-attribute"><a href="#Key-attribute" class="headerlink" title="Key attribute"></a>Key attribute</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.state.monsters.map(<span class="function"><span class="params">monster</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">key</span>=<span class="string">&#123;monster.id&#125;</span>&gt;</span>&#123;monster.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>)</span><br></pre></td></tr></table></figure>
+
+<p>當我們要使用map() function把陣列裡的資訊列出來的時候，react會叫我們把所有的tag都加上key，因為react自動幫我們篩選那些tag有更動那些沒有，透過key找出有更動的tag並且只更新那些部分，避免每一次的小更動卻要重新把所有東西都render一次。</p>
+<h3 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//App.js</span></span><br><span class="line">&lt;CardList name = <span class="string">&quot;Tony&quot;</span>&gt;Happy&lt;/CardList&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//card-list.component.jsx</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CardList = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;card-list&#x27;</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>react的第二個核心觀念，當一個components創建時，他會有一個屬性props紀錄傳進來的參數，像上面的例子，傳入name屬性，並且在tag裡面夾入字串，當我們在使用components的時候，props就會把上面兩個屬性記錄下來，tag裡面的東西可以利用props.children來取得，tag上的屬性用key取得即可。</p>
+<p>總結state只會活在一個component裡面，他可以往下面的ocmponents傳，但是下面的components是利用props來接收，並且只能向下傳送不能向上。</p>
+<h3 id="When-do-we-break-things-down-into-components"><a href="#When-do-we-break-things-down-into-components" class="headerlink" title="When do we break things down into components?"></a>When do we break things down into components?</h3><p>當一個元件可以被重複用很多次獲用在很多地方的時候，就需要獨立成一個components。</p>
+<h3 id="function-VS-class"><a href="#function-VS-class" class="headerlink" title="function VS class"></a>function VS class</h3><p>要如何決定component要用function還是class，可以先思考他要不要有state，如果他只是一個不需要互動的component，那可以利用function的方式來建造，比較易讀也比較簡單，反之如果component比較複雜且互動性比較高的話，就可以先使用class來建造。</p>
+<blockquote>
+<p>延伸：要如何知道state放在哪一個component，可以將所有component的關聯圖建立起來，如果component的state只會影響到自己children的UI，那state可以放在自身身上，如果會影響到parent or sibling，就要往上層放，直到state可以涵蓋所有被影響的component才能停止向上。</p>
+</blockquote>
+<h3 id="“this”-in-class"><a href="#“this”-in-class" class="headerlink" title="“this” in class"></a>“this” in class</h3><p>當我們在寫component裡面要使用state的時候，我們會寫成this.state，這個this指的是component這個class，又因為這個class繼承React裡面的component class，所以今天我們在呼叫像是constructor或render的時候，可以使用this.state來找到這個變數。如果今天是在class裡面自訂一個方法並且在裡面使用this的話，因為React.Component沒有自動綁定this，所以自訂的函式會視this為undefined，以下有兩種方法改善：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自己綁定</span></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="built_in">this</span>.foo = <span class="built_in">this</span>.foo.bind(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//利用arrow function的特性</span></span><br><span class="line"><span class="comment">//this的指向會依照語彙範疇來設定</span></span><br><span class="line"><span class="comment">//因為函式在class裡面宣告所以會指向此class</span></span><br><span class="line">foo = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">this</span>.setState(&#123;<span class="attr">searchField</span>:e.target.value&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="原始的React"><a href="#原始的React" class="headerlink" title="原始的React"></a>原始的React</h3><p>creat react app這個package幫我們建立了很棒的開發環境，但如果把jsx和babel抽掉只留下react的話，就會像以下範例一樣用呼叫API的方式來撰寫。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="comment">//利用createElement來建立react dom的物件，第一個參數是HTML tag，第二個是attributes，第三個是children的內容</span></span><br><span class="line">	<span class="comment">//這邊的children就是再塞了一個h1 tag</span></span><br><span class="line">	<span class="keyword">return</span> React.createElement(</span><br><span class="line">		<span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">		&#123;&#125;,</span><br><span class="line">		React.createElement(<span class="string">&#x27;h1&#x27;</span> , &#123;&#125; , <span class="string">&quot;React IS RENDERED!!!&quot;</span>)</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//這個方式也可以寫成模組化，如果有多個children就用array表示</span></span><br><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> React.createElement(<span class="string">&#x27;div&#x27;</span> , &#123;&#125; , [</span><br><span class="line">		React.createElement(<span class="string">&#x27;h1&#x27;</span> , &#123;&#125; , props,name)</span><br><span class="line">		React.createElement(<span class="string">&#x27;p&#x27;</span> , &#123;&#125; , props,occupation)</span><br><span class="line">	])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一個參數除了寫Html tag外還可以寫react component</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> React.createElement(<span class="string">&#x27;div&#x27;</span>,&#123;&#125;,[</span><br><span class="line">		React.createElement(Person , &#123;<span class="attr">name</span>:<span class="string">&quot;tony&quot;</span> , <span class="attr">occupation</span>:<span class="string">&quot;developer&quot;</span>&#125;)</span><br><span class="line">		React.createElement(Person , &#123;<span class="attr">name</span>:<span class="string">&quot;tang&quot;</span> , <span class="attr">occupation</span>:<span class="string">&quot;cooker&quot;</span>&#125;)</span><br><span class="line">	])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="View-→-Actions-→-State-→View→…"><a href="#View-→-Actions-→-State-→View→…" class="headerlink" title="View → Actions → State(→View→…)"></a>View → Actions → State(→View→…)</h3><p>在React中，DOM總共有兩種，virtulDOM和actualDOM，網頁上顯示的是actualDOM，當使用者與網頁做出互動，改變state的時候，virtulDOM會與actualDOM做比對，看是哪個DOM被更改，並且給render更改後的component。資料的流向是單向的，Debug的時候就可以知道是哪個環節出問題，如果UI有問題就可以找State，如果互動有問題就要檢查View等等。</p>
+<h3 id="Lifecycle-methods"><a href="#Lifecycle-methods" class="headerlink" title="Lifecycle methods"></a>Lifecycle methods</h3><p><img src="/blog/2021/12/06/React-Tutorial-02/lifeCycle.png" alt="Untitled"></p>
+]]></content>
+      <categories>
+        <category>Complete React Developer in 2022</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
 </search>
