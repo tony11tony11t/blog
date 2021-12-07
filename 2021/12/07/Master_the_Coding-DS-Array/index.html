@@ -28,7 +28,7 @@
 <meta property="og:description" content="在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言...">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-12-07T11:38:08.000Z">
-<meta property="article:modified_time" content="2021-12-07T11:43:12.426Z">
+<meta property="article:modified_time" content="2021-12-07T11:53:28.835Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Data structure">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2021-12-07 19:38:08 / 修改時間：19:43:12" itemprop="dateCreated datePublished" datetime="2021-12-07T19:38:08+08:00">2021-12-07</time>
+      <time title="創建時間：2021-12-07 19:38:08 / 修改時間：19:53:28" itemprop="dateCreated datePublished" datetime="2021-12-07T19:38:08+08:00">2021-12-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -266,7 +266,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <img src="/blog/2021/12/07/Master_the_Coding-DS-Array/thumbnail.jpeg"/>
-        <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> strings = [<span class="string">&#x27;a&#x27;</span> , <span class="string">&#x27;b&#x27;</span> , <span class="string">&#x27;c&#x27;</span> , <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">string[<span class="number">2</span>] <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//push</span></span><br><span class="line">strings.push(<span class="string">&#x27;e&#x27;</span>); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">strings.pop(); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unshift</span></span><br><span class="line">strings.unshift(<span class="string">&#x27;x&#x27;</span>); <span class="comment">//O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//splice</span></span><br><span class="line">strings.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;alien&#x27;</span>) <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
+        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> strings = [<span class="string">&#x27;a&#x27;</span> , <span class="string">&#x27;b&#x27;</span> , <span class="string">&#x27;c&#x27;</span> , <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">string[<span class="number">2</span>] <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//push</span></span><br><span class="line">strings.push(<span class="string">&#x27;e&#x27;</span>); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">strings.pop(); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unshift</span></span><br><span class="line">strings.unshift(<span class="string">&#x27;x&#x27;</span>); <span class="comment">//O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//splice</span></span><br><span class="line">strings.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;alien&#x27;</span>) <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
 
 <p>在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言，例如C、C++，這種在宣告階段就要將陣列記憶體配置好，當我們要使用的範圍超出記憶體配置的時候，會進行擴增，通常會是增加2倍，例如原本有8個位置就新增到16個等等。所以當這種語言在進行陣列的append的時候，會先把原陣列複製到另外一塊記憶體並且擴充，時間複雜度會是O(n)，但javaScript裡面就只有單純的append，時間複雜度是O(n)。</p>
 <h2 id="Implementing-an-array"><a href="#Implementing-an-array" class="headerlink" title="Implementing an array"></a>Implementing an array</h2><p>JavaScript的Array其實是一種Object，所以我們要利用class的方式來自創一個array</p>
