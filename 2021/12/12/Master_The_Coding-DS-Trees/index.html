@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<meta name="description" content="樹狀結構是一種有等級制度的資料結構，很多地方都看得到這種結構，像是HTML DOM，abstract syntax tree等...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Master the Coding Interview]Trees">
+<meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Trees/index.html">
+<meta property="og:site_name" content="TonyTang&#39;s blog">
+<meta property="og:description" content="樹狀結構是一種有等級制度的資料結構，很多地方都看得到這種結構，像是HTML DOM，abstract syntax tree等...">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-12T09:31:14.000Z">
+<meta property="article:modified_time" content="2021-12-12T09:32:56.190Z">
+<meta property="article:author" content="Tony">
+<meta property="article:tag" content="Data structure">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Trees/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Trees/","path":"2021/12/12/Master_The_Coding-DS-Trees/","title":"[Master the Coding Interview]Trees"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[Master the Coding Interview]Trees | TonyTang's blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">TonyTang's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Trees"><span class="nav-text">Binary Trees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implement-an-tree"><span class="nav-text">Implement an tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVL-Tree-amp-Red-Black-Tree"><span class="nav-text">AVL Tree &amp; Red Black Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Heaps"><span class="nav-text">Binary Heaps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#When-can-use-arry"><span class="nav-text">When can use arry?</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tony"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Tony</p>
+  <div class="site-description" itemprop="description">Front-end technology</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Trees/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="Front-end technology">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TonyTang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Master the Coding Interview]Trees
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-12-12 17:31:14 / 修改時間：17:32:56" itemprop="dateCreated datePublished" datetime="2021-12-12T17:31:14+08:00">2021-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Master-the-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">Master the Coding Interview</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img src="/blog/2021/12/12/Master_The_Coding-DS-Trees/thumbnail.png"/>
+        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<p>樹狀結構是一種有等級制度的資料結構，很多地方都看得到這種結構，像是HTML DOM，abstract syntax tree等。linked list也可以說是一種tree，但他每個node都是單向也只有一個child node。正常的tree中會有一個root，node可以有0~多個child nodes，一切都看要建造的tree的規則，例如red-black tree、binary tree等。</p>
+<h2 id="Binary-Trees"><a href="#Binary-Trees" class="headerlink" title="Binary Trees"></a>Binary Trees</h2><p>二元樹，每個節點都只有left node和right node，Perfect Binary Tree表示節點數量是一直加倍下去的，第一層1個，第二層2個，第三層4個以此類推。Full Binary Tree表示每個node只會有2個或0個child node。Binary search tree是接下來要介紹的資料結構，他的查找、插入和刪除都是O(logN)。</p>
+<p>每個node最多只能有兩個child，所以root最多2^0個，第一層最多2^1個，第二層最多2^2個以此類推。由此可以歸納出以下結論：</p>
+<p>Level 0 = 2 ^ 0</p>
+<p>Level 1= 2 ^ 1</p>
+<p>Level 2 = 2 ^ 2</p>
+<p>Level 3= 2 ^ 3</p>
+<p>N of nodes = 2 ^ h - 1</p>
+<p>log node = steps</p>
+<p>因為在利用binary search tree查找的時候，利用的是divide and conquer的觀念，每次往下一個節點，都等於把資料再分割，直到找到要的資料為止，假設有7個節點(height = 3)，log 7 就會接近3，所以時間複雜度才會是O(logn)。如果binary search tree是unblance的狀態，所有的時間複雜度就會變成O(n)，像是tree中的linked list。</p>
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>better than O(n)</td>
+<td>No O(1) operations</td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+<tr>
+<td>Ordered</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Implement-an-tree"><a href="#Implement-an-tree" class="headerlink" title="Implement an tree"></a>Implement an tree</h2><p>在面試的時候，通常不會要實作一個tree的結構，只需要了解它的運作方式即可。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.left = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">this</span>.right = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">this</span>.value = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySearchTree</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.root = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">insert</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(value)</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.root)</span><br><span class="line">            <span class="built_in">this</span>.root = newNode;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> nowNode = <span class="built_in">this</span>.root</span><br><span class="line">            <span class="keyword">while</span>(nowNode)&#123;</span><br><span class="line">                <span class="keyword">if</span>(value &gt; nowNode.value)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(!nowNode.right)&#123;</span><br><span class="line">                        nowNode.right = newNode;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    nowNode = nowNode.right</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(!nowNode.left)&#123;</span><br><span class="line">                        nowNode.left = newNode;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    nowNode = nowNode.left</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">lookup</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> nowNode = <span class="built_in">this</span>.root;</span><br><span class="line">        <span class="keyword">while</span>(nowNode)&#123;</span><br><span class="line">            <span class="keyword">if</span>(value &gt; nowNode.value)&#123;</span><br><span class="line">                nowNode = nowNode.right</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(calue &lt; nowNode.value)&#123;</span><br><span class="line">                nowNode = nowNode.left</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nowNode.value == value)&#123;</span><br><span class="line">                <span class="keyword">return</span> nowNode;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">remove</span>(<span class="params">value</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">this</span>.root) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> currentNode = <span class="built_in">this</span>.root;</span><br><span class="line">        <span class="keyword">let</span> parentNode = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span>(currentNode)&#123;</span><br><span class="line">            <span class="keyword">if</span>(value &lt; currentNode.value)&#123;</span><br><span class="line">                parentNode = currentNode;</span><br><span class="line">                currentNode = currentNode.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(value &gt; currentNode.value)&#123;</span><br><span class="line">                parentNode = currentNode;</span><br><span class="line">                currentNode = currentNode.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.value === value) &#123; </span><br><span class="line">                <span class="comment">//Option 1: No right child: </span></span><br><span class="line">                <span class="keyword">if</span> (currentNode.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = currentNode.left;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &gt; current value, make current left child a child of parent</span></span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = currentNode.left;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &lt; current value, make left child a right child of parent</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = currentNode.left;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//Option 2: Right child which doesn&#x27;t have a left child</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.right.left === <span class="literal">null</span>) &#123;</span><br><span class="line">                    currentNode.right.left = currentNode.left;</span><br><span class="line">                    <span class="keyword">if</span>(parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = currentNode.right;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &gt; current, make right child of the left the parent</span></span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = currentNode.right;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &lt; current, make right child a right child of the parent</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = currentNode.right;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//Option 3: Right child that has a left child</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//find the Right child&#x27;s left most child</span></span><br><span class="line">                    <span class="keyword">let</span> leftmost = currentNode.right.left;</span><br><span class="line">                    <span class="keyword">let</span> leftmostParent = currentNode.right;</span><br><span class="line">                    <span class="keyword">while</span>(leftmost.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">                        leftmostParent = leftmost;</span><br><span class="line">                        leftmost = leftmost.left;</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">//Parent&#x27;s left subtree is now leftmost&#x27;s right subtree</span></span><br><span class="line">                    leftmostParent.left = leftmost.right;</span><br><span class="line">                    leftmost.left = currentNode.left;</span><br><span class="line">                    leftmost.right = currentNode.right;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span>(parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = leftmost;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = leftmost;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = leftmost;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tree = <span class="keyword">new</span> BinarySearchTree();</span><br><span class="line">tree.insert(<span class="number">9</span>);</span><br><span class="line">tree.insert(<span class="number">4</span>);</span><br><span class="line">tree.insert(<span class="number">6</span>);</span><br><span class="line">tree.insert(<span class="number">20</span>);</span><br><span class="line">tree.insert(<span class="number">170</span>);</span><br><span class="line">tree.insert(<span class="number">15</span>);</span><br><span class="line">tree.insert(<span class="number">1</span>);</span><br><span class="line">tree.remove(<span class="number">20</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(traverse(tree.root)));</span><br><span class="line"><span class="comment">//      9</span></span><br><span class="line"><span class="comment">//  4      20 </span></span><br><span class="line"><span class="comment">//1   6  15  170</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traverse</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> tree = &#123;<span class="attr">value</span> : node.value&#125;</span><br><span class="line">    tree.left = node.left === <span class="literal">null</span> ? <span class="literal">null</span> : traverse(node.left);</span><br><span class="line">    tree.right = node.right === <span class="literal">null</span> ? <span class="literal">null</span> : traverse(node.right);</span><br><span class="line">    <span class="keyword">return</span> tree;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Insert的第一步是先判斷root是否有東西，有東西的話就可以利用while迴圈來找到要insert的點，Lookup也是一樣的方式，透過比較大小來查找目標node。Remove則需要移動node，移動的邏輯首要條件是判斷node的child位置：</p>
+<ol>
+<li>如果node沒有右邊的child 表示node以下的child都比較小(全部都在左邊)，可以直接把node砍掉，用child接上，判斷好接在左邊還是右邊即可。</li>
+<li>如果node有右邊的child，但右邊的child沒有左邊的child 表示node.right中最小的值就是第一個遇到的，所以我們會把node.right當成node的替代品。node左邊的所有node因為都會比node.right的值來的小，可以直接把node.left接到node.right.left。</li>
+<li>如果node有右邊的child，且右邊的child不管左右都有node。(以下簡稱找到的node為A，要刪除的node為D) 第一步是找到右邊分支中最小的node，用while迴圈來找到右邊分支最左邊的A，A也是最接近D的值， 第二步因為我們要把A直接替換掉D，必須先把A的右邊分支接到A的parent的左邊 第三步就可以替換掉D完成移除D的步驟</li>
+</ol>
+<h2 id="AVL-Tree-amp-Red-Black-Tree"><a href="#AVL-Tree-amp-Red-Black-Tree" class="headerlink" title="AVL Tree &amp; Red Black Tree"></a>AVL Tree &amp; Red Black Tree</h2><p>這兩種tree不會在這邊多做說明，簡單來說就是一種blance的結構，讓tree的operation的時間複雜度永遠都是O(n)。</p>
+<p><strong>AVL Trees:</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/AVLtree.html">Animation</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7">How it Works</a></p>
+<p><strong>Red Black Trees:</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/RedBlack.html">Animation</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5">How it Works</a></p>
+<p>You can compare the technical details <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13852870/red-black-tree-over-avl-tree">between the two here</a></p>
+<h2 id="Binary-Heaps"><a href="#Binary-Heaps" class="headerlink" title="Binary Heaps"></a>Binary Heaps</h2><p>一種完全的二元樹，跟binart search tree 不一樣的是它並沒有ordered，insert會從上至下，從左至右的填滿tree，因為沒有ordered，所以lookup的時間複雜度就變成O(n)。實作binary heaps的時候，當我們插入一個node，我們會確保node一定不會大於parent，如果大於parent就會交換順序，直到滿足上述條件為止。如此一來就可以確保root的值在binary heaps裡面最大，當我們在查找max value時，時間複雜度就會是O(1)。如果把priority的概念放入的話，越上面的node表示priority越高，insert的速度就可以更快。</p>
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>better than O(n)</td>
+<td>Slow lookup</td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+<tr>
+<td>Fast Insert</td>
+<td></td>
+</tr>
+<tr>
+<td>Priority</td>
+<td></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Data-structure/" rel="tag"># Data structure</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2021/12/12/Master_The_Coding-DS-Stacks+Queues/" rel="prev" title="[Master the Coding Interview]Stacks+Queues">
+                  <i class="fa fa-chevron-left"></i> [Master the Coding Interview]Stacks+Queues
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2021/12/12/Master_The_Coding-DS-Graphs/" rel="next" title="[Master the Coding Interview]Graphs">
+                  [Master the Coding Interview]Graphs <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

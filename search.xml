@@ -474,4 +474,421 @@
         <tag>Data structure</tag>
       </tags>
   </entry>
+  <entry>
+    <title>[Master the Coding Interview]Linked List</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-LinkedList/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<p>從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null，表示後面沒有東西。LinkedList雖然表面上array很像，但他在最前面和最後面插入的時候，不用去移動整個陣列，時間複雜度會從原本array的O(n)變成O(1)，其他部分的lookup、insert、delete都維持O(n)。</p>
+<h2 id="Implementing-an-Linked-List"><a href="#Implementing-an-Linked-List" class="headerlink" title="Implementing an Linked List"></a>Implementing an Linked List</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = v;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.head = &#123;</span><br><span class="line">			<span class="attr">value</span>: v,</span><br><span class="line">			<span class="attr">next</span>: <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">append</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="built_in">this</span>.tail.next = newNode;</span><br><span class="line">		<span class="built_in">this</span>.tail = newNode;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">prepend</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		newNode.next = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.head = newNode</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">printList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> array = [];</span><br><span class="line">		<span class="keyword">let</span> currentNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">while</span>(currentNode !== <span class="literal">null</span>)&#123;</span><br><span class="line">			array.push(currentNode.value);</span><br><span class="line">			currentNode = currentNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> array;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">insert</span>(<span class="params">index , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.append(v);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> <span class="built_in">this</span>.prepend(v);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">const</span> holdingPoter = leader.next;</span><br><span class="line">		leader.next = newNode;</span><br><span class="line">		newNode.next = holdingPoter;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">remove</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(<span class="built_in">this</span>.length - <span class="number">2</span>)</span><br><span class="line">			leader.next = <span class="literal">null</span>;</span><br><span class="line">			<span class="built_in">this</span>.tail = leader;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(index == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">this</span>.head = <span class="built_in">this</span>.head.next;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">const</span> unwantedNode = leader.next</span><br><span class="line">		leader.next = unwantedNode.next</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">traversToIndex</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> nowNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(counter !== index)&#123;</span><br><span class="line">			nowNode = nowNode.next</span><br><span class="line">			counter++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> nowNode</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myLinkedList = <span class="keyword">new</span> LinkedList(<span class="number">10</span>);</span><br><span class="line">myLinkedList.append(<span class="number">5</span>);</span><br><span class="line">myLinkedList.append(<span class="number">16</span>);</span><br><span class="line">myLinkedList.prepend(<span class="number">1</span>);</span><br><span class="line">myLinkedList.insert(<span class="number">2</span> , <span class="number">99</span>);</span><br><span class="line">myLinkedList.printList();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Doubly-Linked-Lists"><a href="#Doubly-Linked-Lists" class="headerlink" title="Doubly Linked Lists"></a>Doubly Linked Lists</h2><p>一般來說linked list是單向的結構，我們只能從head開始到tail，但如果在每個node上都在多一個資料紀錄上一個node，那這個linked list就會變成雙向，從頭到尾或是從尾到頭都可以查找到所有node，以時間複雜度來說的話，doubly linked lists的查找可以比單向的節省1半的時間，因為可以同時從頭跟尾開始找，但bigO依舊還是O(n)。</p>
+<h2 id="Reverse-Linked-Lists"><a href="#Reverse-Linked-Lists" class="headerlink" title="Reverse Linked Lists"></a>Reverse Linked Lists</h2><p>反轉單向鏈結串列是一個很常見的面試題，下面的程式碼銜接上面的linked list，是其中的一個方法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">reverse</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">this</span>.head.next) <span class="keyword">return</span> retrun <span class="built_in">this</span>.head;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">let</span> first = <span class="built_in">this</span>.head;</span><br><span class="line">	<span class="keyword">let</span> second = first.next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(second)&#123;</span><br><span class="line">		<span class="keyword">const</span> temp = second.next</span><br><span class="line">		second.next = first;</span><br><span class="line">		first = second;</span><br><span class="line">		second = temp;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">this</span>.head.next = <span class="literal">null</span>;</span><br><span class="line">	<span class="built_in">this</span>.head = first;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast Insertion</td>
+<td>Slow lookups</td>
+</tr>
+<tr>
+<td>Fast Deletion</td>
+<td>More Memory</td>
+</tr>
+<tr>
+<td>Ordered</td>
+<td></td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Master the Coding Interview]Stacks+Queues</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-Stacks+Queues/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><p>LIFO(last in first out)的一種資料結構，可以把他想像成疊盤子，一直往上疊，最先疊的最後才能拿到，最後疊的最先可以拿到，push跟pop都是O(n)，lookup則是要O(n)。</p>
+<h2 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h2><p>FIFO(first in first out)的一種資料結構， 可以把他想像成排隊，第一個排的人會先出去，以此類推到最後一位，對queues來說enqueue跟push一樣，只是他是從最後面進去，是O(n)的動作，pop就是dequeue，會先把第一個進來的丟出去，一樣也是O(n)，lookup則跟stack一樣O(n)，不一樣的是我們不會用array來做queue，如果用array的話我們每dequeue一個node就要shift所有的node，非常糟糕。</p>
+<h2 id="JavaScript-Engine"><a href="#JavaScript-Engine" class="headerlink" title="JavaScript Engine"></a>JavaScript Engine</h2><p>JS可以在chrome上解析主要是依靠V8，透過他來轉換js code，變成可以給瀏覽器執行的語法。V8 engine裡面有Memory Heap和Call Stack， 當我們創建一個變數的時候，會在memory Heap裡面產生一個位置來存放他，當我們超出可以存放的位置時，瀏覽器就會有memory leak的情況發生，由此可知全域變數並不好，因為她會一直存在於memory Heap不會自己清除，導致memory leak的產生。當我們在執行code的時候，每一行code都會被加入call stack，透過call stack來決定執行的順序。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> one = <span class="function">() =&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> two = <span class="function">() =&gt;</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//call stack</span></span><br><span class="line"><span class="comment">//console.log(&#x27;4&#x27;)</span></span><br><span class="line"><span class="comment">//two</span></span><br><span class="line"><span class="comment">//one</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Implement-an-stack-Linked-list"><a href="#Implement-an-stack-Linked-list" class="headerlink" title="Implement an stack(Linked list)"></a>Implement an stack(Linked list)</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = value;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.top = <span class="literal">null</span>;</span><br><span class="line">		<span class="built_in">this</span>.bottom = <span class="literal">null</span>;</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">peek</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.top;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">push</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(value);</span><br><span class="line">		<span class="keyword">const</span> OriginTop = <span class="built_in">this</span>.top;</span><br><span class="line">		<span class="built_in">this</span>.top = newNode</span><br><span class="line">		newNode.next = OriginTop</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>._isEmpty()) <span class="built_in">this</span>.bottom = newNode</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">pop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>._isEmpty()) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>.top === <span class="built_in">this</span>.bottom) <span class="built_in">this</span>.bottom = <span class="literal">null</span></span><br><span class="line">		<span class="built_in">this</span>.top = <span class="built_in">this</span>.top.next;</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">_isEmpty</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.length === <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myStack = <span class="keyword">new</span> Stack();</span><br><span class="line">myStack.push(<span class="string">&quot;Tony&quot;</span>);</span><br><span class="line">myStack.push(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">myStack.peek();</span><br><span class="line">myStack.push(<span class="string">&quot;Eagle&quot;</span>);</span><br><span class="line">myStack.pop();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Implement-an-stack-Array"><a href="#Implement-an-stack-Array" class="headerlink" title="Implement an stack(Array)"></a>Implement an stack(Array)</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.arr = []</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">peek</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.arr[<span class="built_in">this</span>.arr.length - <span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">push</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.arr.push(value)</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.arr</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">pop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.arr.pop()</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.arr</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">_isEmpty</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.arr.length === <span class="number">0</span> </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myStack = <span class="keyword">new</span> Stack();</span><br><span class="line">myStack.push(<span class="string">&quot;Tony&quot;</span>);</span><br><span class="line">myStack.push(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">myStack.peek();</span><br><span class="line">myStack.push(<span class="string">&quot;Eagle&quot;</span>);</span><br><span class="line">myStack.pop();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Implement-an-queue-Linked-list"><a href="#Implement-an-queue-Linked-list" class="headerlink" title="Implement an queue(Linked list)"></a>Implement an queue(Linked list)</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = value;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.first = <span class="literal">null</span>;</span><br><span class="line">		<span class="built_in">this</span>.last = <span class="literal">null</span>;</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">peek</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.first;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">enqueue</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(value);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>._isEmpty())&#123;</span><br><span class="line">			<span class="built_in">this</span>.first = newNode;</span><br><span class="line">			<span class="built_in">this</span>.last = newNode;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">this</span>.last.next = newNode;</span><br><span class="line">			<span class="built_in">this</span>.last = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">dequeue</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>._isEmpty()) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>.first === <span class="built_in">this</span>.last) <span class="built_in">this</span>.last = <span class="literal">null</span></span><br><span class="line">		<span class="built_in">this</span>.first = <span class="built_in">this</span>.first.next;</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">_isEmpty</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.length === <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myQueue = <span class="keyword">new</span> Queue();</span><br><span class="line">myQueue.enqueue(<span class="string">&quot;Tony&quot;</span>);</span><br><span class="line">myQueue.enqueue(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">myQueue.peek();</span><br><span class="line">myQueue.enqueue(<span class="string">&quot;Eagle&quot;</span>);</span><br><span class="line">myQueue.dequeue();</span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast Peek</td>
+<td>Slow lookup</td>
+</tr>
+<tr>
+<td>Fast Operations</td>
+<td></td>
+</tr>
+<tr>
+<td>Ordered</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>補充：<a href="https://leetcode.com/problems/implement-queue-using-stacks/">LeetCode 232. Implement Queue using Stacks</a></p>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Master the Coding Interview]Trees</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-Trees/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<p>樹狀結構是一種有等級制度的資料結構，很多地方都看得到這種結構，像是HTML DOM，abstract syntax tree等。linked list也可以說是一種tree，但他每個node都是單向也只有一個child node。正常的tree中會有一個root，node可以有0~多個child nodes，一切都看要建造的tree的規則，例如red-black tree、binary tree等。</p>
+<h2 id="Binary-Trees"><a href="#Binary-Trees" class="headerlink" title="Binary Trees"></a>Binary Trees</h2><p>二元樹，每個節點都只有left node和right node，Perfect Binary Tree表示節點數量是一直加倍下去的，第一層1個，第二層2個，第三層4個以此類推。Full Binary Tree表示每個node只會有2個或0個child node。Binary search tree是接下來要介紹的資料結構，他的查找、插入和刪除都是O(logN)。</p>
+<p>每個node最多只能有兩個child，所以root最多2^0個，第一層最多2^1個，第二層最多2^2個以此類推。由此可以歸納出以下結論：</p>
+<p>Level 0 = 2 ^ 0</p>
+<p>Level 1= 2 ^ 1</p>
+<p>Level 2 = 2 ^ 2</p>
+<p>Level 3= 2 ^ 3</p>
+<p>N of nodes = 2 ^ h - 1</p>
+<p>log node = steps</p>
+<p>因為在利用binary search tree查找的時候，利用的是divide and conquer的觀念，每次往下一個節點，都等於把資料再分割，直到找到要的資料為止，假設有7個節點(height = 3)，log 7 就會接近3，所以時間複雜度才會是O(logn)。如果binary search tree是unblance的狀態，所有的時間複雜度就會變成O(n)，像是tree中的linked list。</p>
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>better than O(n)</td>
+<td>No O(1) operations</td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+<tr>
+<td>Ordered</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Implement-an-tree"><a href="#Implement-an-tree" class="headerlink" title="Implement an tree"></a>Implement an tree</h2><p>在面試的時候，通常不會要實作一個tree的結構，只需要了解它的運作方式即可。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.left = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">this</span>.right = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">this</span>.value = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySearchTree</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.root = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">insert</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(value)</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.root)</span><br><span class="line">            <span class="built_in">this</span>.root = newNode;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> nowNode = <span class="built_in">this</span>.root</span><br><span class="line">            <span class="keyword">while</span>(nowNode)&#123;</span><br><span class="line">                <span class="keyword">if</span>(value &gt; nowNode.value)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(!nowNode.right)&#123;</span><br><span class="line">                        nowNode.right = newNode;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    nowNode = nowNode.right</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(!nowNode.left)&#123;</span><br><span class="line">                        nowNode.left = newNode;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    nowNode = nowNode.left</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">lookup</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> nowNode = <span class="built_in">this</span>.root;</span><br><span class="line">        <span class="keyword">while</span>(nowNode)&#123;</span><br><span class="line">            <span class="keyword">if</span>(value &gt; nowNode.value)&#123;</span><br><span class="line">                nowNode = nowNode.right</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(calue &lt; nowNode.value)&#123;</span><br><span class="line">                nowNode = nowNode.left</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nowNode.value == value)&#123;</span><br><span class="line">                <span class="keyword">return</span> nowNode;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">remove</span>(<span class="params">value</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">this</span>.root) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> currentNode = <span class="built_in">this</span>.root;</span><br><span class="line">        <span class="keyword">let</span> parentNode = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span>(currentNode)&#123;</span><br><span class="line">            <span class="keyword">if</span>(value &lt; currentNode.value)&#123;</span><br><span class="line">                parentNode = currentNode;</span><br><span class="line">                currentNode = currentNode.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(value &gt; currentNode.value)&#123;</span><br><span class="line">                parentNode = currentNode;</span><br><span class="line">                currentNode = currentNode.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.value === value) &#123; </span><br><span class="line">                <span class="comment">//Option 1: No right child: </span></span><br><span class="line">                <span class="keyword">if</span> (currentNode.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = currentNode.left;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &gt; current value, make current left child a child of parent</span></span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = currentNode.left;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &lt; current value, make left child a right child of parent</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = currentNode.left;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//Option 2: Right child which doesn&#x27;t have a left child</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.right.left === <span class="literal">null</span>) &#123;</span><br><span class="line">                    currentNode.right.left = currentNode.left;</span><br><span class="line">                    <span class="keyword">if</span>(parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = currentNode.right;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &gt; current, make right child of the left the parent</span></span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = currentNode.right;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//if parent &lt; current, make right child a right child of the parent</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = currentNode.right;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//Option 3: Right child that has a left child</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//find the Right child&#x27;s left most child</span></span><br><span class="line">                    <span class="keyword">let</span> leftmost = currentNode.right.left;</span><br><span class="line">                    <span class="keyword">let</span> leftmostParent = currentNode.right;</span><br><span class="line">                    <span class="keyword">while</span>(leftmost.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">                        leftmostParent = leftmost;</span><br><span class="line">                        leftmost = leftmost.left;</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">//Parent&#x27;s left subtree is now leftmost&#x27;s right subtree</span></span><br><span class="line">                    leftmostParent.left = leftmost.right;</span><br><span class="line">                    leftmost.left = currentNode.left;</span><br><span class="line">                    leftmost.right = currentNode.right;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span>(parentNode === <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="built_in">this</span>.root = leftmost;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span>(currentNode.value &lt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.left = leftmost;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(currentNode.value &gt; parentNode.value) &#123;</span><br><span class="line">                        parentNode.right = leftmost;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tree = <span class="keyword">new</span> BinarySearchTree();</span><br><span class="line">tree.insert(<span class="number">9</span>);</span><br><span class="line">tree.insert(<span class="number">4</span>);</span><br><span class="line">tree.insert(<span class="number">6</span>);</span><br><span class="line">tree.insert(<span class="number">20</span>);</span><br><span class="line">tree.insert(<span class="number">170</span>);</span><br><span class="line">tree.insert(<span class="number">15</span>);</span><br><span class="line">tree.insert(<span class="number">1</span>);</span><br><span class="line">tree.remove(<span class="number">20</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(traverse(tree.root)));</span><br><span class="line"><span class="comment">//      9</span></span><br><span class="line"><span class="comment">//  4      20 </span></span><br><span class="line"><span class="comment">//1   6  15  170</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traverse</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> tree = &#123;<span class="attr">value</span> : node.value&#125;</span><br><span class="line">    tree.left = node.left === <span class="literal">null</span> ? <span class="literal">null</span> : traverse(node.left);</span><br><span class="line">    tree.right = node.right === <span class="literal">null</span> ? <span class="literal">null</span> : traverse(node.right);</span><br><span class="line">    <span class="keyword">return</span> tree;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Insert的第一步是先判斷root是否有東西，有東西的話就可以利用while迴圈來找到要insert的點，Lookup也是一樣的方式，透過比較大小來查找目標node。Remove則需要移動node，移動的邏輯首要條件是判斷node的child位置：</p>
+<ol>
+<li>如果node沒有右邊的child 表示node以下的child都比較小(全部都在左邊)，可以直接把node砍掉，用child接上，判斷好接在左邊還是右邊即可。</li>
+<li>如果node有右邊的child，但右邊的child沒有左邊的child 表示node.right中最小的值就是第一個遇到的，所以我們會把node.right當成node的替代品。node左邊的所有node因為都會比node.right的值來的小，可以直接把node.left接到node.right.left。</li>
+<li>如果node有右邊的child，且右邊的child不管左右都有node。(以下簡稱找到的node為A，要刪除的node為D) 第一步是找到右邊分支中最小的node，用while迴圈來找到右邊分支最左邊的A，A也是最接近D的值， 第二步因為我們要把A直接替換掉D，必須先把A的右邊分支接到A的parent的左邊 第三步就可以替換掉D完成移除D的步驟</li>
+</ol>
+<h2 id="AVL-Tree-amp-Red-Black-Tree"><a href="#AVL-Tree-amp-Red-Black-Tree" class="headerlink" title="AVL Tree &amp; Red Black Tree"></a>AVL Tree &amp; Red Black Tree</h2><p>這兩種tree不會在這邊多做說明，簡單來說就是一種blance的結構，讓tree的operation的時間複雜度永遠都是O(n)。</p>
+<p><strong>AVL Trees:</strong></p>
+<p><a href="https://www.cs.usfca.edu/~galles/visualization/AVLtree.html">Animation</a></p>
+<p><a href="https://medium.com/basecs/the-little-avl-tree-that-could-86a3cae410c7">How it Works</a></p>
+<p><strong>Red Black Trees:</strong></p>
+<p><a href="https://www.cs.usfca.edu/~galles/visualization/RedBlack.html">Animation</a></p>
+<p><a href="https://medium.com/basecs/painting-nodes-black-with-red-black-trees-60eacb2be9a5">How it Works</a></p>
+<p>You can compare the technical details <a href="https://stackoverflow.com/questions/13852870/red-black-tree-over-avl-tree">between the two here</a></p>
+<h2 id="Binary-Heaps"><a href="#Binary-Heaps" class="headerlink" title="Binary Heaps"></a>Binary Heaps</h2><p>一種完全的二元樹，跟binart search tree 不一樣的是它並沒有ordered，insert會從上至下，從左至右的填滿tree，因為沒有ordered，所以lookup的時間複雜度就變成O(n)。實作binary heaps的時候，當我們插入一個node，我們會確保node一定不會大於parent，如果大於parent就會交換順序，直到滿足上述條件為止。如此一來就可以確保root的值在binary heaps裡面最大，當我們在查找max value時，時間複雜度就會是O(1)。如果把priority的概念放入的話，越上面的node表示priority越高，insert的速度就可以更快。</p>
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>better than O(n)</td>
+<td>Slow lookup</td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+<tr>
+<td>Fast Insert</td>
+<td></td>
+</tr>
+<tr>
+<td>Priority</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Master the Coding Interview]Graphs</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-Graphs/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+<p>由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。</p>
+<p>Graphs分成有向和無向的，undirected像是facebook的好友功能，當你和一個人成為好友的時候，你們是互相為好友，directed像是instagram的追蹤功能，當你追蹤一個帳號的時候，是單方面的，他不一定要追蹤你。</p>
+<p>Graphs可以分為有權重和無權重的，當圖的link都有權重的時候，我們就可以來算最短路徑的，像是google map的最佳路徑功能。</p>
+<p>Graphs可以分為Cyclic和Acyclic，有環和無環的圖形。</p>
+<p>Graphs的資料可以利用以下3種方法來記錄：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Edge List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">0</span>,<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">2</span>,<span class="number">1</span>] , [<span class="number">1</span>,<span class="number">3</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>] , [<span class="number">1</span>,<span class="number">2</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent Matrix</span></span><br><span class="line"><span class="keyword">const</span> graph = [</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Implement-an-Graphs"><a href="#Implement-an-Graphs" class="headerlink" title="Implement an Graphs"></a>Implement an Graphs</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="built_in">this</span>.numberOfNodes = <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">this</span>.adjacentList = &#123;</span><br><span class="line">      &#125;; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addVertex</span>(<span class="params">node</span>)</span>  &#123; </span><br><span class="line">        <span class="built_in">this</span>.numberOfNodes++;</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node] = []</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addEdge</span>(<span class="params">node1, node2</span>)</span> &#123; </span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node1].push(node2)</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node2].push(node1)</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">showConnections</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="keyword">const</span> allNodes = <span class="built_in">Object</span>.keys(<span class="built_in">this</span>.adjacentList); </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> node <span class="keyword">of</span> allNodes) &#123; </span><br><span class="line">        <span class="keyword">let</span> nodeConnections = <span class="built_in">this</span>.adjacentList[node]; </span><br><span class="line">        <span class="keyword">let</span> connections = <span class="string">&quot;&quot;</span>; </span><br><span class="line">        <span class="keyword">let</span> vertex;</span><br><span class="line">        <span class="keyword">for</span> (vertex <span class="keyword">of</span> nodeConnections) &#123;</span><br><span class="line">          connections += vertex + <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="built_in">console</span>.log(node + <span class="string">&quot;--&gt;&quot;</span> + connections); </span><br><span class="line">      &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> myGraph = <span class="keyword">new</span> Graph();</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;6&#x27;</span>);</span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;1&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  myGraph.showConnections(); </span><br><span class="line">  <span class="comment">//Answer:</span></span><br><span class="line">  <span class="comment">// 0--&gt;1 2 </span></span><br><span class="line">  <span class="comment">// 1--&gt;3 2 0 </span></span><br><span class="line">  <span class="comment">// 2--&gt;4 1 0 </span></span><br><span class="line">  <span class="comment">// 3--&gt;1 4 </span></span><br><span class="line">  <span class="comment">// 4--&gt;3 2 5 </span></span><br><span class="line">  <span class="comment">// 5--&gt;4 6 </span></span><br><span class="line">  <span class="comment">// 6--&gt;5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Relationships</td>
+<td>Scaling is hard</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Master the Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Complete React Developer in 2022]React基本概念</title>
+    <url>/blog/2021/12/06/React-Tutorial-02/React-Tutorial-02/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
+<h2 id="NPM-vs-YARM"><a href="#NPM-vs-YARM" class="headerlink" title="NPM vs YARM"></a>NPM vs YARM</h2><p>npm是node package manage，可以利用這個指令在terminal做很多事情，yarm跟npm一樣，只是yarn是facebook開發的，以下是他們的指令對照：</p>
+<table>
+<thead>
+<tr>
+<th>Install dependencies from package.json</th>
+<th>yarn</th>
+<th>npm install</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Install a package and add to package.json</td>
+<td>yarn add package</td>
+<td>npm install package  –save</td>
+</tr>
+<tr>
+<td>Install a devDependency to package.json</td>
+<td>yarn add package –dev</td>
+<td>npm install package –save-dev</td>
+</tr>
+<tr>
+<td>Remove a dependency from package.json</td>
+<td>yarn remove package</td>
+<td>npm uninstall package –save</td>
+</tr>
+<tr>
+<td>Upgrade a package to its latest version</td>
+<td>yarn upgrade</td>
+<td>npm update –save</td>
+</tr>
+<tr>
+<td>Install a package globally</td>
+<td>yarn global add package</td>
+<td>npm install package -g</td>
+</tr>
+</tbody></table>
+<h2 id="NPX"><a href="#NPX" class="headerlink" title="NPX"></a>NPX</h2><p>npx是建立在npm下面的指令，假設我們在terminal下了下面這段指令：</p>
+<blockquote>
+<p>npm install -g cowsay</p>
+</blockquote>
+<p>表示我利用npm安裝cowsay這個package，-g表示global，安裝在全局，就是整個電腦的環境裡面。如果沒有寫-g表示安裝在當下資料夾裡面。</p>
+<p>如果要解安裝只要在install前加上un即可。那甚麼是npx呢，簡單的理解就是說npx幫你先把package下載下來並且執行，一執行完馬上解安裝，讓你的電腦不會存在這個package以便節省記憶體。npx的寫法只要在後面加上package name和帶入的參數即可。</p>
+<blockquote>
+<p>npx cowsay hiiiiiii~~~</p>
+</blockquote>
+<h2 id="Create-React-App"><a href="#Create-React-App" class="headerlink" title="Create React App"></a>Create React App</h2><p>這是facebook開發的package，用於快速打造react專案，以下介紹幾個地方表示的意義：</p>
+<table>
+<thead>
+<tr>
+<th>package.json</th>
+<th>專案的所有設定都包含在這裡，包含版本、用的套件、腳本等。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>package.json → dependencies</td>
+<td>裡面是所有用到的套件以及版本</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react</td>
+<td>最重要的部分，react的核心庫</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react-dom</td>
+<td>react是一個跨平台的框架，他可以利用react-native來建造手機app，又或者接上VR打造VR的應用程式等。在這邊因為是要開發網頁，所以要引入此package來控制網頁上的DOM。</td>
+</tr>
+<tr>
+<td>package.json → dependencies→ react-script</td>
+<td>給CLI用的腳本，透過在scripts裡面設定的指令可以讓CLI讀懂輸入的指令，例如start、build等</td>
+</tr>
+</tbody></table>
+<p>接著打開index.js可以發現程式的進入點，利用render function來渲染畫面，React.StrictMode主要是確認我們沒有用到版本遺棄的指令，讓程式處在一個安全的狀態。這邊有寫到在root這個節點裡面渲染，這個節點的位置在index.html裡面，這個檔案就是我們主要載入的html，react也只會載入這個html並置換裡面內容達到SPA的效果。</p>
+<table>
+<thead>
+<tr>
+<th>start</th>
+<th>開啟server進行網頁預覽</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>build</td>
+<td>將整個react專案打包，資料夾內會產生一個build資料夾，裡面只會有html、css和js，主要是給瀏覽器看的資料，通常我們也只會把build好的檔案丟到server上。</td>
+</tr>
+<tr>
+<td>test</td>
+<td>執行測試專案</td>
+</tr>
+<tr>
+<td>eject</td>
+<td>自訂webpack or babel的設定，當我們執行此指令後，會出現很多設定的檔案，這些設定主要用於build階段，但在此專案創建的時候，create react app這個指令其實都幫我們做了最優化的設定，所以沒事不需要更改。</td>
+</tr>
+</tbody></table>
+<h2 id="componenets"><a href="#componenets" class="headerlink" title="componenets"></a>componenets</h2><p>一段程式碼用來顯示視覺化的UI，UI包含HTML、CSS、javaScript。透過ReactDOM，我們可以把component當作HTML tag來使用。一般來說建立component有兩種方式，class和hooks，hooks，一般我們都會用class來建立，因為很多程式語言都有物件導向的觀念，所以這邊先介紹class版的components</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//建構子，主要是設定state初始值的地方</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//繼承Component，主要用於呼叫Component的建構子</span></span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//設定state</span></span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      <span class="attr">string</span> : <span class="string">&quot;Hello Tony&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">header</span> <span class="attr">className</span>=<span class="string">&quot;App-header&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;logo&#125;</span> <span class="attr">className</span>=<span class="string">&quot;App-logo&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;logo&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; this.state.string &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">					&#123;/*在onclick裡面加上setState的方法，讓按鈕可以更改string字串*/&#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> this.setState(&#123;string: &#x27;Hello Tang Jia Jun&#x27;&#125;)&#125;&gt;Change Text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這是將範例改成class的形式，按下按鈕可以更改文字內容，這邊的重點是state，react的核心，透過setState可以改變資料內容，利用這個特性可以達成網頁的互動效果。那renden裡面的html內容又是甚麼呢？他是jsx，和html很像，是react用來編譯成html的一種形式，當我們的畫面有變動的時候，也就是setState讓state有更動的時候，就會觸發render的執行，把更改的html送回UI上。</p>
+<p>setState是一個非同步的指令，表示這個指令並不會立即的執行，所以他的第二個參數是callback function，當setState成功後會執行的function，可以利用這個部分來測試setState是否成功。</p>
+<h3 id="Asynchronous-setState"><a href="#Asynchronous-setState" class="headerlink" title="Asynchronous setState"></a>Asynchronous setState</h3><p>當我們在使用setState的時候，因為他是非同步行為，不會即時更改，所以當我們要做類似計數器的功能的時候，要避免以下的寫法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(&#123;<span class="attr">count</span>:<span class="built_in">this</span>.state.count + <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面的程式碼看似沒問題，但因為react會等到適當的時機才執行這段程式碼，我們不能保證每次取到的count值都已經被+1了，有可能兩次的setState都取得同樣的count值，要解決以上問題，就必須在setState裡面帶入函式：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevState, prevProps</span>) =&gt;</span> &#123;</span><br><span class="line">	retrun &#123;<span class="attr">count</span> : prevState.count + <span class="number">1</span>&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>這邊就先停住，更多的資訊可以看這篇 <a href="https://medium.com/javascript-scene/setstate-gate-abc10a9b2d82">https://medium.com/javascript-scene/setstate-gate-abc10a9b2d82</a>，之後會再整理一篇文章說明這個問題。</p>
+<h3 id="Key-attribute"><a href="#Key-attribute" class="headerlink" title="Key attribute"></a>Key attribute</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.state.monsters.map(<span class="function"><span class="params">monster</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">key</span>=<span class="string">&#123;monster.id&#125;</span>&gt;</span>&#123;monster.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>)</span><br></pre></td></tr></table></figure>
+
+<p>當我們要使用map() function把陣列裡的資訊列出來的時候，react會叫我們把所有的tag都加上key，因為react自動幫我們篩選那些tag有更動那些沒有，透過key找出有更動的tag並且只更新那些部分，避免每一次的小更動卻要重新把所有東西都render一次。</p>
+<h3 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//App.js</span></span><br><span class="line">&lt;CardList name = <span class="string">&quot;Tony&quot;</span>&gt;Happy&lt;/CardList&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//card-list.component.jsx</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CardList = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;card-list&#x27;</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>react的第二個核心觀念，當一個components創建時，他會有一個屬性props紀錄傳進來的參數，像上面的例子，傳入name屬性，並且在tag裡面夾入字串，當我們在使用components的時候，props就會把上面兩個屬性記錄下來，tag裡面的東西可以利用props.children來取得，tag上的屬性用key取得即可。</p>
+<p>總結state只會活在一個component裡面，他可以往下面的ocmponents傳，但是下面的components是利用props來接收，並且只能向下傳送不能向上。</p>
+<h3 id="When-do-we-break-things-down-into-components"><a href="#When-do-we-break-things-down-into-components" class="headerlink" title="When do we break things down into components?"></a>When do we break things down into components?</h3><p>當一個元件可以被重複用很多次獲用在很多地方的時候，就需要獨立成一個components。</p>
+<h3 id="function-VS-class"><a href="#function-VS-class" class="headerlink" title="function VS class"></a>function VS class</h3><p>要如何決定component要用function還是class，可以先思考他要不要有state，如果他只是一個不需要互動的component，那可以利用function的方式來建造，比較易讀也比較簡單，反之如果component比較複雜且互動性比較高的話，就可以先使用class來建造。</p>
+<blockquote>
+<p>延伸：要如何知道state放在哪一個component，可以將所有component的關聯圖建立起來，如果component的state只會影響到自己children的UI，那state可以放在自身身上，如果會影響到parent or sibling，就要往上層放，直到state可以涵蓋所有被影響的component才能停止向上。</p>
+</blockquote>
+<h3 id="“this”-in-class"><a href="#“this”-in-class" class="headerlink" title="“this” in class"></a>“this” in class</h3><p>當我們在寫component裡面要使用state的時候，我們會寫成this.state，這個this指的是component這個class，又因為這個class繼承React裡面的component class，所以今天我們在呼叫像是constructor或render的時候，可以使用this.state來找到這個變數。如果今天是在class裡面自訂一個方法並且在裡面使用this的話，因為React.Component沒有自動綁定this，所以自訂的函式會視this為undefined，以下有兩種方法改善：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自己綁定</span></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="built_in">this</span>.foo = <span class="built_in">this</span>.foo.bind(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//利用arrow function的特性</span></span><br><span class="line"><span class="comment">//this的指向會依照語彙範疇來設定</span></span><br><span class="line"><span class="comment">//因為函式在class裡面宣告所以會指向此class</span></span><br><span class="line">foo = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">this</span>.setState(&#123;<span class="attr">searchField</span>:e.target.value&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="原始的React"><a href="#原始的React" class="headerlink" title="原始的React"></a>原始的React</h3><p>creat react app這個package幫我們建立了很棒的開發環境，但如果把jsx和babel抽掉只留下react的話，就會像以下範例一樣用呼叫API的方式來撰寫。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="comment">//利用createElement來建立react dom的物件，第一個參數是HTML tag，第二個是attributes，第三個是children的內容</span></span><br><span class="line">	<span class="comment">//這邊的children就是再塞了一個h1 tag</span></span><br><span class="line">	<span class="keyword">return</span> React.createElement(</span><br><span class="line">		<span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">		&#123;&#125;,</span><br><span class="line">		React.createElement(<span class="string">&#x27;h1&#x27;</span> , &#123;&#125; , <span class="string">&quot;React IS RENDERED!!!&quot;</span>)</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//這個方式也可以寫成模組化，如果有多個children就用array表示</span></span><br><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> React.createElement(<span class="string">&#x27;div&#x27;</span> , &#123;&#125; , [</span><br><span class="line">		React.createElement(<span class="string">&#x27;h1&#x27;</span> , &#123;&#125; , props,name)</span><br><span class="line">		React.createElement(<span class="string">&#x27;p&#x27;</span> , &#123;&#125; , props,occupation)</span><br><span class="line">	])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一個參數除了寫Html tag外還可以寫react component</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> React.createElement(<span class="string">&#x27;div&#x27;</span>,&#123;&#125;,[</span><br><span class="line">		React.createElement(Person , &#123;<span class="attr">name</span>:<span class="string">&quot;tony&quot;</span> , <span class="attr">occupation</span>:<span class="string">&quot;developer&quot;</span>&#125;)</span><br><span class="line">		React.createElement(Person , &#123;<span class="attr">name</span>:<span class="string">&quot;tang&quot;</span> , <span class="attr">occupation</span>:<span class="string">&quot;cooker&quot;</span>&#125;)</span><br><span class="line">	])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="View-→-Actions-→-State-→View→…"><a href="#View-→-Actions-→-State-→View→…" class="headerlink" title="View → Actions → State(→View→…)"></a>View → Actions → State(→View→…)</h3><p>在React中，DOM總共有兩種，virtulDOM和actualDOM，網頁上顯示的是actualDOM，當使用者與網頁做出互動，改變state的時候，virtulDOM會與actualDOM做比對，看是哪個DOM被更改，並且給render更改後的component。資料的流向是單向的，Debug的時候就可以知道是哪個環節出問題，如果UI有問題就可以找State，如果互動有問題就要檢查View等等。</p>
+<h3 id="Lifecycle-methods"><a href="#Lifecycle-methods" class="headerlink" title="Lifecycle methods"></a>Lifecycle methods</h3><p><img src="/blog/2021/12/06/React-Tutorial-02/lifeCycle.png" alt="Untitled"></p>
+]]></content>
+      <categories>
+        <category>Complete React Developer in 2022</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Complete React Developer in 2022]設定專案</title>
+    <url>/blog/2021/12/12/React-Tutorial-03/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。</p>
+<p>當我們要把別人的專案clone一份到本地端的時候，我們會用以下指令，第三個參數是專案的位置，第四個是package name</p>
+<blockquote>
+<p>git clone <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
+</blockquote>
+<p>當我們把檔案pull時，會在本地端有一份相同的檔案，但因為這是別人的git，我們不能直接Push上去更改檔案，所以我們必須改變remote。</p>
+<p>當我們輸入git remote的時候會出現本地端的分支(origin)，這個分支是動連到別人的git。改變的方式就是先刪掉再新建。</p>
+<blockquote>
+<p>git remote remove origin</p>
+</blockquote>
+<blockquote>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
+</blockquote>
+<p>接著就可以push檔案到分支上了，第三個參數是remote的名稱，第四個參數是分支名稱</p>
+<blockquote>
+<p>git push origin master</p>
+</blockquote>
+<p>更快的方法是fork別人的專案，這樣自己的git就會有一份專案的複製品了。</p>
+<h2 id="Sass"><a href="#Sass" class="headerlink" title="Sass"></a>Sass</h2><p>一種加入巢狀概念來編寫的css，並且可以擁有變數等一般語言的特性。</p>
+<blockquote>
+<p>yarn add node-sass</p>
+</blockquote>
+<p>這裡可能會遇到一個版本問題，可以在下指令的時候加入版本號來解決問題，如下面的範例：</p>
+<blockquote>
+<p>yarn add <a href="mailto:&#110;&#x6f;&#x64;&#x65;&#x2d;&#115;&#x61;&#x73;&#x73;&#64;&#54;&#x2e;&#x30;&#x2e;&#48;">&#110;&#x6f;&#x64;&#x65;&#x2d;&#115;&#x61;&#x73;&#x73;&#64;&#54;&#x2e;&#x30;&#x2e;&#48;</a></p>
+</blockquote>
+<h2 id="yarn-lock"><a href="#yarn-lock" class="headerlink" title="yarn.lock"></a>yarn.lock</h2><p>我們在與他人共同協作的時候，因為大家各自在各自的電腦，開發環境中的每個package版本會有所不同，這個文件幫project鎖定住所有package的版本，讓大家的開發環境統一。</p>
+<h2 id="Update-Version"><a href="#Update-Version" class="headerlink" title="Update Version"></a>Update Version</h2><p>當我們要把project的所有package都更新到最新版的時候，可以依照以下的步驟來執行：</p>
+<ol>
+<li> 刪除yarn.lock or package.json.lock，這兩個檔案一個是npm製作的一個是yarn製作的，都是為了鎖定開發環境用的，這裡是要更新到最新版，所以必須先刪除他。</li>
+<li>npm update -D，-D表示所有dependencies</li>
+<li>接著就可以照著他的指示做，有可能會有vulnerability產生，嘗試去修復他即可。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Complete React Developer in 2022</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Complete React Developer in 2022]React Router and Routing</title>
+    <url>/blog/2021/12/12/React-Tutorial-04/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
+<p>一個網站會有很多網頁，以前的方式是當使用者loading一個網頁時，他會從server把所有檔案傳送過來，但React不這麼做，React只載入一個HTML file，利用javaScript來更換頁面，要實現這個功能我們必須下載react-router-dom，透過這個package來控制我們的網頁路徑，這個package是利用瀏覽器的history API來達到就算是用javaScript換頁也可以有上一頁下一頁的歷史紀錄，跟傳統的網頁一樣，但比傳統網頁的體驗更好一些。</p>
+<blockquote>
+<p>最近react-router-dom有新的6.0.0版本，此教學文為5.0.0，因寫法稍有不同所以在此註記。</p>
+</blockquote>
+<h2 id="Conflict"><a href="#Conflict" class="headerlink" title="Conflict"></a>Conflict</h2><p>當我們安裝完成package並且要下yarn start的指令的時候，可能會遇到package與現有create react app這個package有版本的衝突，解決的方法是在package.json裡面加入以下程式碼：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;resolutions&quot;</span>:&#123;</span><br><span class="line">	&lt;package name&gt; : &lt;version number&gt;	 //&quot;babel-jest&quot; : &quot;24.7.1&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>首先我們要在App.js新增一個tag</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="tag">&lt;<span class="name">BrowserRouter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">BrowserRouter</span>&gt;</span>,</span><br><span class="line">  document.getElementById(&#x27;root&#x27;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>下面是Route的寫法，Route tag有3種attributes，一般來說只要url相同，react就會載入後面標記的component，例如現在的url是/hats，react就會把兩個Route都載入，並不用「完全」相同，為了避免以上問題，我們會加上exact attribute，表示此Route的path一定要跟url完全相同才行，多一個字少一個字都不行。</p>
+<p>再來還有一個問題，如果今天兩個Route都符合條件就會都載入，但我們只需要一個的話，就會用Switch包起來，跟程式的switch邏輯一樣，由上開始往下判斷，只要有一個符合就會只載入那一個，所以當我們沒有在第一個Route加上exact的時候，我們不管url是甚麼都會符合，這個Switch就會永遠都載入第一個，要小心。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Route</span> <span class="attr">exact</span> <span class="attr">path</span>=<span class="string">&#x27;/&#x27;</span> <span class="attr">component</span> = <span class="string">&#123;HomePage&#125;</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/hats&#x27;</span> <span class="attr">component</span> = <span class="string">&#123;HatsPage&#125;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h2><p>每個被Route呼叫的component都會帶入一些props，包含一些url的資訊，當我們今天是此component的下下層要使用這些資訊的時候，就會產生需要一直往下傳的props tunnels，這時候就可以利用withRouter來取得這些資訊，避免往下傳送更多的資訊。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">const MenuItem = (&#123;title , imageUrl , size , linkUrl , history , match&#125;) =&gt; (</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;</span>`<span class="attr">menu-item</span> $&#123;<span class="attr">size</span> ? <span class="attr">size</span> <span class="attr">:</span> &quot;&quot;&#125;`&#125; <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> history.push(`$&#123;match.url&#125;$&#123;linkUrl&#125;`)&#125;&gt;</span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;backgroundImage&#x27;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">backgroundImage:</span>`<span class="attr">url</span>($&#123;<span class="attr">imageUrl</span>&#125;)`</span></span><br><span class="line"><span class="tag">        &#125;&#125;</span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;content&#x27;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&#x27;title&#x27;</span>&gt;</span>&#123;title.toUpperCase()&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&#x27;subtitle&#x27;</span>&gt;</span>SHOP NOW<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default withRouter(MenuItem)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Link-and-Dynamic-change-page"><a href="#Link-and-Dynamic-change-page" class="headerlink" title="Link and Dynamic change page"></a>Link and Dynamic change page</h2><p>當我們要製作一個切換分頁的按鈕時有兩種方法，第一種是用Link tag，可以指定要去到的page，跟html的a tag一樣。第二種方法是呼叫history.push()方法，history是Route載入component時給他的參數，有許多可以對history操作的API。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Link</span> <span class="attr">to</span>=<span class="string">&#x27;/hats&#x27;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> history.push(`$&#123;match.url&#125;$&#123;linkUrl&#125;`)&#125; /&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Complete React Developer in 2022</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
 </search>
