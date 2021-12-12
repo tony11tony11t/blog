@@ -9,6 +9,7 @@ categories:
 description: 履歷是公司看你的第一印象，他們通常不會很仔細的去看，畢竟有太多太多的應徵者，所以我們不應該花太多時間在著磨履歷上的小地方、字型、顏色等。履歷最好花一天就要搞定，避免浪費時間...
 image: /blog/2021/11/30/Master_The_Coding-interview/thumbnail.png
 ---
+
 **<font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font>**
 
 ### 1. Resume
