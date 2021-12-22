@@ -22,13 +22,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 <meta name="description" content="什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Master the Coding Interview] BigO介紹">
+<meta property="og:title" content="[MasterThe Coding Interview] BigO介紹">
 <meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/02/Master_The_Coding-BigO/index.html">
 <meta property="og:site_name" content="TonyTang&#39;s blog">
 <meta property="og:description" content="什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。...">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-12-02T02:09:40.000Z">
-<meta property="article:modified_time" content="2021-12-02T02:16:44.756Z">
+<meta property="article:modified_time" content="2021-12-22T12:33:37.252Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="BigO">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/02/Master_The_Coding-BigO/","path":"2021/12/02/Master_The_Coding-BigO/","title":"[Master the Coding Interview] BigO介紹"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/02/Master_The_Coding-BigO/","path":"2021/12/02/Master_The_Coding-BigO/","title":"[MasterThe Coding Interview] BigO介紹"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[Master the Coding Interview] BigO介紹 | TonyTang's blog</title>
+<title>[MasterThe Coding Interview] BigO介紹 | TonyTang's blog</title>
   
 
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Master the Coding Interview] BigO介紹
+          [MasterThe Coding Interview] BigO介紹
         </h1>
 
         <div class="post-meta-container">
@@ -233,17 +233,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-12-02 10:09:40 / 修改時間：10:16:44" itemprop="dateCreated datePublished" datetime="2021-12-02T10:09:40+08:00">2021-12-02</time>
+      <time title="創建時間：2021-12-02 10:09:40" itemprop="dateCreated datePublished" datetime="2021-12-02T10:09:40+08:00">2021-12-02</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-12-22 20:33:37" itemprop="dateModified" datetime="2021-12-22T20:33:37+08:00">2021-12-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/Master-the-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">Master the Coding Interview</span></a>
+          <a href="/blog/categories/MasterThe-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">MasterThe Coding Interview</span></a>
         </span>
     </span>
 
@@ -266,7 +272,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <img src="/blog/2021/12/02/Master_The_Coding-BigO/thumbnail.png"/>
-        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+        <p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <h3 id="What-is-good-code"><a href="#What-is-good-code" class="headerlink" title="What is good code?"></a>What is good code?</h3><p>什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。</p>
 <h3 id="BigO"><a href="#BigO" class="headerlink" title="BigO"></a>BigO</h3><p>BigO為什麼會存在，因為當我們要判斷一個code好或不好的時候，如果用執行的時間來看的話，因為每個電腦CPU的不同，會有執行速度上的差異，同樣的code不同的設備會有不同的速度，所以不能以時間來做為依據，這時候我們就會用BigO來判斷code執行速度。</p>
 <p>BigO主要是利用程式執行多少步驟來做計算，拿以下的程式碼來說：</p>
@@ -318,8 +324,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2021/12/06/Master_The_Coding-slove_coding/" rel="next" title="[Master the Coding Interview] 解決問題">
-                  [Master the Coding Interview] 解決問題 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/2021/12/06/Master_The_Coding-slove_coding/" rel="next" title="[MasterThe Coding Interview] 解決問題">
+                  [MasterThe Coding Interview] 解決問題 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

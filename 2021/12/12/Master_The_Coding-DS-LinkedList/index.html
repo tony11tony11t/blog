@@ -22,13 +22,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 <meta name="description" content="從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Master the Coding Interview]Linked List">
+<meta property="og:title" content="[MasterThe Coding Interview]Linked List">
 <meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-LinkedList/index.html">
 <meta property="og:site_name" content="TonyTang&#39;s blog">
 <meta property="og:description" content="從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null...">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-12-12T09:16:14.000Z">
-<meta property="article:modified_time" content="2021-12-12T09:19:38.103Z">
+<meta property="article:modified_time" content="2021-12-22T12:33:37.250Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Data structure">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-LinkedList/","path":"2021/12/12/Master_The_Coding-DS-LinkedList/","title":"[Master the Coding Interview]Linked List"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-LinkedList/","path":"2021/12/12/Master_The_Coding-DS-LinkedList/","title":"[MasterThe Coding Interview]Linked List"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[Master the Coding Interview]Linked List | TonyTang's blog</title>
+<title>[MasterThe Coding Interview]Linked List | TonyTang's blog</title>
   
 
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Master the Coding Interview]Linked List
+          [MasterThe Coding Interview]Linked List
         </h1>
 
         <div class="post-meta-container">
@@ -233,17 +233,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-12-12 17:16:14 / 修改時間：17:19:38" itemprop="dateCreated datePublished" datetime="2021-12-12T17:16:14+08:00">2021-12-12</time>
+      <time title="創建時間：2021-12-12 17:16:14" itemprop="dateCreated datePublished" datetime="2021-12-12T17:16:14+08:00">2021-12-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-12-22 20:33:37" itemprop="dateModified" datetime="2021-12-22T20:33:37+08:00">2021-12-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/Master-the-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">Master the Coding Interview</span></a>
+          <a href="/blog/categories/MasterThe-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">MasterThe Coding Interview</span></a>
         </span>
     </span>
 
@@ -266,7 +272,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <img src="/blog/2021/12/12/Master_The_Coding-DS-LinkedList/thumbnail.png"/>
-        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+        <p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <p>從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null，表示後面沒有東西。LinkedList雖然表面上array很像，但他在最前面和最後面插入的時候，不用去移動整個陣列，時間複雜度會從原本array的O(n)變成O(1)，其他部分的lookup、insert、delete都維持O(n)。</p>
 <h2 id="Implementing-an-Linked-List"><a href="#Implementing-an-Linked-List" class="headerlink" title="Implementing an Linked List"></a>Implementing an Linked List</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = v;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.head = &#123;</span><br><span class="line">			<span class="attr">value</span>: v,</span><br><span class="line">			<span class="attr">next</span>: <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">append</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="built_in">this</span>.tail.next = newNode;</span><br><span class="line">		<span class="built_in">this</span>.tail = newNode;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">prepend</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		newNode.next = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.head = newNode</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">printList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> array = [];</span><br><span class="line">		<span class="keyword">let</span> currentNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">while</span>(currentNode !== <span class="literal">null</span>)&#123;</span><br><span class="line">			array.push(currentNode.value);</span><br><span class="line">			currentNode = currentNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> array;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">insert</span>(<span class="params">index , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.append(v);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> <span class="built_in">this</span>.prepend(v);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">const</span> holdingPoter = leader.next;</span><br><span class="line">		leader.next = newNode;</span><br><span class="line">		newNode.next = holdingPoter;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">remove</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(<span class="built_in">this</span>.length - <span class="number">2</span>)</span><br><span class="line">			leader.next = <span class="literal">null</span>;</span><br><span class="line">			<span class="built_in">this</span>.tail = leader;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(index == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">this</span>.head = <span class="built_in">this</span>.head.next;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">const</span> unwantedNode = leader.next</span><br><span class="line">		leader.next = unwantedNode.next</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">traversToIndex</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> nowNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(counter !== index)&#123;</span><br><span class="line">			nowNode = nowNode.next</span><br><span class="line">			counter++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> nowNode</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myLinkedList = <span class="keyword">new</span> LinkedList(<span class="number">10</span>);</span><br><span class="line">myLinkedList.append(<span class="number">5</span>);</span><br><span class="line">myLinkedList.append(<span class="number">16</span>);</span><br><span class="line">myLinkedList.prepend(<span class="number">1</span>);</span><br><span class="line">myLinkedList.insert(<span class="number">2</span> , <span class="number">99</span>);</span><br><span class="line">myLinkedList.printList();</span><br></pre></td></tr></table></figure>
 
@@ -314,13 +320,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2021/12/07/Master_the_Coding-DS-Array/" rel="prev" title="[Master the Coding Interview]陣列">
-                  <i class="fa fa-chevron-left"></i> [Master the Coding Interview]陣列
+                <a href="/blog/2021/12/07/Master_The_Coding-DS-Array/" rel="prev" title="[MasterThe Coding Interview]陣列">
+                  <i class="fa fa-chevron-left"></i> [MasterThe Coding Interview]陣列
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2021/12/12/Master_The_Coding-DS-Stacks+Queues/" rel="next" title="[Master the Coding Interview]Stacks+Queues">
-                  [Master the Coding Interview]Stacks+Queues <i class="fa fa-chevron-right"></i>
+                <a href="/blog/2021/12/12/Master_The_Coding-DS-Stacks+Queues/" rel="next" title="[MasterThe Coding Interview]Stacks+Queues">
+                  [MasterThe Coding Interview]Stacks+Queues <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

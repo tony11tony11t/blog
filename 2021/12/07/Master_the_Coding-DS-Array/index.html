@@ -22,26 +22,26 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 <meta name="description" content="在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Master the Coding Interview]陣列">
-<meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/07/Master_the_Coding-DS-Array/index.html">
+<meta property="og:title" content="[MasterThe Coding Interview]陣列">
+<meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/07/Master_The_Coding-DS-Array/index.html">
 <meta property="og:site_name" content="TonyTang&#39;s blog">
 <meta property="og:description" content="在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言...">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-12-07T11:38:08.000Z">
-<meta property="article:modified_time" content="2021-12-07T11:53:28.835Z">
+<meta property="article:modified_time" content="2021-12-22T12:33:55.403Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Data structure">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://tony11tony11t.github.io/blog/2021/12/07/Master_the_Coding-DS-Array/">
+<link rel="canonical" href="https://tony11tony11t.github.io/blog/2021/12/07/Master_The_Coding-DS-Array/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/07/Master_the_Coding-DS-Array/","path":"2021/12/07/Master_the_Coding-DS-Array/","title":"[Master the Coding Interview]陣列"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/07/Master_The_Coding-DS-Array/","path":"2021/12/07/Master_The_Coding-DS-Array/","title":"[MasterThe Coding Interview]陣列"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[Master the Coding Interview]陣列 | TonyTang's blog</title>
+<title>[MasterThe Coding Interview]陣列 | TonyTang's blog</title>
   
 
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -210,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://tony11tony11t.github.io/blog/2021/12/07/Master_the_Coding-DS-Array/">
+    <link itemprop="mainEntityOfPage" href="https://tony11tony11t.github.io/blog/2021/12/07/Master_The_Coding-DS-Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.jpg">
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Master the Coding Interview]陣列
+          [MasterThe Coding Interview]陣列
         </h1>
 
         <div class="post-meta-container">
@@ -233,17 +233,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-12-07 19:38:08 / 修改時間：19:53:28" itemprop="dateCreated datePublished" datetime="2021-12-07T19:38:08+08:00">2021-12-07</time>
+      <time title="創建時間：2021-12-07 19:38:08" itemprop="dateCreated datePublished" datetime="2021-12-07T19:38:08+08:00">2021-12-07</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-12-22 20:33:55" itemprop="dateModified" datetime="2021-12-22T20:33:55+08:00">2021-12-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/Master-the-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">Master the Coding Interview</span></a>
+          <a href="/blog/categories/MasterThe-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">MasterThe Coding Interview</span></a>
         </span>
     </span>
 
@@ -266,7 +272,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <img src="/blog/2021/12/07/Master_the_Coding-DS-Array/thumbnail.jpeg"/>
-        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+        <p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> strings = [<span class="string">&#x27;a&#x27;</span> , <span class="string">&#x27;b&#x27;</span> , <span class="string">&#x27;c&#x27;</span> , <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">string[<span class="number">2</span>] <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//push</span></span><br><span class="line">strings.push(<span class="string">&#x27;e&#x27;</span>); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">strings.pop(); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unshift</span></span><br><span class="line">strings.unshift(<span class="string">&#x27;x&#x27;</span>); <span class="comment">//O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//splice</span></span><br><span class="line">strings.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;alien&#x27;</span>) <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
 
 <p>在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言，例如C、C++，這種在宣告階段就要將陣列記憶體配置好，當我們要使用的範圍超出記憶體配置的時候，會進行擴增，通常會是增加2倍，例如原本有8個位置就新增到16個等等。所以當這種語言在進行陣列的append的時候，會先把原陣列複製到另外一塊記憶體並且擴充，時間複雜度會是O(n)，但javaScript裡面就只有單純的append，時間複雜度是O(n)。</p>
@@ -313,13 +319,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2021/12/07/Master_the_Coding-DSIntro/" rel="prev" title="[Master the Coding Interview]資料結構介紹">
-                  <i class="fa fa-chevron-left"></i> [Master the Coding Interview]資料結構介紹
+                <a href="/blog/2021/12/07/Master_The_Coding-DS-HashTable/" rel="prev" title="[MasterThe Coding Interview]雜湊表">
+                  <i class="fa fa-chevron-left"></i> [MasterThe Coding Interview]雜湊表
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2021/12/12/Master_The_Coding-DS-LinkedList/" rel="next" title="[Master the Coding Interview]Linked List">
-                  [Master the Coding Interview]Linked List <i class="fa fa-chevron-right"></i>
+                <a href="/blog/2021/12/12/Master_The_Coding-DS-LinkedList/" rel="next" title="[MasterThe Coding Interview]Linked List">
+                  [MasterThe Coding Interview]Linked List <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

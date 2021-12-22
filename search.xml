@@ -1,9 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>[Master the Coding Interview] BigO介紹</title>
+    <title>[MasterThe Coding Interview]Algorithms:Searching + BFS + DFS</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-Searching+BFS+DFS/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>搜尋存在各種地方，google的搜尋引擎、蝦皮的搜尋商品等，任何有規模的網站都會用到搜尋功能，以下是這次要介紹的搜尋演算法：</p>
+<h2 id="Linear-Search"><a href="#Linear-Search" class="headerlink" title="Linear Search"></a>Linear Search</h2><p>適用於list的資料，從頭到尾一個一個的查看，是一個O(n)的演算法，因為最後的情況是要找的東西在最後面。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> beasts = [<span class="string">&#x27;Centaur&#x27;</span> , <span class="string">&#x27;Godzilla&#x27;</span> , <span class="string">&#x27;Mosura&#x27;</span> , <span class="string">&#x27;Minotaur&#x27;</span> , <span class="string">&#x27;Hydra&#x27;</span> , <span class="string">&#x27;Nessie&#x27;</span>];</span><br><span class="line"></span><br><span class="line">beasts.indexOf(<span class="string">&#x27;Godzilla&#x27;</span>);</span><br><span class="line">beasts.findIndex(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> item === <span class="string">&#x27;Godzilla&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">beasts.find(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> item === <span class="string">&#x27;Godzilla&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">beasts.includes(<span class="string">&#x27;Godzilla&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Binary-Search"><a href="#Binary-Search" class="headerlink" title="Binary Search"></a>Binary Search</h2><p>適用已經sort過的資料，透過不斷的從中間分割來找到目標，時間複雜度是O(logn)。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//      9</span></span><br><span class="line"><span class="comment">//  4      34</span></span><br><span class="line"><span class="comment">//1   6  12  45</span></span><br><span class="line"><span class="comment">//假設今天要找12，先從9分割</span></span><br><span class="line"><span class="comment">//因為12比9大，所以走右邊</span></span><br><span class="line"><span class="comment">//因為34比12小，所以走左邊</span></span><br><span class="line"><span class="comment">//找到12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//總結以上，透過樹高可以知道經歷步驟數，所以時間複雜度是O(logn)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Breadth-First-Search"><a href="#Breadth-First-Search" class="headerlink" title="Breadth First Search"></a>Breadth First Search</h2><p>從第一層開始一層一層的往下開始找，一定是找完當前這一層才會往下一層走。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//      9</span></span><br><span class="line"><span class="comment">//  4      20</span></span><br><span class="line"><span class="comment">//1   6  15  170</span></span><br><span class="line">[<span class="number">9</span> , <span class="number">4</span> , <span class="number">20</span> , <span class="number">1</span> , <span class="number">6</span> , <span class="number">15</span> , <span class="number">170</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一種方法，僅限用在二元樹</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">breadthFirstSearch</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> currentNode = <span class="built_in">this</span>.root;</span><br><span class="line">	<span class="keyword">let</span> list = [];</span><br><span class="line">	<span class="keyword">let</span> queue = [];</span><br><span class="line">	queue.push(currentNode);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(queue.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		currentNode = queue.shift();</span><br><span class="line">		list.push(currentNode.value);</span><br><span class="line">		<span class="keyword">if</span>(currentNode.left)&#123;</span><br><span class="line">			queue.push(currentNode.left)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(currentNode.right)&#123;</span><br><span class="line">			queue.push(currentNode.right);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用遞迴的方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">breadthFirstSearchRecursive</span>(<span class="params">queue , list</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!queue.length)&#123;</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">let</span> currentNode = queue.shift();</span><br><span class="line">	list.push(currentNode.value);</span><br><span class="line">	<span class="keyword">if</span>(currentNode.left)&#123;</span><br><span class="line">		queue.push(currentNode.left)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(currentNode.right)&#123;</span><br><span class="line">		queue.push(currentNode.right);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> breadthFirstSearchRecursive(queue , list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Shortest Path</td>
+<td>More Memory</td>
+</tr>
+<tr>
+<td>Closer Nodes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h2><p>從第一個分支開始往最深處找，直到沒辦法再深才會換到下一個分支。DFS 主要有三種方式，前序遍歷 (Preorder)、中序遍歷 (Inorder)、後序遍歷 (Postorder)，跟BFS不一樣，不需要一個queue來儲存所有還未找尋的node，只需要儲存分支上的Node即可。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//      9</span></span><br><span class="line"><span class="comment">//  4      20</span></span><br><span class="line"><span class="comment">//1   6  15  170</span></span><br><span class="line">InOrder - [<span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">170</span>]</span><br><span class="line">PreOrder - [<span class="number">9</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">20</span>, <span class="number">15</span>, <span class="number">170</span>]</span><br><span class="line">PostOrder - [<span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">15</span>, <span class="number">170</span>, <span class="number">20</span>, <span class="number">9</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DFSInorder</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> traverseInOrder(root , [])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traverseInOrder</span>(<span class="params">node , list</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(node.left)&#123;</span><br><span class="line">		traverseInOrder(node.left , list)</span><br><span class="line">	&#125;</span><br><span class="line">	list.push(node.value);</span><br><span class="line">	<span class="keyword">if</span>(node.right)&#123;</span><br><span class="line">		traverseInOrder(node.right , list)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DFSPreOrder</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> traversePreOrder(root , [])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traversePreOrder</span>(<span class="params">node , list</span>)</span>&#123;</span><br><span class="line">	list.push(node.value);</span><br><span class="line">	<span class="keyword">if</span>(node.left)&#123;</span><br><span class="line">		traversePreOrder(node.left , list)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(node.right)&#123;</span><br><span class="line">		traversePreOrder(node.right , list)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DFSPostOrder</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> traversePostOrder(root , [])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traversePostOrder</span>(<span class="params">node , list</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(node.left)&#123;</span><br><span class="line">		traversePostOrder(node.left , list)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(node.right)&#123;</span><br><span class="line">		traversePostOrder(node.right , list)</span><br><span class="line">	&#125;</span><br><span class="line">	list.push(node.value);</span><br><span class="line">	<span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Less Memory</td>
+<td>Can Get Slow</td>
+</tr>
+<tr>
+<td>Does Path Exist</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="BFS-vs-DFS"><a href="#BFS-vs-DFS" class="headerlink" title="BFS vs DFS"></a>BFS vs DFS</h2><ol>
+<li>If you know a solution is not far from the root of the tree → BFS(適合搜尋最近的點)</li>
+<li>If the tree is very deep and solutions are rare → BFS(因為樹太深了，DFS會耗費太多時間)</li>
+<li>If the tree is very wide → DFS(因為樹太深了，BFS會耗費太多memory)</li>
+<li>If solutions are frequent but located deep in the tree → DFS</li>
+<li>Determining whether a path exists between two nodes →DFS</li>
+<li>Finding the shortest path → BFS</li>
+</ol>
+<h2 id="BFS-and-DFS-in-Graph"><a href="#BFS-and-DFS-in-Graph" class="headerlink" title="BFS and DFS in Graph"></a>BFS and DFS in Graph</h2><p>其實圖跟樹的方法都一樣，只是可以更明顯的看出兩者的差異，如果圖中的一個node連結很多很多node，那我們用BFS就有可能會耗費太多memory，相反的，如果圖的深度很深，用DFS的時候因為是用resursive實作，會造成太多的call stack，耗費太多memory和時間。</p>
+<p>但是！當我們圖的路徑有權重的時候，找出最短路徑就不能使用BFS來實作，必須用另外兩種特殊的演算法來實作，Dijkstra和Bellman-Ford，兩個都是最短路徑的演算法，Bellman-Ford的效率比Dijkstra好，而且Bellman-Ford可以有負數，Dijkstra不行，但值得一提的是Bellman-Ford的worst case有可能到O(n^2)，所以當路徑的權重沒有負數的時候，我們仍然會使用Dijkstra。</p>
+<p>補充：<a href="https://medium.com/basecs/finding-the-shortest-path-with-a-little-help-from-dijkstra-613149fbdc8e">Finding The Shortest Path, With A Little Help From Dijkstra</a></p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Algorithms:Recursion</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-Recursion/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<blockquote>
+<p>Data Structures + Algorithms = Programs<br>Class{} + function() = Programs</p>
+</blockquote>
+<p>Recursion的意思是一直提及自己，透過這個方式可以traversal tree、object和DOM。如果寫下一個沒有停止條件的recursion的話，會導致stack overflow，可以透過以下的程式碼在chrome查看stack overflow：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//當瀏覽器看到debugger時會轉換成debug模式</span></span><br><span class="line">	<span class="keyword">debugger</span>;</span><br><span class="line">	loop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>寫下recursive function的三個方法：</p>
+<ol>
+<li>Identify the base case</li>
+<li>Identify the recursive case</li>
+<li>Get closer and closer and return when needed.Usually tou have 2 returns</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inception</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(counter)</span><br><span class="line">	<span class="comment">//base case</span></span><br><span class="line">	<span class="keyword">if</span>(counter &gt; <span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;done!&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">	counter++;</span><br><span class="line">	<span class="comment">//recursive case</span></span><br><span class="line">	<span class="keyword">return</span> inception();</span><br><span class="line">&#125;</span><br><span class="line">inception()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Factorial"><a href="#Exercise：Factorial" class="headerlink" title="Exercise：Factorial"></a>Exercise：Factorial</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialRecursive</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(number == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> number * findFactorialRecursive(number - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialIterative</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> answer = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt;= number ; i++)&#123;</span><br><span class="line">		answer *= i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> answer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Fibonacci"><a href="#Exercise：Fibonacci" class="headerlink" title="Exercise：Fibonacci"></a>Exercise：Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciIterative</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> arr = [<span class="number">0</span> , <span class="number">1</span>]</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> arr[n];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> temp = arr[<span class="number">0</span>] + arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">0</span>] = arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">1</span>] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr[<span class="number">0</span>] + arr[<span class="number">1</span>]; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciIterative(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciRecursive</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(2^n)</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fibonacciRecursive(n - <span class="number">1</span>) + fibonacciRecursive(n - <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciRecursive(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Recursive-VS-Iterative"><a href="#Recursive-VS-Iterative" class="headerlink" title="Recursive VS Iterative"></a>Recursive VS Iterative</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DRY</td>
+<td>Large Stack</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>以下是幾點要使用recursion的時機：</p>
+<ol>
+<li> 當使用到樹的結構來解決問題時，要考慮到recursion的解法。</li>
+<li>當問題可分割並建立在相同的解法上時。</li>
+<li>當需要計算一些總和且計算的方式都相同時。</li>
+<li>當每個小問題可以結合來解決一個大問題的時候。</li>
+</ol>
+<p>2,3,4點可以總結成Divide and Conquer的問題能利用Recursion解決。</p>
+<p>所有可以利用recursion實作的例子都可以用loop解決。Ex：Merge Sort, Quick Sort, Tree Traversal, Graph Traversal。</p>
+<h2 id="Exercise：Reverse-String"><a href="#Exercise：Reverse-String" class="headerlink" title="Exercise：Reverse String"></a>Exercise：R<strong>everse String</strong></h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseString</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str.length == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> str[str.length - <span class="number">1</span>] + reverseString(str.slice(<span class="number">0</span> , -<span class="number">1</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverseString(<span class="string">&#x27;yoyo mastery&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>補充：<a href="https://2ality.com/2015/06/tail-call-optimization.html">Tail call optimization</a></p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Algorithms:DynamicProgramming</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-DynamicProgramming/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>假設今天有一個function可以幫我們把數字加10，當我們輸入5的時候，他會輸出15，輸入3會輸出13等，儘管帶入的數字一樣，每執行一次函式，就會重新計算一次結果。如果今天這個function的計算需要花很長一段時間，透過原本的方法就會多了很多不必要的等待，這時候就可以用Dynamic programming的技巧，簡單來說就是把已經計算過的輸出記錄起來，避免掉二次、三次的重工。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">		cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">&#125;</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面的方法雖然可以解決問題，但我們需要一個cache的全域變數</span></span><br><span class="line"><span class="comment">//下面示範透過closure來避免掉全域變數</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">			cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> memoized = memoizedAddTo10();</span><br><span class="line">memoized(<span class="number">5</span>);</span><br><span class="line">memoized(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>只要問題符合以下五個條件，就可以嘗試用Dynamic programming解決：</p>
+<ol>
+<li>Can be divided into subproblem</li>
+<li>Recursive Solition</li>
+<li>Are there repetitive subproblem</li>
+<li>Memoize subproblem</li>
+<li>Demand a raise from your boss</li>
+</ol>
+<h2 id="Exercise：-Fibonacci"><a href="#Exercise：-Fibonacci" class="headerlink" title="Exercise： Fibonacci"></a>Exercise： Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciMaster</span>(<span class="params"></span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(n <span class="keyword">in</span> cache) </span><br><span class="line">			<span class="keyword">return</span> cache[n]</span><br><span class="line">		<span class="keyword">if</span>(n &lt; <span class="number">2</span>) </span><br><span class="line">			<span class="keyword">return</span> n</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			cache[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">			<span class="keyword">return</span> cache[n];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fibonacci = fibonacciMaster();</span><br><span class="line">fibonacci(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Algorithms:Sorting</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-Sorting/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>排序存在網路世界的任何地方，Google的搜尋引擎、Amazon的商品排序，價錢、評論都可以做排序，每個公司都會有自己排序的方法，來適應各種不同的資料，讓排序可以耗費較少的複雜度達到要求。</p>
+<p>在javaScript的sort方法裡，會把所有的element轉換成string在進行比對，這樣的方法會出現以下的錯誤</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> basket = [<span class="number">2</span> , <span class="number">3</span> , <span class="number">65</span> , <span class="number">34</span> , <span class="number">1</span> , <span class="number">7</span>]</span><br><span class="line">basket.sort() <span class="comment">//1 , 2 , 3 , 34 , 65 , 7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//correct way</span></span><br><span class="line">basket.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a - b</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bubble-Sort"><a href="#Bubble-Sort" class="headerlink" title="Bubble Sort"></a>Bubble Sort</h2><p>從第一個和第二個元素開始比較，如果左邊比右邊大，就把兩個元素交換，再來是第二跟第三個元素比較，以此類推直到所有元素都比較完，就可以確定最右邊的元素一定是最大，接著再重複以上步驟直到所有元素都排序完成。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">99</span>, <span class="number">44</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">283</span>, <span class="number">4</span>, <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">array</span>) </span>&#123; <span class="comment">//O(n^2)</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; array.length ; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; array.length - i ; j++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(array[j] &gt; array[j + <span class="number">1</span>])&#123;</span><br><span class="line">					[array[j + <span class="number">1</span>] , array[j]] = [array[j] , array[j + <span class="number">1</span>]]</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bubbleSort(numbers);</span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Selection-Sort"><a href="#Selection-Sort" class="headerlink" title="Selection Sort"></a>Selection Sort</h2><p>從頭開始找最小或最大的元素，並且跟第一個交換，再來從第二個開始找，找到後再跟第二個交換，以此類推到全部的元素都排序完成。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">99</span>, <span class="number">44</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">283</span>, <span class="number">4</span>, <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectionSort</span>(<span class="params">array</span>) </span>&#123; <span class="comment">//O(n^2)</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; array.length ; i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> minIndex = i; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> j = i + <span class="number">1</span> ; j &lt; array.length ; j++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(array[minIndex] &gt; array[j])&#123;</span><br><span class="line">					minIndex = j;</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		[array[i] , array[minIndex]] = [array[minIndex] , array[i]]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">selectionSort(numbers);</span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Insertion-Sort"><a href="#Insertion-Sort" class="headerlink" title="Insertion Sort"></a>Insertion Sort</h2><p>先固定第一個元素，判斷第二個比較大還是小，並且固定住元素，接著第三個元素比較已經固定的元素陣列，找到合適的地方插入，以此類推直到所有元素完成排序。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">99</span>, <span class="number">44</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">283</span>, <span class="number">4</span>, <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertionSort</span>(<span class="params">array</span>) </span>&#123; <span class="comment">//O(n^2)</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt; array.length ; i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> insertIndex = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> j = i - <span class="number">1</span> ; j &gt;= <span class="number">0</span> ; j--)&#123;</span><br><span class="line">			<span class="keyword">if</span>(array[i] &lt; array[j])&#123;</span><br><span class="line">				insertIndex = j</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		array.splice(insertIndex , <span class="number">0</span> , array.splice(i , <span class="number">1</span>)[<span class="number">0</span>])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">insertionSort(numbers);</span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Merge-Sort"><a href="#Merge-Sort" class="headerlink" title="Merge Sort"></a>Merge Sort</h2><p>跟前三種sort的方法不一樣，前三種都用到了巢狀迴圈，時間複雜度一定會在O(n^2)，但merge sort利用了Dividde and Conquer的方法，先把整個陣列分割到不可分割為止，再經過排序把陣列倆倆合併起來，只要O(nlogn)即可完成。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">99</span>, <span class="number">44</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">283</span>, <span class="number">4</span>, <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (array.length === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> left = array.slice(<span class="number">0</span> , <span class="built_in">parseInt</span>(array.length / <span class="number">2</span>))</span><br><span class="line">	<span class="keyword">let</span> right = array.slice(<span class="built_in">parseInt</span>(array.length / <span class="number">2</span>) , array.length)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> merge(</span><br><span class="line">    mergeSort(left),</span><br><span class="line">    mergeSort(right)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">left, right</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> ans = []</span><br><span class="line">	<span class="keyword">let</span> l = <span class="number">0</span>, r = <span class="number">0</span></span><br><span class="line">	<span class="keyword">while</span>(l &lt; left.length &amp;&amp; r &lt; right.length)&#123;</span><br><span class="line">		<span class="keyword">if</span>(left[l] &lt; right[r])&#123;</span><br><span class="line">			ans.push(left[l]);</span><br><span class="line">			l++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			ans.push(right[r]);</span><br><span class="line">			r++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans.concat(left.slice(l)).concat(right.slice(r))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> answer = mergeSort(numbers);</span><br><span class="line"><span class="built_in">console</span>.log(answer);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Quick-Sort"><a href="#Quick-Sort" class="headerlink" title="Quick Sort"></a>Quick Sort</h2><p>跟merge sort一樣用到divide and conquer的想法，比較不一樣的是這邊是會先選定一個pivot，比他大的放右邊，比她小的放左邊，透過這個pivot把陣列分割成兩個部分，每個部份再用相同的方式比較和排序直到所有元素都完成為止。如果有選到好的pivot可以幾乎都平分陣列，那時間複雜度就可以維持在O(nlogn)，如果每次選定的pivot都剛好是陣列裡的最大值或最小值，沒有有效的分割的話，時間複雜度就會是O(n^2)，不過相較於merge sort，quick sort的空間複雜度是O(logn)。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">99</span>, <span class="number">44</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">283</span>, <span class="number">4</span>, <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">array, left, right</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> len = array.length; </span><br><span class="line">  <span class="keyword">let</span> pivot;</span><br><span class="line">  <span class="keyword">let</span> partitionIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(left &lt; right) &#123;</span><br><span class="line">    pivot = right;</span><br><span class="line">    partitionIndex = partition(array, pivot, left, right);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//sort left and right</span></span><br><span class="line">    quickSort(array, left, partitionIndex - <span class="number">1</span>);</span><br><span class="line">    quickSort(array, partitionIndex + <span class="number">1</span>, right);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">array, pivot, left, right</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pivotValue = array[pivot];</span><br><span class="line">  <span class="keyword">let</span> partitionIndex = left;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = left; i &lt; right; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(array[i] &lt; pivotValue)&#123;</span><br><span class="line">			[array[i] , array[partitionIndex]] = [array[partitionIndex] , array[i]];</span><br><span class="line">      partitionIndex++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">	[array[right] , array[partitionIndex]] = [array[partitionIndex] , array[right]];</span><br><span class="line">  <span class="keyword">return</span> partitionIndex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Select first and last index as 2nd and 3rd parameters</span></span><br><span class="line">quickSort(numbers, <span class="number">0</span>, numbers.length - <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/blog/2021/12/22/Master_The_Coding-A-Sorting/1.png" alt="Untitled"></p>
+<p><img src="/blog/2021/12/22/Master_The_Coding-A-Sorting/2.png" alt="Untitled"></p>
+<h2 id="Which-Sort-Is-Best？"><a href="#Which-Sort-Is-Best？" class="headerlink" title="Which Sort Is Best？"></a>Which Sort Is Best？</h2><p>不同的資料有不同的方法，假設今天資料量少少的且大多都排序好，Insertion Sort就可以有將近O(n)的速度，空間複雜度也可以有O(1)。Bubble Sort和Select Sort都不太適合用在實作上面，時間複雜度永遠都是O(n^2)。如果資料量很大且有足夠的memory可以使用的話，merge Sort絕對是最好的選擇，不管資料如何時間複雜度絕對是O(nlogn)。Quick Sort也不錯，甚至空間複雜度只有O(logn)，比merge Sort還要更好，但只要pivot沒有選好的話，他的時間複雜度會降低到O(n^2)，這是特別要注意到的地方。</p>
+<p>補充：<a href="https://brilliant.org/wiki/heap-sort/">Heap Sort</a></p>
+<p>以上的方法我們會把他歸類成comparison sort，在排序的過程中有兩兩比較，相反的，有另外一群排序的方法叫做non-comparison sort，透過其他方法排序，比較常見的叫做Radix Sort和Counting Sort，雖然時間複雜度可以壓在O(nlogn)以下，但對於資料的條件有限制，必須要小範圍的數字才能使用。</p>
+<p>補充：<a href="https://brilliant.org/wiki/radix-sort/">Radix Sort</a></p>
+<p>補充：<a href="https://www.cs.usfca.edu/~galles/visualization/RadixSort.html">Radix Sort Animation</a></p>
+<p>補充：<a href="https://brilliant.org/wiki/counting-sort/">Counting Sort</a></p>
+<p>補充：<a href="https://www.cs.usfca.edu/~galles/visualization/CountingSort.html">Counting Sort Animation</a></p>
+<h2 id="Sorting-Interview"><a href="#Sorting-Interview" class="headerlink" title="Sorting Interview"></a>S<strong>orting Interview</strong></h2><ol>
+<li>Sort 10 schools around your house by distance → Insertion Sort(資料小且相近)</li>
+<li> eBay sorts listings by the current Bid amount. → Radix or Counting Sort(數字且有小範圍限制住)</li>
+<li>Sport scores on ESPN → Quick Sort(資料雜亂)</li>
+<li>Massive database (can’t fit all into memory) needs to sort through past year’s user data →Merge Sort(資料量太大，需要確保時間複雜度是O(nlogn))</li>
+<li>Almost sorted Udemy review data needs to update and add 2 new reviews →Insertion Sort(雖然資料量大但多數已經完成排序)</li>
+<li> Temperature Records for the past 50 years in Canada → Quick Sort , Radix or Counting Sort(如果資料量都是數字且有範圍限制住就可以用 Radix or Counting Sort)</li>
+<li>Large user name database needs to be sorted. Data is very random. → Merge Sort(資料雜亂要確保時間複雜度不會過於糟糕)</li>
+<li>You want to teach sorting for the first time → Bubble Sort or Select Sort</li>
+</ol>
+<p>javaScript中有自己的sort function，但它並不是在語言中實作，而是在瀏覽器的javaScript引擎中實作，例如chrome中的V8是用merge sort 或insertion sort實作這個sort，取決於資料的大小。mozilla是用quick sort實作sort功能等。</p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]陣列</title>
+    <url>/blog/2021/12/07/Master_The_Coding-DS-Array/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> strings = [<span class="string">&#x27;a&#x27;</span> , <span class="string">&#x27;b&#x27;</span> , <span class="string">&#x27;c&#x27;</span> , <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">string[<span class="number">2</span>] <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//push</span></span><br><span class="line">strings.push(<span class="string">&#x27;e&#x27;</span>); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">strings.pop(); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unshift</span></span><br><span class="line">strings.unshift(<span class="string">&#x27;x&#x27;</span>); <span class="comment">//O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//splice</span></span><br><span class="line">strings.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;alien&#x27;</span>) <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
+
+<p>在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言，例如C、C++，這種在宣告階段就要將陣列記憶體配置好，當我們要使用的範圍超出記憶體配置的時候，會進行擴增，通常會是增加2倍，例如原本有8個位置就新增到16個等等。所以當這種語言在進行陣列的append的時候，會先把原陣列複製到另外一塊記憶體並且擴充，時間複雜度會是O(n)，但javaScript裡面就只有單純的append，時間複雜度是O(n)。</p>
+<h2 id="Implementing-an-array"><a href="#Implementing-an-array" class="headerlink" title="Implementing an array"></a>Implementing an array</h2><p>JavaScript的Array其實是一種Object，所以我們要利用class的方式來自創一個array</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">this</span>.data = &#123;&#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">get</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.data[index]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">push</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.data[<span class="built_in">this</span>.length] = item;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.length</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">pop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> lastItem = <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>]</span><br><span class="line">		<span class="keyword">delete</span> <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>];</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> lastItem;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">delete</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> item = <span class="built_in">this</span>.data[index];</span><br><span class="line">		<span class="built_in">this</span>.shiftItems(index)</span><br><span class="line">		<span class="keyword">return</span> item</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">shiftItem</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = index ; i &lt; <span class="built_in">this</span>.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">			<span class="built_in">this</span>.data[i] = <span class="built_in">this</span>.data[i + <span class="number">1</span>]</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">delete</span> <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>]</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newArray = <span class="keyword">new</span> MyArray()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Reverse-a-string"><a href="#Exercise：Reverse-a-string" class="headerlink" title="Exercise：Reverse a string"></a>Exercise：Reverse a string</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse1</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> str.split(<span class="string">&quot;&quot;</span>).map(<span class="function">(<span class="params">_ , i</span>) =&gt;</span> str[str.length - i - <span class="number">1</span>]).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse2</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//check input</span></span><br><span class="line">	<span class="keyword">if</span>(!str || str.length &lt; <span class="number">2</span> || <span class="keyword">typeof</span> str !== <span class="string">&#x27;string&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> backwards = [];</span><br><span class="line">	<span class="keyword">const</span> totalItems = str.length - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = totalItems ; i &gt;= <span class="number">0</span> ; i--)&#123;</span><br><span class="line">		backwards.push(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> backwards.join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video better answer</span></span><br><span class="line"><span class="keyword">const</span> reverse3 = <span class="function"><span class="params">str</span> =&gt;</span> [...str].reverse().join(<span class="string">&#x27;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Merge-Sorted-Array"><a href="#Exercise：Merge-Sorted-Array" class="headerlink" title="Exercise：Merge Sorted Array"></a>Exercise：Merge Sorted Array</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSortedArrays1</span>(<span class="params">arr1,arr2</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> ans = [];</span><br><span class="line">	<span class="keyword">let</span> arr1Index = <span class="number">0</span> , arr2Index = <span class="number">0</span></span><br><span class="line">	<span class="keyword">while</span>(arr1Index &lt; arr1.length || arr2Index &lt; arr2.length)&#123;</span><br><span class="line">		<span class="keyword">if</span>(arr1Index &gt;= arr1.length) ans.push(arr2[arr2Index++])</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(arr2Index &gt;= arr2.length) ans.push(arr1[arr1Index++])</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(arr1[arr1Index] &gt; arr2[arr2Index]) ans.push(arr2[arr2Index++])</span><br><span class="line">				<span class="keyword">else</span> ans.push(arr1[arr1Index++])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSortedArrays2</span>(<span class="params">arr1,arr2</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> mergedArray = [];</span><br><span class="line">	<span class="keyword">let</span> array1Item = array1[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> array2Item = array2[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> i = <span class="number">1</span> , j = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Check unput</span></span><br><span class="line">	<span class="keyword">if</span>(arr1.length == <span class="number">0</span>) <span class="keyword">return</span> array2;</span><br><span class="line">	<span class="keyword">if</span>(arr2.length == <span class="number">0</span>) <span class="keyword">return</span> array1;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(array1Item || array2Item)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!array2Item || array1Item &lt; array2Item)&#123;</span><br><span class="line">			mergedArray.push(array1Item);</span><br><span class="line">			array1Item = array1[i]</span><br><span class="line">			i++</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			mergedArray.push(array2Item);</span><br><span class="line">			array2Item = array2[j]</span><br><span class="line">			j++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> mergedArray;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast lookups</td>
+<td>slow inderts</td>
+</tr>
+<tr>
+<td>Fast push/pop</td>
+<td>slow delete</td>
+</tr>
+<tr>
+<td>ordered</td>
+<td>Fixed size(static array)</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Graphs</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-Graphs/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。</p>
+<p>Graphs分成有向和無向的，undirected像是facebook的好友功能，當你和一個人成為好友的時候，你們是互相為好友，directed像是instagram的追蹤功能，當你追蹤一個帳號的時候，是單方面的，他不一定要追蹤你。</p>
+<p>Graphs可以分為有權重和無權重的，當圖的link都有權重的時候，我們就可以來算最短路徑的，像是google map的最佳路徑功能。</p>
+<p>Graphs可以分為Cyclic和Acyclic，有環和無環的圖形。</p>
+<p>Graphs的資料可以利用以下3種方法來記錄：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Edge List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">0</span>,<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">2</span>,<span class="number">1</span>] , [<span class="number">1</span>,<span class="number">3</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>] , [<span class="number">1</span>,<span class="number">2</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent Matrix</span></span><br><span class="line"><span class="keyword">const</span> graph = [</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Implement-an-Graphs"><a href="#Implement-an-Graphs" class="headerlink" title="Implement an Graphs"></a>Implement an Graphs</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="built_in">this</span>.numberOfNodes = <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">this</span>.adjacentList = &#123;</span><br><span class="line">      &#125;; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addVertex</span>(<span class="params">node</span>)</span>  &#123; </span><br><span class="line">        <span class="built_in">this</span>.numberOfNodes++;</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node] = []</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addEdge</span>(<span class="params">node1, node2</span>)</span> &#123; </span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node1].push(node2)</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node2].push(node1)</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">showConnections</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="keyword">const</span> allNodes = <span class="built_in">Object</span>.keys(<span class="built_in">this</span>.adjacentList); </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> node <span class="keyword">of</span> allNodes) &#123; </span><br><span class="line">        <span class="keyword">let</span> nodeConnections = <span class="built_in">this</span>.adjacentList[node]; </span><br><span class="line">        <span class="keyword">let</span> connections = <span class="string">&quot;&quot;</span>; </span><br><span class="line">        <span class="keyword">let</span> vertex;</span><br><span class="line">        <span class="keyword">for</span> (vertex <span class="keyword">of</span> nodeConnections) &#123;</span><br><span class="line">          connections += vertex + <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="built_in">console</span>.log(node + <span class="string">&quot;--&gt;&quot;</span> + connections); </span><br><span class="line">      &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> myGraph = <span class="keyword">new</span> Graph();</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;6&#x27;</span>);</span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;1&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  myGraph.showConnections(); </span><br><span class="line">  <span class="comment">//Answer:</span></span><br><span class="line">  <span class="comment">// 0--&gt;1 2 </span></span><br><span class="line">  <span class="comment">// 1--&gt;3 2 0 </span></span><br><span class="line">  <span class="comment">// 2--&gt;4 1 0 </span></span><br><span class="line">  <span class="comment">// 3--&gt;1 4 </span></span><br><span class="line">  <span class="comment">// 4--&gt;3 2 5 </span></span><br><span class="line">  <span class="comment">// 5--&gt;4 6 </span></span><br><span class="line">  <span class="comment">// 6--&gt;5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Relationships</td>
+<td>Scaling is hard</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview] BigO介紹</title>
     <url>/blog/2021/12/02/Master_The_Coding-BigO/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <h3 id="What-is-good-code"><a href="#What-is-good-code" class="headerlink" title="What is good code?"></a>What is good code?</h3><p>什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。</p>
 <h3 id="BigO"><a href="#BigO" class="headerlink" title="BigO"></a>BigO</h3><p>BigO為什麼會存在，因為當我們要判斷一個code好或不好的時候，如果用執行的時間來看的話，因為每個電腦CPU的不同，會有執行速度上的差異，同樣的code不同的設備會有不同的速度，所以不能以時間來做為依據，這時候我們就會用BigO來判斷code執行速度。</p>
 <p>BigO主要是利用程式執行多少步驟來做計算，拿以下的程式碼來說：</p>
@@ -36,24 +311,22 @@
 <p>通常我們會用空間換取時間或時間換取空間，這沒有甚麼對或錯，看當下的project要怎麼做就好。</p>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
         <tag>BigO</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]Graphs</title>
-    <url>/blog/2021/12/12/Master_The_Coding-DS-Graphs/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<p>由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。</p>
-<p>Graphs分成有向和無向的，undirected像是facebook的好友功能，當你和一個人成為好友的時候，你們是互相為好友，directed像是instagram的追蹤功能，當你追蹤一個帳號的時候，是單方面的，他不一定要追蹤你。</p>
-<p>Graphs可以分為有權重和無權重的，當圖的link都有權重的時候，我們就可以來算最短路徑的，像是google map的最佳路徑功能。</p>
-<p>Graphs可以分為Cyclic和Acyclic，有環和無環的圖形。</p>
-<p>Graphs的資料可以利用以下3種方法來記錄：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Edge List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">0</span>,<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">2</span>,<span class="number">1</span>] , [<span class="number">1</span>,<span class="number">3</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent List</span></span><br><span class="line"><span class="keyword">const</span> graph = [[<span class="number">2</span>] , [<span class="number">2</span>,<span class="number">3</span>] , [<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>] , [<span class="number">1</span>,<span class="number">2</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//Adjacent Matrix</span></span><br><span class="line"><span class="keyword">const</span> graph = [</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">	[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+    <title>[MasterThe Coding Interview]雜湊表</title>
+    <url>/blog/2021/12/07/Master_The_Coding-DS-HashTable/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>hash table是一個包含key和value的一張表，每個語言都有不同的資料型態來呈現hash table，javaScript一樣還是Object。當我們要存入一筆資料時，值會經過hash function轉換出一個address給memory儲存，所以當我們要讀取、刪除、插入資料時都是O(1)。</p>
+<p>hash function是一種加密的函式，最常見的是MD5，還有其他像SHA-1或SHA-256等等，透過function可以把value轉換成一串string，這串string是idempotent的形式，表示每一次相同的字串都會產生相同的結果，不會因為時間還是其他因素而改變。</p>
+<h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>Collision</h2><p>儘管hash table非常快速，他還是有可能會發生衝突，例如當兩個值被計算出來都要放在同一個位置時，有一種方式是直接將每個adress都變成linked-list，雖然可以儲存資料，但時間複雜度就會變成O(n)，另外一種解決方式是Open addressing，如果放入的位置上已經有value，就會再利用hash function(最簡單就是linear的方式解，如果150不行就151以此類推)找出第二個位置，一直找到可以存放的位置即可，這種方法可以有效的運用hash table。</p>
+<h2 id="Implementing-an-Hash-Table"><a href="#Implementing-an-Hash-Table" class="headerlink" title="Implementing an Hash Table"></a>Implementing an Hash Table</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.data = <span class="keyword">new</span> <span class="built_in">Array</span>(size)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//小小淺規則，如果function前面有underline表示這是一個private function</span></span><br><span class="line">	<span class="function"><span class="title">_hash</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> hash = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;key.length;i++)&#123;</span><br><span class="line">			hash = (hash + key.charCodeAt(i) * i) % <span class="built_in">this</span>.data.length</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> hash</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">set</span>(<span class="params">k , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> address = <span class="built_in">this</span>._hash(k)</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">this</span>.data[address])&#123;</span><br><span class="line">			<span class="built_in">this</span>.data[address] = []</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.data[address].push([k,v])</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.data</span><br><span class="line">	&#125; <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">get</span>(<span class="params">k</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> address = <span class="built_in">this</span>._hash(k)</span><br><span class="line">		<span class="keyword">const</span> currentBucket = <span class="built_in">this</span>.data[address]</span><br><span class="line">		<span class="keyword">if</span>(currentBucket)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; currentBucket.length ; i++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(currentBucket[i][<span class="number">0</span>] == <span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">					<span class="keyword">return</span> currentBucket[i][<span class="number">1</span>]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">	&#125; <span class="comment">//O(1), somethings use the bad hash function, it&#x27;s O(n)</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">keys</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> keysArray = [];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; <span class="built_in">this</span>.data.length; i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.data[i])&#123;</span><br><span class="line">				<span class="built_in">this</span>.data[i].forEach(<span class="function"><span class="params">arr</span> =&gt;</span> keysArray.push(arr[<span class="number">0</span>]))</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">		<span class="keyword">return</span> keysArray;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myHashTable = <span class="keyword">new</span> HashTable(<span class="number">50</span>)</span><br><span class="line">myHashTable.set(<span class="string">&#x27;grapes&#x27;</span> , <span class="number">10000</span>);</span><br><span class="line">myHashTable.set(<span class="string">&#x27;apple&#x27;</span> , <span class="number">1000</span>);</span><br><span class="line">myHashTable.set(<span class="string">&#x27;banana&#x27;</span> , <span class="number">100</span>);</span><br><span class="line">myHashTable.get(<span class="string">&#x27;grapes&#x27;</span>);</span><br><span class="line">myHashTable.keys();</span><br></pre></td></tr></table></figure>
 
-<h2 id="Implement-an-Graphs"><a href="#Implement-an-Graphs" class="headerlink" title="Implement an Graphs"></a>Implement an Graphs</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="built_in">this</span>.numberOfNodes = <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">this</span>.adjacentList = &#123;</span><br><span class="line">      &#125;; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addVertex</span>(<span class="params">node</span>)</span>  &#123; </span><br><span class="line">        <span class="built_in">this</span>.numberOfNodes++;</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node] = []</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">addEdge</span>(<span class="params">node1, node2</span>)</span> &#123; </span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node1].push(node2)</span><br><span class="line">        <span class="built_in">this</span>.adjacentList[node2].push(node1)</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">showConnections</span>(<span class="params"></span>)</span> &#123; </span><br><span class="line">      <span class="keyword">const</span> allNodes = <span class="built_in">Object</span>.keys(<span class="built_in">this</span>.adjacentList); </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> node <span class="keyword">of</span> allNodes) &#123; </span><br><span class="line">        <span class="keyword">let</span> nodeConnections = <span class="built_in">this</span>.adjacentList[node]; </span><br><span class="line">        <span class="keyword">let</span> connections = <span class="string">&quot;&quot;</span>; </span><br><span class="line">        <span class="keyword">let</span> vertex;</span><br><span class="line">        <span class="keyword">for</span> (vertex <span class="keyword">of</span> nodeConnections) &#123;</span><br><span class="line">          connections += vertex + <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="built_in">console</span>.log(node + <span class="string">&quot;--&gt;&quot;</span> + connections); </span><br><span class="line">      &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> myGraph = <span class="keyword">new</span> Graph();</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  myGraph.addVertex(<span class="string">&#x27;6&#x27;</span>);</span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;1&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;2&#x27;</span>); </span><br><span class="line">  myGraph.addEdge(<span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;5&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  myGraph.showConnections(); </span><br><span class="line">  <span class="comment">//Answer:</span></span><br><span class="line">  <span class="comment">// 0--&gt;1 2 </span></span><br><span class="line">  <span class="comment">// 1--&gt;3 2 0 </span></span><br><span class="line">  <span class="comment">// 2--&gt;4 1 0 </span></span><br><span class="line">  <span class="comment">// 3--&gt;1 4 </span></span><br><span class="line">  <span class="comment">// 4--&gt;3 2 5 </span></span><br><span class="line">  <span class="comment">// 5--&gt;4 6 </span></span><br><span class="line">  <span class="comment">// 6--&gt;5</span></span><br></pre></td></tr></table></figure>
+<h2 id="Exercise：First-Recurring-Charactor"><a href="#Exercise：First-Recurring-Charactor" class="headerlink" title="Exercise：First Recurring Charactor"></a>Exercise：First Recurring Charactor</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Google Question</span></span><br><span class="line"><span class="comment">//Given an array = [2,5,1,2,3,5,1,2,4] return 2</span></span><br><span class="line"><span class="comment">//Given an array = [2,1,1,2,3,5,1,2,4] return 1</span></span><br><span class="line"><span class="comment">//Given an array = [2,1,3,4] return undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstRecurringCharactor</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> hashTable = &#123;&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; arr.length ; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(hashTable[arr[i]]) <span class="keyword">return</span> arr[i]</span><br><span class="line">		hashTable[arr[i]] = <span class="literal">true</span> </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
 <thead>
@@ -63,22 +336,73 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Relationships</td>
-<td>Scaling is hard</td>
+<td>Fast lookups</td>
+<td>Unordered</td>
+</tr>
+<tr>
+<td>Fast inserts</td>
+<td>Slow key iteration</td>
+</tr>
+<tr>
+<td>Flexible Keys</td>
+<td></td>
 </tr>
 </tbody></table>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
         <tag>Data structure</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]Stacks+Queues</title>
+    <title>[MasterThe Coding Interview]Linked List</title>
+    <url>/blog/2021/12/12/Master_The_Coding-DS-LinkedList/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null，表示後面沒有東西。LinkedList雖然表面上array很像，但他在最前面和最後面插入的時候，不用去移動整個陣列，時間複雜度會從原本array的O(n)變成O(1)，其他部分的lookup、insert、delete都維持O(n)。</p>
+<h2 id="Implementing-an-Linked-List"><a href="#Implementing-an-Linked-List" class="headerlink" title="Implementing an Linked List"></a>Implementing an Linked List</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = v;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.head = &#123;</span><br><span class="line">			<span class="attr">value</span>: v,</span><br><span class="line">			<span class="attr">next</span>: <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">append</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="built_in">this</span>.tail.next = newNode;</span><br><span class="line">		<span class="built_in">this</span>.tail = newNode;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">prepend</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		newNode.next = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.head = newNode</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">printList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> array = [];</span><br><span class="line">		<span class="keyword">let</span> currentNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">while</span>(currentNode !== <span class="literal">null</span>)&#123;</span><br><span class="line">			array.push(currentNode.value);</span><br><span class="line">			currentNode = currentNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> array;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">insert</span>(<span class="params">index , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.append(v);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> <span class="built_in">this</span>.prepend(v);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">const</span> holdingPoter = leader.next;</span><br><span class="line">		leader.next = newNode;</span><br><span class="line">		newNode.next = holdingPoter;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">remove</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(<span class="built_in">this</span>.length - <span class="number">2</span>)</span><br><span class="line">			leader.next = <span class="literal">null</span>;</span><br><span class="line">			<span class="built_in">this</span>.tail = leader;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(index == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">this</span>.head = <span class="built_in">this</span>.head.next;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">const</span> unwantedNode = leader.next</span><br><span class="line">		leader.next = unwantedNode.next</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">traversToIndex</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> nowNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(counter !== index)&#123;</span><br><span class="line">			nowNode = nowNode.next</span><br><span class="line">			counter++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> nowNode</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myLinkedList = <span class="keyword">new</span> LinkedList(<span class="number">10</span>);</span><br><span class="line">myLinkedList.append(<span class="number">5</span>);</span><br><span class="line">myLinkedList.append(<span class="number">16</span>);</span><br><span class="line">myLinkedList.prepend(<span class="number">1</span>);</span><br><span class="line">myLinkedList.insert(<span class="number">2</span> , <span class="number">99</span>);</span><br><span class="line">myLinkedList.printList();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Doubly-Linked-Lists"><a href="#Doubly-Linked-Lists" class="headerlink" title="Doubly Linked Lists"></a>Doubly Linked Lists</h2><p>一般來說linked list是單向的結構，我們只能從head開始到tail，但如果在每個node上都在多一個資料紀錄上一個node，那這個linked list就會變成雙向，從頭到尾或是從尾到頭都可以查找到所有node，以時間複雜度來說的話，doubly linked lists的查找可以比單向的節省1半的時間，因為可以同時從頭跟尾開始找，但bigO依舊還是O(n)。</p>
+<h2 id="Reverse-Linked-Lists"><a href="#Reverse-Linked-Lists" class="headerlink" title="Reverse Linked Lists"></a>Reverse Linked Lists</h2><p>反轉單向鏈結串列是一個很常見的面試題，下面的程式碼銜接上面的linked list，是其中的一個方法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">reverse</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">this</span>.head.next) <span class="keyword">return</span> retrun <span class="built_in">this</span>.head;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">let</span> first = <span class="built_in">this</span>.head;</span><br><span class="line">	<span class="keyword">let</span> second = first.next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(second)&#123;</span><br><span class="line">		<span class="keyword">const</span> temp = second.next</span><br><span class="line">		second.next = first;</span><br><span class="line">		first = second;</span><br><span class="line">		second = temp;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">this</span>.head.next = <span class="literal">null</span>;</span><br><span class="line">	<span class="built_in">this</span>.head = first;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fast Insertion</td>
+<td>Slow lookups</td>
+</tr>
+<tr>
+<td>Fast Deletion</td>
+<td>More Memory</td>
+</tr>
+<tr>
+<td>Ordered</td>
+<td></td>
+</tr>
+<tr>
+<td>Flexible Size</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Data structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Stacks+Queues</title>
     <url>/blog/2021/12/12/Master_The_Coding-DS-Stacks+Queues/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><p>LIFO(last in first out)的一種資料結構，可以把他想像成疊盤子，一直往上疊，最先疊的最後才能拿到，最後疊的最先可以拿到，push跟pop都是O(n)，lookup則是要O(n)。</p>
 <h2 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h2><p>FIFO(first in first out)的一種資料結構， 可以把他想像成排隊，第一個排的人會先出去，以此類推到最後一位，對queues來說enqueue跟push一樣，只是他是從最後面進去，是O(n)的動作，pop就是dequeue，會先把第一個進來的丟出去，一樣也是O(n)，lookup則跟stack一樣O(n)，不一樣的是我們不會用array來做queue，如果用array的話我們每dequeue一個node就要shift所有的node，非常糟糕。</p>
 <h2 id="JavaScript-Engine"><a href="#JavaScript-Engine" class="headerlink" title="JavaScript Engine"></a>JavaScript Engine</h2><p>JS可以在chrome上解析主要是依靠V8，透過他來轉換js code，變成可以給瀏覽器執行的語法。V8 engine裡面有Memory Heap和Call Stack， 當我們創建一個變數的時候，會在memory Heap裡面產生一個位置來存放他，當我們超出可以存放的位置時，瀏覽器就會有memory leak的情況發生，由此可知全域變數並不好，因為她會一直存在於memory Heap不會自己清除，導致memory leak的產生。當我們在執行code的時候，每一行code都會被加入call stack，透過call stack來決定執行的順序。</p>
@@ -113,126 +437,16 @@
 <p>補充：<a href="https://leetcode.com/problems/implement-queue-using-stacks/">LeetCode 232. Implement Queue using Stacks</a></p>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
         <tag>Data structure</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]Linked List</title>
-    <url>/blog/2021/12/12/Master_The_Coding-DS-LinkedList/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<p>從字面上的意思翻譯就是一種有連結的列表，列表中的每一個node都有兩項東西，一個是自己本身的值，另一個是pointer指向下一個node，以此方式串聯下去，最後一個node會指向null，表示後面沒有東西。LinkedList雖然表面上array很像，但他在最前面和最後面插入的時候，不用去移動整個陣列，時間複雜度會從原本array的O(n)變成O(1)，其他部分的lookup、insert、delete都維持O(n)。</p>
-<h2 id="Implementing-an-Linked-List"><a href="#Implementing-an-Linked-List" class="headerlink" title="Implementing an Linked List"></a>Implementing an Linked List</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = v;</span><br><span class="line">		<span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.head = &#123;</span><br><span class="line">			<span class="attr">value</span>: v,</span><br><span class="line">			<span class="attr">next</span>: <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">append</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="built_in">this</span>.tail.next = newNode;</span><br><span class="line">		<span class="built_in">this</span>.tail = newNode;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">prepend</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		newNode.next = <span class="built_in">this</span>.head</span><br><span class="line">		<span class="built_in">this</span>.head = newNode</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">printList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> array = [];</span><br><span class="line">		<span class="keyword">let</span> currentNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">while</span>(currentNode !== <span class="literal">null</span>)&#123;</span><br><span class="line">			array.push(currentNode.value);</span><br><span class="line">			currentNode = currentNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> array;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">insert</span>(<span class="params">index , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.append(v);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> <span class="built_in">this</span>.prepend(v);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> newNode = <span class="keyword">new</span> Node(v)</span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">const</span> holdingPoter = leader.next;</span><br><span class="line">		leader.next = newNode;</span><br><span class="line">		newNode.next = holdingPoter;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">remove</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">			<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(<span class="built_in">this</span>.length - <span class="number">2</span>)</span><br><span class="line">			leader.next = <span class="literal">null</span>;</span><br><span class="line">			<span class="built_in">this</span>.tail = leader;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(index == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">this</span>.head = <span class="built_in">this</span>.head.next;</span><br><span class="line">			<span class="built_in">this</span>.length--;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> leader = <span class="built_in">this</span>.traversToIndex(index - <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">const</span> unwantedNode = leader.next</span><br><span class="line">		leader.next = unwantedNode.next</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">traversToIndex</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> nowNode = <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(counter !== index)&#123;</span><br><span class="line">			nowNode = nowNode.next</span><br><span class="line">			counter++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> nowNode</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myLinkedList = <span class="keyword">new</span> LinkedList(<span class="number">10</span>);</span><br><span class="line">myLinkedList.append(<span class="number">5</span>);</span><br><span class="line">myLinkedList.append(<span class="number">16</span>);</span><br><span class="line">myLinkedList.prepend(<span class="number">1</span>);</span><br><span class="line">myLinkedList.insert(<span class="number">2</span> , <span class="number">99</span>);</span><br><span class="line">myLinkedList.printList();</span><br></pre></td></tr></table></figure>
-
-<h2 id="Doubly-Linked-Lists"><a href="#Doubly-Linked-Lists" class="headerlink" title="Doubly Linked Lists"></a>Doubly Linked Lists</h2><p>一般來說linked list是單向的結構，我們只能從head開始到tail，但如果在每個node上都在多一個資料紀錄上一個node，那這個linked list就會變成雙向，從頭到尾或是從尾到頭都可以查找到所有node，以時間複雜度來說的話，doubly linked lists的查找可以比單向的節省1半的時間，因為可以同時從頭跟尾開始找，但bigO依舊還是O(n)。</p>
-<h2 id="Reverse-Linked-Lists"><a href="#Reverse-Linked-Lists" class="headerlink" title="Reverse Linked Lists"></a>Reverse Linked Lists</h2><p>反轉單向鏈結串列是一個很常見的面試題，下面的程式碼銜接上面的linked list，是其中的一個方法：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">reverse</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">this</span>.head.next) <span class="keyword">return</span> retrun <span class="built_in">this</span>.head;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">let</span> first = <span class="built_in">this</span>.head;</span><br><span class="line">	<span class="keyword">let</span> second = first.next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">this</span>.tail = <span class="built_in">this</span>.head;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(second)&#123;</span><br><span class="line">		<span class="keyword">const</span> temp = second.next</span><br><span class="line">		second.next = first;</span><br><span class="line">		first = second;</span><br><span class="line">		second = temp;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">this</span>.head.next = <span class="literal">null</span>;</span><br><span class="line">	<span class="built_in">this</span>.head = first;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
-<thead>
-<tr>
-<th>優點</th>
-<th>缺點</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Fast Insertion</td>
-<td>Slow lookups</td>
-</tr>
-<tr>
-<td>Fast Deletion</td>
-<td>More Memory</td>
-</tr>
-<tr>
-<td>Ordered</td>
-<td></td>
-</tr>
-<tr>
-<td>Flexible Size</td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Master the Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>Data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Master the Coding Interview] 取得面試機會</title>
-    <url>/blog/2021/11/30/Master_The_Coding-interview/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<h3 id="1-Resume"><a href="#1-Resume" class="headerlink" title="1. Resume"></a>1. Resume</h3><p>履歷是公司看你的第一印象，他們通常不會很仔細的去看，畢竟有太多太多的應徵者，所以我們不應該花太多時間在著磨履歷上的小地方、字型、顏色等。履歷最好花一天就要搞定，避免浪費時間。</p>
-<p>不過以上是專屬於工程師，如果你是一個設計師或其他職業就要依照職業的特性來製作出符合的履歷，以下是履歷需要著重的四個部分：</p>
-<ol>
-<li>One page<br>一頁就好，公司不會一次想要看那麼多</li>
-<li>Relavant Skills<br>相關的技能一定要寫上去，讓公司一目就可以了然你會什麼</li>
-<li>Personalized<br>要依照每個公司稍微對履歷做一些變動，可能改改簡介內容或大標題等</li>
-<li>Online Link<br>要讓履歷可以連上你的github</li>
-</ol>
-<p>可以透過以下的條件檢視一下自己的履歷：</p>
-<ul>
-<li>使用一個已經設計好的模板</li>
-<li>控制履歷的內容在一頁之內</li>
-<li>要包含你對工作的描述</li>
-<li>要加入你要應徵的公司名稱</li>
-<li>要讓履歷中每個大項目中的第一個小項目是最吸引人的部分  <blockquote>
-<p>例如我們寫到專業技能，如果你是要應徵工程師，第一項專業技能一定要是那方面的東西，並且依照應徵工作的性質來排序</p>
-</blockquote>
-</li>
-<li>在該強調的地方做強調<blockquote>
-<p>例如我們寫到工作經驗，要強調的是工作的職位和工作的內容，而不是公司的名稱</p>
-</blockquote>
-</li>
-<li>記得附上連結，不管是Github或是blog的都可以</li>
-<li>不要用「我」<blockquote>
-<p>用第一人稱寫履歷會有很多冗詞贅字，應該改為用第三人稱</p>
-</blockquote>
-</li>
-<li>不要加入一些流行用詞</li>
-<li>利用動詞來描述事情會更讓人加深印象</li>
-<li>確定每件事都講得很具體，不要有很模糊的描述</li>
-<li>在描述你的技能程度時，可以用具體的事跡說明</li>
-<li>每個項目中的內容都只要放符合應徵職位的就好</li>
-<li>沒有任何的錯字和吻法錯誤</li>
-</ul>
-<p>檢視完自己的履歷後，還是要再次強調履歷只能讓你有機會面試，不能讓你得到工作，更重要的還是面試的技巧跟作品集，所以不要花太多時間在設計履歷，更重要的是，要對自己的履歷百分之百的誠實，避免面試的時候對於自己的問題答不出來。</p>
-<p>接下來要講講如果是新鮮人，沒辦法有過多的工作經驗、作品等東西做出好看的履歷的話，可以利用以下四種方式來增加自己的履歷深度：</p>
-<ol>
-<li>GitHub<br> 如果這個帳號很活躍，代表說他可以和其他人一同工作也會做版本控制，自己沒有專案沒關係，可以拿別人的過來建置，都是公司很樂見的部分。</li>
-<li>Website<br> 做一個自己的個人網頁，不一定要自己寫一個，可以套用網路上的模板來展示自己，這邊跟履歷一樣，不用過多華麗的特效，簡單能夠展示自己的作品即可。</li>
-<li>1~2個大型專案<br> 少數的大型專案比起多個小專案來的更有價值，面試的時候你不能展示所有的小專案，只花1~2天做完的東西基本上都太簡單了，不會讓人印象深刻，與其花時間在小專案，不如做出一個需要一段時程才能完成的大型專案。而且通常面試官都會問你做過最難的專案為何，做過大型專案才能讓自己講出的東西較為深刻。<br/>如果沒有相關的工作經驗，在履歷上放入作品也是另外一種選擇，但要注意的是必須強調出作品的相關技能讓面試官能夠一目了然在此作品中你所學習到的東西。</li>
-<li>部落格<br> 經營部落格，把自己學到的技術寫成文章也是加強自身價值的方法，在面試的時候展現能夠讓面試官印象深刻。</li>
-</ol>
-<p>透過以上四種加強履歷的方法，儘管沒有工作經驗也可以讓履歷不會空空如也，但要注意的是，如果你只有學程式可能半年，千萬不要寫上去，面試官在篩選人的時候如果看到絕對先丟掉，畢竟這種人的風險很高，展現好的一面，這是面試的不二法則。</p>
-<h3 id="2-Linkedln"><a href="#2-Linkedln" class="headerlink" title="2. Linkedln"></a>2. Linkedln</h3><p>這是一個全世界的求職平台，此平台也是許多公司找人才的地方，很多人會覺得Linkedln上面的資料比履歷更重要，只要profile有內容就容易有公司找你，下面有幾個小心機重點可以讓公司找人才的時候更容易找到你。</p>
-<ol>
-<li>update your profile<br>不一定要真的更新，只要時常的去編輯再更新，就會讓自己的履歷一直處在新的狀態，也會讓公司知道自己最近在找工作。</li>
-<li>keywords<br>在履歷上多寫一些關鍵字，例如你曾經用過Firebase，就把他寫上去，如果有公司是想找會用Firebase的人的話你就會出現在他的搜尋結果裡。</li>
-<li>Recommendations<br>雖然這個在面試時沒有人會看，但多一點的評論也會讓自己的rank提高，容易出現在搜尋結果的上面。</li>
-<li>create connect<br>利用公司來找到linkedln上面正在你想要的公司上班的人，並與他們製造關係或私訊他們。</li>
-</ol>
-<h3 id="3-Portfolio"><a href="#3-Portfolio" class="headerlink" title="3. Portfolio"></a>3. Portfolio</h3><p>和履歷一樣，只要有一個地方可以放上作品以便面試的時候可以展示就好，不需要利用太多時間來設計版面和網頁，但就是一定要有這項東西可以展示。</p>
-<h3 id="4-Email"><a href="#4-Email" class="headerlink" title="4. Email"></a>4. Email</h3><p>公司其實最常會應徵透過朋友介紹的人，如果我們沒有親朋好友在你要面試的公司裡，那Email相對就很重要了，求職雖然可以透過求職網，但如果透過寄信的方式，也可以提高人資看到應徵者訊息的機會，也能增加獲得面試的機會。除了直接寄信詢問職缺外，更好的是與他人建立連結，利用linkedln或是其他東西來取得CEO或HR的Eemail，可以嘗試跟他們約出來聊天，約成功的同時你也算成功拿到面試了。</p>
-<p>總結一下，以上四點是找工作必須要有的四樣東西，那甚麼時候該找工作呢，now，開始找工作你才能知道自己哪裡不足，哪裡需要加強，但這個答案只適用於已經有基本知識的人，如果是個新手工程師，那還是快點準備履歷，快點開始動手寫程式，做大型的project，讓自己更熟練這項技能。</p>
-<p>在找工作的時候當然上面會寫很多必要條件、工作資歷等，千萬不要因此打退堂鼓，上面寫的只是他們公司會用到的技能，也可能是未來你需要學的技能，絕對不是「現在」你就已經要會的技能，唯有拿到面試機會面對面開始才是真的。雖然找工作是一個數量遊戲，投越多家越有取得面試的機會，但與其把履歷灑到求職網上，不如找出大約10家自己喜歡的公司，針對他們個別去做準備，只要做好準備，機會也不一定會比海投來得更小。</p>
-]]></content>
-      <categories>
-        <category>Master the Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>interview</tag>
-        <tag>resume</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Master the Coding Interview]Trees</title>
+    <title>[MasterThe Coding Interview]Trees</title>
     <url>/blog/2021/12/12/Master_The_Coding-DS-Trees/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <p>樹狀結構是一種有等級制度的資料結構，很多地方都看得到這種結構，像是HTML DOM，abstract syntax tree等。linked list也可以說是一種tree，但他每個node都是單向也只有一個child node。正常的tree中會有一個root，node可以有0~多個child nodes，一切都看要建造的tree的規則，例如red-black tree、binary tree等。</p>
 <h2 id="Binary-Trees"><a href="#Binary-Trees" class="headerlink" title="Binary Trees"></a>Binary Trees</h2><p>二元樹，每個節點都只有left node和right node，Perfect Binary Tree表示節點數量是一直加倍下去的，第一層1個，第二層2個，第三層4個以此類推。Full Binary Tree表示每個node只會有2個或0個child node。Binary search tree是接下來要介紹的資料結構，他的查找、插入和刪除都是O(logN)。</p>
 <p>每個node最多只能有兩個child，所以root最多2^0個，第一層最多2^1個，第二層最多2^2個以此類推。由此可以歸納出以下結論：</p>
@@ -311,96 +525,95 @@
 </tbody></table>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
         <tag>Data structure</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview] 解決問題</title>
-    <url>/blog/2021/12/06/Master_The_Coding-slove_coding/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<p>在面試的時候解決問題的方法是面試的關鍵，他們可能沒有想要你直接說明正確答案，他們更想看的是過程，你怎麼分析code，怎麼把你的思路跟其他人說，這也是為什麼我們必須將這些知識了解透徹，就像BigO一樣，當你今天在解題的時候一併把BigO考慮進去，這會讓自己很加分，公司要的不是天才，而是可以跟他們一起解決問題的人，只要有解決問題的能力，你就是一個對公司有價值的人。</p>
-<p>我們在面試的時候，需要注意以下的四點：</p>
+    <title>[MasterThe Coding Interview]Non Technical Interviews</title>
+    <url>/blog/2021/12/22/Master_The_Coding-NonTechnicalInterviews/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<h2 id="Mindset"><a href="#Mindset" class="headerlink" title="Mindset"></a>Mindset</h2><p>面試不是只有通過跟不通過，要把他想成是一個學習的經驗，透過面試去了解你的弱點和強項，這不是你唯一的一個機會，把面試想像成你要去找你的朋友聊聊天，減少緊張的成分，會讓面試的整個過程更加愉快。</p>
+<p>通常面試會以下的3個問題：</p>
 <ol>
-<li>Ayalytic Skills-是否可以分析和解決問題</li>
-<li>Coding Skills-是否可以寫出好的、易讀的、簡單的code</li>
-<li>Technical Skills-是否了解對於應徵職業的基本知識</li>
-<li>Comminication Skills-你的個人特質是否符合公司文化 </li>
+<li>Can you do the job?</li>
+<li>Can I work with you?</li>
+<li>Are you going to improve?</li>
 </ol>
-<p>我們可以透過以下步驟來解決面試中的白板題：</p>
+<p>第一個問題很簡單就是技術層面，面試會透過一些技術問答來檢視面試者是否勝任，第二、三題就是要在面試的時候透過一些技巧表現出來，可以準備2~4個小故事，並在故事內講到自己包含以下4項特質，並不是直接說我是個很成功的人，我是個很有領導能力的人等，而是用故事的方式帶出自己的性格。</p>
 <ol>
-<li>將所有重要資訊寫在題目最上面，確定知道所有細節並表現出如何組織她們。</li>
-<li>再次確認input和output。</li>
-<li>找出問題最重要的部分，確認一下有time、memory的限制嗎，最終目標是甚麼?</li>
-<li>不要問太多很小很瑣碎的問題，面試是有時間的，只要知道了前三點要的東西後就可以開始coding了。</li>
-<li> 先用最爛最直覺的解，不用把它寫出來，可以直接用說的，這表示你可以很快的想到怎麼解決問題。</li>
-<li>告訴面試官為什麼這個解不是最好的，可以從時間複雜度的部分告訴她。</li>
-<li>想想是不是有更好的方式，檢視一下是否所有資訊都有考慮進去了。</li>
-<li>在開始寫程式之前，先把等等要做的步驟寫下來。</li>
-<li>在一開始就模組化你要寫下來的程式碼，把問題區分成小塊的部分並且在適當的地方解釋一下。</li>
-<li>正式的開始寫code，要記住知道的訊息越多，在開始寫白板題的時候越不容易出錯，千萬不要在開始寫的時候還甚麼都不清楚。記住一件事，很多人在白板題都沒辦法準時的將最好的答案寫出來，所以要怎麼讓自己表現更好，一步一步的破解，就算最後沒有解出來，也至少有留下了你所知道的部分給面試官看。</li>
-<li>想想有甚麼案例放進去會錯誤，要假設所有人都想破壞你的code，該怎麼做才能預防所有bad inputs。小技巧就是評論自己的code，並且告訴面試官你如何修正自己的code，用討論的方式讓他知道你會注意這些細節。</li>
-<li>不要用一些奇怪的名稱來命名你的變數或函式，讓可讀性也加入你的想法裡。這也可以跟你的面試官講，讓他知道你會注意這個部分。</li>
-<li>測試你的code，如果沒有帶入參數或帶入0、null、undefined等等奇怪的值的時候應該要怎麼做，跟11點類似的概念，也是要讓面試官知道你的想法是最重要的。</li>
-<li>告訴面試官還可以怎麼在改進code，還有其他種方式來解決問題嗎，這是可讀性高的code嗎，有其他特定語法可以來改寫code嗎?小技巧：可以問問面試官看過最有想法的解法是什麼。</li>
-<li>如果面試官很喜歡這個解答，他通常會結束白板題，又或者是問延伸的問題，例如如果記憶體沒那麼大該怎麼辦等，這是Google很常面試的問題，最簡單的回答就是分而治之，divide-and-conquer，把input拆開輸入，最後output再合併。</li>
+<li>Techical →透過作品級或履歷呈現出自己的技術含量跟層面到哪裡。</li>
+<li>Success → 表現出自己成功的一面，不管是自己的app有很多users，自己的社團經歷等都可以。</li>
+<li>Leadership →主動，積極的一面</li>
+<li>Challenge →有沒有接受挑戰和克服困難的決心</li>
 </ol>
+<h2 id="Tell-me-about-yourself"><a href="#Tell-me-about-yourself" class="headerlink" title="Tell me about yourself"></a>Tell me about yourself</h2><p>通常是面試的第一個問題，也是一個把話題導到你想要的地方的一個機會，記住整段不要太長也不要太短，太長會讓面試越變越無聊，太短會讓面試官不知道該問你甚麼問題，還是上面的策略，盡量在這段發揮的時間把四個特質帶入，並且提及一點自己想要跟面試官聊的方向，例如自己過往成功的經歷、公司、學習歷程等，聊到技術的時候也要記得要跟應徵的職位相關。最後要記得盡量把自己特殊的經歷都拿出來說，要讓自己跟其他面試者不一樣。</p>
+<h2 id="Why-Us？"><a href="#Why-Us？" class="headerlink" title="Why Us？"></a>Why Us？</h2><p>讓面試官感受到你真的真的很想要這間公司的offer，表現出非常欽佩這間公司，具體一點可以透過觀察他們的技術、部落格，了解他們現在正在解決的問題，加深自己如果進入公司可以跟幫公司創造價值的表現，並且表現出你想要跟公司一起成長的決心，公司想要的是未來可以一起走下去的夥伴，而不是只做一年就要提開的人。總結還是持續表現出上面的四個特質，讓公司看出你是最優秀的。</p>
+<p>除此之外，還有一個問題是Why did you leave your job?，這個問題只要誠實回答就好，千萬千萬不要說前一間公司的壞話，沒有人會想要一個抱怨同事，抱怨東抱怨西的人，最簡單的回答就是想要持續增進自己即可。 </p>
+<h2 id="Tell-me-about-problem-how-you-sloved-it"><a href="#Tell-me-about-problem-how-you-sloved-it" class="headerlink" title="Tell me about problem + how you sloved it"></a>Tell me about problem + how you sloved it</h2><p>這時候就要搬出我們在作品集上的project或是前公司的project，利用SAR方法來回答，Situation、action、result，第一步先介紹project和遇到的問題為何，第二步就是說明如何解決問題，用了甚麼方法搞定或測試，最後一步就是說明解決後的成效，並且盡量量化成效，利用數字或percent來說明會讓人印象深刻。還有就是把問題圍繞在規模、表現或是安全性上這種真實的問題，而不是todo list花很久時間debug的這種問題。</p>
+<p>有時候還會有問題是Tell me about an interesting project，跟上述問題類似，簡單來說就是展現出最好玩的專案並且圍繞在你的職缺上，不要面試工程師然後說一些廣告行銷的案例等就好。</p>
+<h2 id="What-is-your-biggest-weakness？"><a href="#What-is-your-biggest-weakness？" class="headerlink" title="What is your biggest weakness？"></a>What is your biggest weakness？</h2><p>千萬不要甚麼自己太努力太認真這種玩笑的答案，講出自己真的的弱項，並且說明自己如何補強他，讓面試官認為他可以跟這個人一起工作是最大的重點。</p>
+<h2 id="Any-questions-for-me？"><a href="#Any-questions-for-me？" class="headerlink" title="Any questions for me？"></a>Any questions for me？</h2><p>當整個面試都是呈現他問妳答的情況下，會讓整場面試不突出，就像第一點講的，把面試當成是來找朋友聊天，聊天一定是互相問答，所以當面試官問你這個問題的時候，請記得是聚焦在他們身上而不是公司，可以的話提出一些前面他講過的東西，表示你很認真的在聽他們講話，加深他們對你的好印象。以下是幾個蠻好玩的問題，讓面試官了解你不是一個機器人，而是一個真正想要了解公司的一個人。</p>
+<ol>
+<li>你當初來公司的前一個月有犯錯嗎，你怎麼解決</li>
+<li>你覺得公司未來三五年的走向會是甚麼</li>
+<li>你當初為什麼會進來這間公司</li>
+<li>你覺得這幾年你的技術有增進嗎</li>
+<li>上一次搞砸的時候公司是怎麼處理的</li>
+<li>你們會希望剛進公司的新人怎麼融入公司的工作</li>
+</ol>
+<h2 id="Secret-Weapon"><a href="#Secret-Weapon" class="headerlink" title="Secret Weapon"></a>Secret Weapon</h2><ol>
+<li>Simplicity over  complexity 越簡單越好，不管是code還是面試時回答的問題，要簡潔有力。</li>
+<li>Premature optimization is the root of all evil 過早的優化不是好主意</li>
+<li>Overall goal, not myopic 目標才是重點，如果今天有個急件只剩一個星期，但你還為了保持好的code而慢慢做，會導致東西遲交，要避免。</li>
+<li>No complaining about client/code/etc 對於所有的東西不要抱怨，如果可以試圖解決那會是很加分的行為。</li>
+<li>No ego 要以公司為優先，不要有太多的自我中心思想。</li>
+</ol>
+<h2 id="After-the-interview"><a href="#After-the-interview" class="headerlink" title="After the interview"></a>After the interview</h2><p>一個強而有力的結尾，不要用太多的我，並且跟面試官多聊聊天，盡量的表現出自己是最優秀的人選和想要這份工作的決心，最後記住，千萬不要說謊，並且可以再回家後發一封感謝信給公司，讓公司對你的印象多留幾天。</p>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
-        <tag>coding</tag>
+        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]陣列</title>
-    <url>/blog/2021/12/07/Master_the_Coding-DS-Array/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> strings = [<span class="string">&#x27;a&#x27;</span> , <span class="string">&#x27;b&#x27;</span> , <span class="string">&#x27;c&#x27;</span> , <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">string[<span class="number">2</span>] <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//push</span></span><br><span class="line">strings.push(<span class="string">&#x27;e&#x27;</span>); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">strings.pop(); <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unshift</span></span><br><span class="line">strings.unshift(<span class="string">&#x27;x&#x27;</span>); <span class="comment">//O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//splice</span></span><br><span class="line">strings.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;alien&#x27;</span>) <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
-
-<p>在javaScript的世界裡，array並不是一個固定的資料結構，他本身算是dynamic array，會自動的伸縮長度，所以我們不用擔心記憶體分配不足的問題，但在較低階的語言，例如C、C++，這種在宣告階段就要將陣列記憶體配置好，當我們要使用的範圍超出記憶體配置的時候，會進行擴增，通常會是增加2倍，例如原本有8個位置就新增到16個等等。所以當這種語言在進行陣列的append的時候，會先把原陣列複製到另外一塊記憶體並且擴充，時間複雜度會是O(n)，但javaScript裡面就只有單純的append，時間複雜度是O(n)。</p>
-<h2 id="Implementing-an-array"><a href="#Implementing-an-array" class="headerlink" title="Implementing an array"></a>Implementing an array</h2><p>JavaScript的Array其實是一種Object，所以我們要利用class的方式來自創一個array</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">this</span>.data = &#123;&#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">get</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.data[index]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">push</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.data[<span class="built_in">this</span>.length] = item;</span><br><span class="line">		<span class="built_in">this</span>.length++;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.length</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">pop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> lastItem = <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>]</span><br><span class="line">		<span class="keyword">delete</span> <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>];</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">		<span class="keyword">return</span> lastItem;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">delete</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> item = <span class="built_in">this</span>.data[index];</span><br><span class="line">		<span class="built_in">this</span>.shiftItems(index)</span><br><span class="line">		<span class="keyword">return</span> item</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">shiftItem</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = index ; i &lt; <span class="built_in">this</span>.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">			<span class="built_in">this</span>.data[i] = <span class="built_in">this</span>.data[i + <span class="number">1</span>]</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">delete</span> <span class="built_in">this</span>.data[<span class="built_in">this</span>.length - <span class="number">1</span>]</span><br><span class="line">		<span class="built_in">this</span>.length--;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newArray = <span class="keyword">new</span> MyArray()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Exercise：Reverse-a-string"><a href="#Exercise：Reverse-a-string" class="headerlink" title="Exercise：Reverse a string"></a>Exercise：Reverse a string</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse1</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> str.split(<span class="string">&quot;&quot;</span>).map(<span class="function">(<span class="params">_ , i</span>) =&gt;</span> str[str.length - i - <span class="number">1</span>]).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse2</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//check input</span></span><br><span class="line">	<span class="keyword">if</span>(!str || str.length &lt; <span class="number">2</span> || <span class="keyword">typeof</span> str !== <span class="string">&#x27;string&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> backwards = [];</span><br><span class="line">	<span class="keyword">const</span> totalItems = str.length - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = totalItems ; i &gt;= <span class="number">0</span> ; i--)&#123;</span><br><span class="line">		backwards.push(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> backwards.join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video better answer</span></span><br><span class="line"><span class="keyword">const</span> reverse3 = <span class="function"><span class="params">str</span> =&gt;</span> [...str].reverse().join(<span class="string">&#x27;&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Exercise：Merge-Sorted-Array"><a href="#Exercise：Merge-Sorted-Array" class="headerlink" title="Exercise：Merge Sorted Array"></a>Exercise：Merge Sorted Array</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSortedArrays1</span>(<span class="params">arr1,arr2</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> ans = [];</span><br><span class="line">	<span class="keyword">let</span> arr1Index = <span class="number">0</span> , arr2Index = <span class="number">0</span></span><br><span class="line">	<span class="keyword">while</span>(arr1Index &lt; arr1.length || arr2Index &lt; arr2.length)&#123;</span><br><span class="line">		<span class="keyword">if</span>(arr1Index &gt;= arr1.length) ans.push(arr2[arr2Index++])</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(arr2Index &gt;= arr2.length) ans.push(arr1[arr1Index++])</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(arr1[arr1Index] &gt; arr2[arr2Index]) ans.push(arr2[arr2Index++])</span><br><span class="line">				<span class="keyword">else</span> ans.push(arr1[arr1Index++])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//video answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSortedArrays2</span>(<span class="params">arr1,arr2</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> mergedArray = [];</span><br><span class="line">	<span class="keyword">let</span> array1Item = array1[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> array2Item = array2[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> i = <span class="number">1</span> , j = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Check unput</span></span><br><span class="line">	<span class="keyword">if</span>(arr1.length == <span class="number">0</span>) <span class="keyword">return</span> array2;</span><br><span class="line">	<span class="keyword">if</span>(arr2.length == <span class="number">0</span>) <span class="keyword">return</span> array1;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(array1Item || array2Item)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!array2Item || array1Item &lt; array2Item)&#123;</span><br><span class="line">			mergedArray.push(array1Item);</span><br><span class="line">			array1Item = array1[i]</span><br><span class="line">			i++</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			mergedArray.push(array2Item);</span><br><span class="line">			array2Item = array2[j]</span><br><span class="line">			j++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> mergedArray;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
-<thead>
-<tr>
-<th>優點</th>
-<th>缺點</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Fast lookups</td>
-<td>slow inderts</td>
-</tr>
-<tr>
-<td>Fast push/pop</td>
-<td>slow delete</td>
-</tr>
-<tr>
-<td>ordered</td>
-<td>Fixed size(static array)</td>
-</tr>
-</tbody></table>
+    <title>[Complete React Developer in 2022]React介紹</title>
+    <url>/blog/2021/11/30/React-Tutorial-01/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
+<p>傳統的網頁呈現方式，是將所有的HTML、CSS、JS的檔案上傳到server，等到使用者要讀取網頁的時候再從server呼叫出來顯示在瀏覽器上，每一次有一個新的頁面時就會再重複一次從server讀取檔案的這個步驟，這是一套行之有年的網頁模式。但漸漸的問題來了，越來越多種瀏覽器問世，每種瀏覽器又有不同的編譯方式，導致開發者需要開發許多種網頁來因應每種瀏覽器，讓網頁開發增加了許多難度。</p>
+<p>接著，jQuery問世了，他整合了所有瀏覽器的問題，做出了非常簡單的API工具，透過jQuery可以快速的讓使用者與網頁互動，並且大大縮短開發速度。但人的慾望沒有極限，工程師開始會想要開發更大的專案，功能開始變的複雜，像是Facebook，有帳戶、可以線上即時聊天、寄信等，不再只是像blog一樣發發文章做做新的頁面了。</p>
+<p>當jQuery沒辦法再應付大型專案的時候，backbone.js出來了，SPA(single page application)的概念也跟著出來，網頁不再只是每次要新的就去server load，而是變成放大js的功能，縮小html的地位，利用js來改變當前html的內容，達到SPA的一個概念，這也是為什麼網頁不再只是一個頁面而是稱為應用程式了。</p>
+<p>2010年，由Google創造的Angular.js出現，不同於jQuery，有了MVC的概念，把每一塊程式碼都變成一個包裹的概念，讓其不會互相干擾，讓工程師之間更容易合作。但很快就有一個問題出現了，網頁上的每個部份都會互相影響，迎來的是資料越來越散落在各個包裹裡，讓Debug越來越難。</p>
+<p>2013年，Facebook是出了第一版的React，解決了資料流的問題，讓資料不會散落在各地，也是因為如此，2014年的時候Angular.js意識到自己沒辦法再創造出好的SPA後，他們直接重寫了library，並改名為Angular，的確就是把js拿掉，但也因為這個重寫，很多開發者直接轉向投入React，也讓現今一堆大公司都使用了React來作為主要框架。</p>
+<p>以下是react的幾個原則：</p>
+<ol>
+<li>Don’t touch the DOM. I’ll do it.<br>只要給React資料，就可以利用他幫忙套入資料，不需要更改DOM來達到更換頁面呈現的資料。</li>
+<li>Build websites like lego blocks<br>React的一大特性就是components，模組化跟樂高一樣，一個網頁就像是很多樂高很多組件拼湊而成的，開發的components還可以到處重複利用，十分彈性。</li>
+<li>Unidirectional data flow<br>react的資料流向，有一個限制就是只能往下不能往上，資料只能單向溝通，這讓開發者可以更清楚知道資料在app裡面的流向，更容易去處理bug。</li>
+<li>UI, The rest is up to you<br>React專注於ocmponenet的產生，只要有這個React的藍圖，我們就可以在任何地方建置他，手機、電腦、terminal等等都可以，這就是React跨平台的應用，當然，如果是一般的網頁，我們就要用到React何React-DOM</li>
+</ol>
+<p>如果要成為一個成熟的React工程師，要記得以下三點開發的原則</p>
+<ol>
+<li>Decide on Components</li>
+<li>Decide the State and where it lives</li>
+<li>What changes when state changes</li>
+</ol>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>Complete React Developer in 2022</category>
       </categories>
       <tags>
-        <tag>Data structure</tag>
+        <tag>React</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]資料結構介紹</title>
-    <url>/blog/2021/12/07/Master_the_Coding-DSIntro/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+    <title>[MasterThe Coding Interview]資料結構介紹</title>
+    <url>/blog/2021/12/07/Master_The_Coding-DSIntro/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <p>Data Structure就是電腦儲存資料的結構與方式，有非常非常多種資料結構，區塊鏈也是一種資料結構，但我們只需要知道幾種重要的就好，這邊需要了解的重點就是How to Build One和How to Use it。</p>
 <h2 id="How-Computers-Store-Data"><a href="#How-Computers-Store-Data" class="headerlink" title="How Computers Store Data?"></a>How Computers Store Data?</h2><p>電腦儲存資料的方式有兩種，RAM和storage，如果需要快速的暫存資料，資料就會存在RAM裡面，當我們把電腦關掉的時候資料也一併會被清除，反之，當我們是需要電腦關機後資料還存在的話就需要把它存入storage，但讀取的速度就會較慢。當我們要向RAM取得資料時，CPU會告訴RAM controller他要的address，RAM controller就可以快速的幫CPU找到資料，不需要從第一個位置開始尋找。CPU本身也有一個非常小的Cache會把最近取得的資料記錄起來減少資料傳輸。</p>
 <p>RAM的資料結構會像下面表格一樣：</p>
@@ -432,49 +645,115 @@
 <p>有興趣可以看這篇：<a href="https://medium.com/@sarafecadu/64-bit-floating-point-a-javascript-story-fa6aad266665">64-bit floating point: a JavaScript story</a></p>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
         <tag>Data structure</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Master the Coding Interview]雜湊表</title>
-    <url>/blog/2021/12/07/Master_the_Coding-DS-HashTable/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
-<p>hash table是一個包含key和value的一張表，每個語言都有不同的資料型態來呈現hash table，javaScript一樣還是Object。當我們要存入一筆資料時，值會經過hash function轉換出一個address給memory儲存，所以當我們要讀取、刪除、插入資料時都是O(1)。</p>
-<p>hash function是一種加密的函式，最常見的是MD5，還有其他像SHA-1或SHA-256等等，透過function可以把value轉換成一串string，這串string是idempotent的形式，表示每一次相同的字串都會產生相同的結果，不會因為時間還是其他因素而改變。</p>
-<h2 id="Collision"><a href="#Collision" class="headerlink" title="Collision"></a>Collision</h2><p>儘管hash table非常快速，他還是有可能會發生衝突，例如當兩個值被計算出來都要放在同一個位置時，有一種方式是直接將每個adress都變成linked-list，雖然可以儲存資料，但時間複雜度就會變成O(n)，另外一種解決方式是Open addressing，如果放入的位置上已經有value，就會再利用hash function(最簡單就是linear的方式解，如果150不行就151以此類推)找出第二個位置，一直找到可以存放的位置即可，這種方法可以有效的運用hash table。</p>
-<h2 id="Implementing-an-Hash-Table"><a href="#Implementing-an-Hash-Table" class="headerlink" title="Implementing an Hash Table"></a>Implementing an Hash Table</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.data = <span class="keyword">new</span> <span class="built_in">Array</span>(size)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//小小淺規則，如果function前面有underline表示這是一個private function</span></span><br><span class="line">	<span class="function"><span class="title">_hash</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> hash = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;key.length;i++)&#123;</span><br><span class="line">			hash = (hash + key.charCodeAt(i) * i) % <span class="built_in">this</span>.data.length</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> hash</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="title">set</span>(<span class="params">k , v</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> address = <span class="built_in">this</span>._hash(k)</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">this</span>.data[address])&#123;</span><br><span class="line">			<span class="built_in">this</span>.data[address] = []</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">this</span>.data[address].push([k,v])</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.data</span><br><span class="line">	&#125; <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">get</span>(<span class="params">k</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> address = <span class="built_in">this</span>._hash(k)</span><br><span class="line">		<span class="keyword">const</span> currentBucket = <span class="built_in">this</span>.data[address]</span><br><span class="line">		<span class="keyword">if</span>(currentBucket)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; currentBucket.length ; i++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(currentBucket[i][<span class="number">0</span>] == <span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">					<span class="keyword">return</span> currentBucket[i][<span class="number">1</span>]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">	&#125; <span class="comment">//O(1), somethings use the bad hash function, it&#x27;s O(n)</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">keys</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">const</span> keysArray = [];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; <span class="built_in">this</span>.data.length; i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.data[i])&#123;</span><br><span class="line">				<span class="built_in">this</span>.data[i].forEach(<span class="function"><span class="params">arr</span> =&gt;</span> keysArray.push(arr[<span class="number">0</span>]))</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">		<span class="keyword">return</span> keysArray;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myHashTable = <span class="keyword">new</span> HashTable(<span class="number">50</span>)</span><br><span class="line">myHashTable.set(<span class="string">&#x27;grapes&#x27;</span> , <span class="number">10000</span>);</span><br><span class="line">myHashTable.set(<span class="string">&#x27;apple&#x27;</span> , <span class="number">1000</span>);</span><br><span class="line">myHashTable.set(<span class="string">&#x27;banana&#x27;</span> , <span class="number">100</span>);</span><br><span class="line">myHashTable.get(<span class="string">&#x27;grapes&#x27;</span>);</span><br><span class="line">myHashTable.keys();</span><br></pre></td></tr></table></figure>
-
-<h2 id="Exercise：First-Recurring-Charactor"><a href="#Exercise：First-Recurring-Charactor" class="headerlink" title="Exercise：First Recurring Charactor"></a>Exercise：First Recurring Charactor</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Google Question</span></span><br><span class="line"><span class="comment">//Given an array = [2,5,1,2,3,5,1,2,4] return 2</span></span><br><span class="line"><span class="comment">//Given an array = [2,1,1,2,3,5,1,2,4] return 1</span></span><br><span class="line"><span class="comment">//Given an array = [2,1,3,4] return undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// my answer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">firstRecurringCharactor</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> hashTable = &#123;&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; arr.length ; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(hashTable[arr[i]]) <span class="keyword">return</span> arr[i]</span><br><span class="line">		hashTable[arr[i]] = <span class="literal">true</span> </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="When-can-use-arry"><a href="#When-can-use-arry" class="headerlink" title="When can use arry?"></a>When can use arry?</h2><table>
-<thead>
-<tr>
-<th>優點</th>
-<th>缺點</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Fast lookups</td>
-<td>Unordered</td>
-</tr>
-<tr>
-<td>Fast inserts</td>
-<td>Slow key iteration</td>
-</tr>
-<tr>
-<td>Flexible Keys</td>
-<td></td>
-</tr>
-</tbody></table>
+    <title>[MasterThe Coding Interview] 取得面試機會</title>
+    <url>/blog/2021/11/30/Master_The_Coding-interview/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<h3 id="1-Resume"><a href="#1-Resume" class="headerlink" title="1. Resume"></a>1. Resume</h3><p>履歷是公司看你的第一印象，他們通常不會很仔細的去看，畢竟有太多太多的應徵者，所以我們不應該花太多時間在著磨履歷上的小地方、字型、顏色等。履歷最好花一天就要搞定，避免浪費時間。</p>
+<p>不過以上是專屬於工程師，如果你是一個設計師或其他職業就要依照職業的特性來製作出符合的履歷，以下是履歷需要著重的四個部分：</p>
+<ol>
+<li>One page<br>一頁就好，公司不會一次想要看那麼多</li>
+<li>Relavant Skills<br>相關的技能一定要寫上去，讓公司一目就可以了然你會什麼</li>
+<li>Personalized<br>要依照每個公司稍微對履歷做一些變動，可能改改簡介內容或大標題等</li>
+<li>Online Link<br>要讓履歷可以連上你的github</li>
+</ol>
+<p>可以透過以下的條件檢視一下自己的履歷：</p>
+<ul>
+<li>使用一個已經設計好的模板</li>
+<li>控制履歷的內容在一頁之內</li>
+<li>要包含你對工作的描述</li>
+<li>要加入你要應徵的公司名稱</li>
+<li>要讓履歷中每個大項目中的第一個小項目是最吸引人的部分  <blockquote>
+<p>例如我們寫到專業技能，如果你是要應徵工程師，第一項專業技能一定要是那方面的東西，並且依照應徵工作的性質來排序</p>
+</blockquote>
+</li>
+<li>在該強調的地方做強調<blockquote>
+<p>例如我們寫到工作經驗，要強調的是工作的職位和工作的內容，而不是公司的名稱</p>
+</blockquote>
+</li>
+<li>記得附上連結，不管是Github或是blog的都可以</li>
+<li>不要用「我」<blockquote>
+<p>用第一人稱寫履歷會有很多冗詞贅字，應該改為用第三人稱</p>
+</blockquote>
+</li>
+<li>不要加入一些流行用詞</li>
+<li>利用動詞來描述事情會更讓人加深印象</li>
+<li>確定每件事都講得很具體，不要有很模糊的描述</li>
+<li>在描述你的技能程度時，可以用具體的事跡說明</li>
+<li>每個項目中的內容都只要放符合應徵職位的就好</li>
+<li>沒有任何的錯字和吻法錯誤</li>
+</ul>
+<p>檢視完自己的履歷後，還是要再次強調履歷只能讓你有機會面試，不能讓你得到工作，更重要的還是面試的技巧跟作品集，所以不要花太多時間在設計履歷，更重要的是，要對自己的履歷百分之百的誠實，避免面試的時候對於自己的問題答不出來。</p>
+<p>接下來要講講如果是新鮮人，沒辦法有過多的工作經驗、作品等東西做出好看的履歷的話，可以利用以下四種方式來增加自己的履歷深度：</p>
+<ol>
+<li>GitHub<br> 如果這個帳號很活躍，代表說他可以和其他人一同工作也會做版本控制，自己沒有專案沒關係，可以拿別人的過來建置，都是公司很樂見的部分。</li>
+<li>Website<br> 做一個自己的個人網頁，不一定要自己寫一個，可以套用網路上的模板來展示自己，這邊跟履歷一樣，不用過多華麗的特效，簡單能夠展示自己的作品即可。</li>
+<li>1~2個大型專案<br> 少數的大型專案比起多個小專案來的更有價值，面試的時候你不能展示所有的小專案，只花1~2天做完的東西基本上都太簡單了，不會讓人印象深刻，與其花時間在小專案，不如做出一個需要一段時程才能完成的大型專案。而且通常面試官都會問你做過最難的專案為何，做過大型專案才能讓自己講出的東西較為深刻。<br/>如果沒有相關的工作經驗，在履歷上放入作品也是另外一種選擇，但要注意的是必須強調出作品的相關技能讓面試官能夠一目了然在此作品中你所學習到的東西。</li>
+<li>部落格<br> 經營部落格，把自己學到的技術寫成文章也是加強自身價值的方法，在面試的時候展現能夠讓面試官印象深刻。</li>
+</ol>
+<p>透過以上四種加強履歷的方法，儘管沒有工作經驗也可以讓履歷不會空空如也，但要注意的是，如果你只有學程式可能半年，千萬不要寫上去，面試官在篩選人的時候如果看到絕對先丟掉，畢竟這種人的風險很高，展現好的一面，這是面試的不二法則。</p>
+<h3 id="2-Linkedln"><a href="#2-Linkedln" class="headerlink" title="2. Linkedln"></a>2. Linkedln</h3><p>這是一個全世界的求職平台，此平台也是許多公司找人才的地方，很多人會覺得Linkedln上面的資料比履歷更重要，只要profile有內容就容易有公司找你，下面有幾個小心機重點可以讓公司找人才的時候更容易找到你。</p>
+<ol>
+<li>update your profile<br>不一定要真的更新，只要時常的去編輯再更新，就會讓自己的履歷一直處在新的狀態，也會讓公司知道自己最近在找工作。</li>
+<li>keywords<br>在履歷上多寫一些關鍵字，例如你曾經用過Firebase，就把他寫上去，如果有公司是想找會用Firebase的人的話你就會出現在他的搜尋結果裡。</li>
+<li>Recommendations<br>雖然這個在面試時沒有人會看，但多一點的評論也會讓自己的rank提高，容易出現在搜尋結果的上面。</li>
+<li>create connect<br>利用公司來找到linkedln上面正在你想要的公司上班的人，並與他們製造關係或私訊他們。</li>
+</ol>
+<h3 id="3-Portfolio"><a href="#3-Portfolio" class="headerlink" title="3. Portfolio"></a>3. Portfolio</h3><p>和履歷一樣，只要有一個地方可以放上作品以便面試的時候可以展示就好，不需要利用太多時間來設計版面和網頁，但就是一定要有這項東西可以展示。</p>
+<h3 id="4-Email"><a href="#4-Email" class="headerlink" title="4. Email"></a>4. Email</h3><p>公司其實最常會應徵透過朋友介紹的人，如果我們沒有親朋好友在你要面試的公司裡，那Email相對就很重要了，求職雖然可以透過求職網，但如果透過寄信的方式，也可以提高人資看到應徵者訊息的機會，也能增加獲得面試的機會。除了直接寄信詢問職缺外，更好的是與他人建立連結，利用linkedln或是其他東西來取得CEO或HR的Eemail，可以嘗試跟他們約出來聊天，約成功的同時你也算成功拿到面試了。</p>
+<p>總結一下，以上四點是找工作必須要有的四樣東西，那甚麼時候該找工作呢，now，開始找工作你才能知道自己哪裡不足，哪裡需要加強，但這個答案只適用於已經有基本知識的人，如果是個新手工程師，那還是快點準備履歷，快點開始動手寫程式，做大型的project，讓自己更熟練這項技能。</p>
+<p>在找工作的時候當然上面會寫很多必要條件、工作資歷等，千萬不要因此打退堂鼓，上面寫的只是他們公司會用到的技能，也可能是未來你需要學的技能，絕對不是「現在」你就已經要會的技能，唯有拿到面試機會面對面開始才是真的。雖然找工作是一個數量遊戲，投越多家越有取得面試的機會，但與其把履歷灑到求職網上，不如找出大約10家自己喜歡的公司，針對他們個別去做準備，只要做好準備，機會也不一定會比海投來得更小。</p>
 ]]></content>
       <categories>
-        <category>Master the Coding Interview</category>
+        <category>MasterThe Coding Interview</category>
       </categories>
       <tags>
-        <tag>Data structure</tag>
+        <tag>Interview</tag>
+        <tag>Resume</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview] 解決問題</title>
+    <url>/blog/2021/12/06/Master_The_Coding-slove_coding/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>在面試的時候解決問題的方法是面試的關鍵，他們可能沒有想要你直接說明正確答案，他們更想看的是過程，你怎麼分析code，怎麼把你的思路跟其他人說，這也是為什麼我們必須將這些知識了解透徹，就像BigO一樣，當你今天在解題的時候一併把BigO考慮進去，這會讓自己很加分，公司要的不是天才，而是可以跟他們一起解決問題的人，只要有解決問題的能力，你就是一個對公司有價值的人。</p>
+<p>我們在面試的時候，需要注意以下的四點：</p>
+<ol>
+<li>Ayalytic Skills-是否可以分析和解決問題</li>
+<li>Coding Skills-是否可以寫出好的、易讀的、簡單的code</li>
+<li>Technical Skills-是否了解對於應徵職業的基本知識</li>
+<li>Comminication Skills-你的個人特質是否符合公司文化 </li>
+</ol>
+<p>我們可以透過以下步驟來解決面試中的白板題：</p>
+<ol>
+<li>將所有重要資訊寫在題目最上面，確定知道所有細節並表現出如何組織她們。</li>
+<li>再次確認input和output。</li>
+<li>找出問題最重要的部分，確認一下有time、memory的限制嗎，最終目標是甚麼?</li>
+<li>不要問太多很小很瑣碎的問題，面試是有時間的，只要知道了前三點要的東西後就可以開始coding了。</li>
+<li> 先用最爛最直覺的解，不用把它寫出來，可以直接用說的，這表示你可以很快的想到怎麼解決問題。</li>
+<li>告訴面試官為什麼這個解不是最好的，可以從時間複雜度的部分告訴她。</li>
+<li>想想是不是有更好的方式，檢視一下是否所有資訊都有考慮進去了。</li>
+<li>在開始寫程式之前，先把等等要做的步驟寫下來。</li>
+<li>在一開始就模組化你要寫下來的程式碼，把問題區分成小塊的部分並且在適當的地方解釋一下。</li>
+<li>正式的開始寫code，要記住知道的訊息越多，在開始寫白板題的時候越不容易出錯，千萬不要在開始寫的時候還甚麼都不清楚。記住一件事，很多人在白板題都沒辦法準時的將最好的答案寫出來，所以要怎麼讓自己表現更好，一步一步的破解，就算最後沒有解出來，也至少有留下了你所知道的部分給面試官看。</li>
+<li>想想有甚麼案例放進去會錯誤，要假設所有人都想破壞你的code，該怎麼做才能預防所有bad inputs。小技巧就是評論自己的code，並且告訴面試官你如何修正自己的code，用討論的方式讓他知道你會注意這些細節。</li>
+<li>不要用一些奇怪的名稱來命名你的變數或函式，讓可讀性也加入你的想法裡。這也可以跟你的面試官講，讓他知道你會注意這個部分。</li>
+<li>測試你的code，如果沒有帶入參數或帶入0、null、undefined等等奇怪的值的時候應該要怎麼做，跟11點類似的概念，也是要讓面試官知道你的想法是最重要的。</li>
+<li>告訴面試官還可以怎麼在改進code，還有其他種方式來解決問題嗎，這是可讀性高的code嗎，有其他特定語法可以來改寫code嗎?小技巧：可以問問面試官看過最有想法的解法是什麼。</li>
+<li>如果面試官很喜歡這個解答，他通常會結束白板題，又或者是問延伸的問題，例如如果記憶體沒那麼大該怎麼辦等，這是Google很常面試的問題，最簡單的回答就是分而治之，divide-and-conquer，把input拆開輸入，最後output再合併。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Coding</tag>
       </tags>
   </entry>
   <entry>
@@ -612,43 +891,13 @@
       </tags>
   </entry>
   <entry>
-    <title>[Complete React Developer in 2022]React介紹</title>
-    <url>/blog/2021/11/30/React-Tutorial-01/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
-<p>傳統的網頁呈現方式，是將所有的HTML、CSS、JS的檔案上傳到server，等到使用者要讀取網頁的時候再從server呼叫出來顯示在瀏覽器上，每一次有一個新的頁面時就會再重複一次從server讀取檔案的這個步驟，這是一套行之有年的網頁模式。但漸漸的問題來了，越來越多種瀏覽器問世，每種瀏覽器又有不同的編譯方式，導致開發者需要開發許多種網頁來因應每種瀏覽器，讓網頁開發增加了許多難度。</p>
-<p>接著，jQuery問世了，他整合了所有瀏覽器的問題，做出了非常簡單的API工具，透過jQuery可以快速的讓使用者與網頁互動，並且大大縮短開發速度。但人的慾望沒有極限，工程師開始會想要開發更大的專案，功能開始變的複雜，像是Facebook，有帳戶、可以線上即時聊天、寄信等，不再只是像blog一樣發發文章做做新的頁面了。</p>
-<p>當jQuery沒辦法再應付大型專案的時候，backbone.js出來了，SPA(single page application)的概念也跟著出來，網頁不再只是每次要新的就去server load，而是變成放大js的功能，縮小html的地位，利用js來改變當前html的內容，達到SPA的一個概念，這也是為什麼網頁不再只是一個頁面而是稱為應用程式了。</p>
-<p>2010年，由Google創造的Angular.js出現，不同於jQuery，有了MVC的概念，把每一塊程式碼都變成一個包裹的概念，讓其不會互相干擾，讓工程師之間更容易合作。但很快就有一個問題出現了，網頁上的每個部份都會互相影響，迎來的是資料越來越散落在各個包裹裡，讓Debug越來越難。</p>
-<p>2013年，Facebook是出了第一版的React，解決了資料流的問題，讓資料不會散落在各地，也是因為如此，2014年的時候Angular.js意識到自己沒辦法再創造出好的SPA後，他們直接重寫了library，並改名為Angular，的確就是把js拿掉，但也因為這個重寫，很多開發者直接轉向投入React，也讓現今一堆大公司都使用了React來作為主要框架。</p>
-<p>以下是react的幾個原則：</p>
-<ol>
-<li>Don’t touch the DOM. I’ll do it.<br>只要給React資料，就可以利用他幫忙套入資料，不需要更改DOM來達到更換頁面呈現的資料。</li>
-<li>Build websites like lego blocks<br>React的一大特性就是components，模組化跟樂高一樣，一個網頁就像是很多樂高很多組件拼湊而成的，開發的components還可以到處重複利用，十分彈性。</li>
-<li>Unidirectional data flow<br>react的資料流向，有一個限制就是只能往下不能往上，資料只能單向溝通，這讓開發者可以更清楚知道資料在app裡面的流向，更容易去處理bug。</li>
-<li>UI, The rest is up to you<br>React專注於ocmponenet的產生，只要有這個React的藍圖，我們就可以在任何地方建置他，手機、電腦、terminal等等都可以，這就是React跨平台的應用，當然，如果是一般的網頁，我們就要用到React何React-DOM</li>
-</ol>
-<p>如果要成為一個成熟的React工程師，要記得以下三點開發的原則</p>
-<ol>
-<li>Decide on Components</li>
-<li>Decide the State and where it lives</li>
-<li>What changes when state changes</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Complete React Developer in 2022</category>
-      </categories>
-      <tags>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[Complete React Developer in 2022]設定專案</title>
     <url>/blog/2021/12/12/React-Tutorial-03/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
 <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。</p>
 <p>當我們要把別人的專案clone一份到本地端的時候，我們會用以下指令，第三個參數是專案的位置，第四個是package name</p>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
+<p>git clone <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
 </blockquote>
 <p>當我們把檔案pull時，會在本地端有一份相同的檔案，但因為這是別人的git，我們不能直接Push上去更改檔案，所以我們必須改變remote。</p>
 <p>當我們輸入git remote的時候會出現本地端的分支(origin)，這個分支是動連到別人的git。改變的方式就是先刪掉再新建。</p>
@@ -656,7 +905,7 @@
 <p>git remote remove origin</p>
 </blockquote>
 <blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
 </blockquote>
 <p>接著就可以push檔案到分支上了，第三個參數是remote的名稱，第四個參數是分支名稱</p>
 <blockquote>
@@ -669,7 +918,7 @@
 </blockquote>
 <p>這裡可能會遇到一個版本問題，可以在下指令的時候加入版本號來解決問題，如下面的範例：</p>
 <blockquote>
-<p>yarn add <a href="mailto:&#x6e;&#x6f;&#100;&#x65;&#x2d;&#115;&#97;&#115;&#115;&#x40;&#x36;&#46;&#48;&#x2e;&#48;">&#x6e;&#x6f;&#100;&#x65;&#x2d;&#115;&#97;&#115;&#115;&#x40;&#x36;&#46;&#48;&#x2e;&#48;</a></p>
+<p>yarn add <a href="mailto:&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;">&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;</a></p>
 </blockquote>
 <h2 id="yarn-lock"><a href="#yarn-lock" class="headerlink" title="yarn.lock"></a>yarn.lock</h2><p>我們在與他人共同協作的時候，因為大家各自在各自的電腦，開發環境中的每個package版本會有所不同，這個文件幫project鎖定住所有package的版本，讓大家的開發環境統一。</p>
 <h2 id="Update-Version"><a href="#Update-Version" class="headerlink" title="Update Version"></a>Update Version</h2><p>當我們要把project的所有package都更新到最新版的時候，可以依照以下的步驟來執行：</p>

@@ -22,13 +22,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 <meta name="description" content="由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Master the Coding Interview]Graphs">
+<meta property="og:title" content="[MasterThe Coding Interview]Graphs">
 <meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Graphs/index.html">
 <meta property="og:site_name" content="TonyTang&#39;s blog">
 <meta property="og:description" content="由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。...">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-12-12T09:33:14.000Z">
-<meta property="article:modified_time" content="2021-12-12T09:34:09.540Z">
+<meta property="article:modified_time" content="2021-12-22T12:33:37.250Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Data structure">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Graphs/","path":"2021/12/12/Master_The_Coding-DS-Graphs/","title":"[Master the Coding Interview]Graphs"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://tony11tony11t.github.io/blog/2021/12/12/Master_The_Coding-DS-Graphs/","path":"2021/12/12/Master_The_Coding-DS-Graphs/","title":"[MasterThe Coding Interview]Graphs"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[Master the Coding Interview]Graphs | TonyTang's blog</title>
+<title>[MasterThe Coding Interview]Graphs | TonyTang's blog</title>
   
 
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Master the Coding Interview]Graphs
+          [MasterThe Coding Interview]Graphs
         </h1>
 
         <div class="post-meta-container">
@@ -233,17 +233,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-12-12 17:33:14 / 修改時間：17:34:09" itemprop="dateCreated datePublished" datetime="2021-12-12T17:33:14+08:00">2021-12-12</time>
+      <time title="創建時間：2021-12-12 17:33:14" itemprop="dateCreated datePublished" datetime="2021-12-12T17:33:14+08:00">2021-12-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-12-22 20:33:37" itemprop="dateModified" datetime="2021-12-22T20:33:37+08:00">2021-12-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/Master-the-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">Master the Coding Interview</span></a>
+          <a href="/blog/categories/MasterThe-Coding-Interview/" itemprop="url" rel="index"><span itemprop="name">MasterThe Coding Interview</span></a>
         </span>
     </span>
 
@@ -266,7 +272,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <img src="/blog/2021/12/12/Master_The_Coding-DS-Graphs/thumbnail.png"/>
-        <p><strong><font color=#FF6600>本篇為Master the Coding Interview教學影片筆記文</font></strong></p>
+        <p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
 <p>由N個nodes和M條links組合而成的資料結構就叫做Graphs，Linked list是一種Graph，Tree也算是一種Graphs。</p>
 <p>Graphs分成有向和無向的，undirected像是facebook的好友功能，當你和一個人成為好友的時候，你們是互相為好友，directed像是instagram的追蹤功能，當你追蹤一個帳號的時候，是單方面的，他不一定要追蹤你。</p>
 <p>Graphs可以分為有權重和無權重的，當圖的link都有權重的時候，我們就可以來算最短路徑的，像是google map的最佳路徑功能。</p>
@@ -304,8 +310,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2021/12/12/Master_The_Coding-DS-Trees/" rel="prev" title="[Master the Coding Interview]Trees">
-                  <i class="fa fa-chevron-left"></i> [Master the Coding Interview]Trees
+                <a href="/blog/2021/12/12/Master_The_Coding-DS-Trees/" rel="prev" title="[MasterThe Coding Interview]Trees">
+                  <i class="fa fa-chevron-left"></i> [MasterThe Coding Interview]Trees
                 </a>
             </div>
             <div class="post-nav-item">
