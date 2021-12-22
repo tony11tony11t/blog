@@ -20,7 +20,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tony11tony11t.github.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
-<meta name="description" content="從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。...">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3FGGGXLLQ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3FGGGXLLQ7');
+</script><meta name="description" content="從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Complete React Developer in 2022]設定專案">
 <meta property="og:url" content="https://tony11tony11t.github.io/blog/2021/12/12/React-Tutorial-03/index.html">
@@ -43,6 +52,9 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>[Complete React Developer in 2022]設定專案 | TonyTang's blog</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3FGGGXLLQ7"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-3FGGGXLLQ7","only_pageview":false}</script>
+  <script src="/blog/js/third-party/analytics/google-analytics.js"></script>
 
 
 
@@ -270,7 +282,7 @@
 <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。</p>
 <p>當我們要把別人的專案clone一份到本地端的時候，我們會用以下指令，第三個參數是專案的位置，第四個是package name</p>
 <blockquote>
-<p>git clone <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
 </blockquote>
 <p>當我們把檔案pull時，會在本地端有一份相同的檔案，但因為這是別人的git，我們不能直接Push上去更改檔案，所以我們必須改變remote。</p>
 <p>當我們輸入git remote的時候會出現本地端的分支(origin)，這個分支是動連到別人的git。改變的方式就是先刪掉再新建。</p>
@@ -278,7 +290,7 @@
 <p>git remote remove origin</p>
 </blockquote>
 <blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#x6d;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
 </blockquote>
 <p>接著就可以push檔案到分支上了，第三個參數是remote的名稱，第四個參數是分支名稱</p>
 <blockquote>
@@ -291,7 +303,7 @@
 </blockquote>
 <p>這裡可能會遇到一個版本問題，可以在下指令的時候加入版本號來解決問題，如下面的範例：</p>
 <blockquote>
-<p>yarn add <a href="mailto:&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;">&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;</a></p>
+<p>yarn add <a href="mailto:&#x6e;&#x6f;&#100;&#x65;&#x2d;&#x73;&#x61;&#x73;&#115;&#x40;&#54;&#x2e;&#x30;&#46;&#48;">&#x6e;&#x6f;&#100;&#x65;&#x2d;&#x73;&#x61;&#x73;&#115;&#x40;&#54;&#x2e;&#x30;&#46;&#48;</a></p>
 </blockquote>
 <h2 id="yarn-lock"><a href="#yarn-lock" class="headerlink" title="yarn.lock"></a>yarn.lock</h2><p>我們在與他人共同協作的時候，因為大家各自在各自的電腦，開發環境中的每個package版本會有所不同，這個文件幫project鎖定住所有package的版本，讓大家的開發環境統一。</p>
 <h2 id="Update-Version"><a href="#Update-Version" class="headerlink" title="Update Version"></a>Update Version</h2><p>當我們要把project的所有package都更新到最新版的時候，可以依照以下的步驟來執行：</p>

@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>[MasterThe Coding Interview]Algorithms:DynamicProgramming</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-DynamicProgramming/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<p>假設今天有一個function可以幫我們把數字加10，當我們輸入5的時候，他會輸出15，輸入3會輸出13等，儘管帶入的數字一樣，每執行一次函式，就會重新計算一次結果。如果今天這個function的計算需要花很長一段時間，透過原本的方法就會多了很多不必要的等待，這時候就可以用Dynamic programming的技巧，簡單來說就是把已經計算過的輸出記錄起來，避免掉二次、三次的重工。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">		cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">&#125;</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面的方法雖然可以解決問題，但我們需要一個cache的全域變數</span></span><br><span class="line"><span class="comment">//下面示範透過closure來避免掉全域變數</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">			cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> memoized = memoizedAddTo10();</span><br><span class="line">memoized(<span class="number">5</span>);</span><br><span class="line">memoized(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>只要問題符合以下五個條件，就可以嘗試用Dynamic programming解決：</p>
+<ol>
+<li>Can be divided into subproblem</li>
+<li>Recursive Solition</li>
+<li>Are there repetitive subproblem</li>
+<li>Memoize subproblem</li>
+<li>Demand a raise from your boss</li>
+</ol>
+<h2 id="Exercise：-Fibonacci"><a href="#Exercise：-Fibonacci" class="headerlink" title="Exercise： Fibonacci"></a>Exercise： Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciMaster</span>(<span class="params"></span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(n <span class="keyword">in</span> cache) </span><br><span class="line">			<span class="keyword">return</span> cache[n]</span><br><span class="line">		<span class="keyword">if</span>(n &lt; <span class="number">2</span>) </span><br><span class="line">			<span class="keyword">return</span> n</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			cache[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">			<span class="keyword">return</span> cache[n];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fibonacci = fibonacciMaster();</span><br><span class="line">fibonacci(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview]Algorithms:Recursion</title>
+    <url>/blog/2021/12/22/Master_The_Coding-A-Recursion/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<blockquote>
+<p>Data Structures + Algorithms = Programs<br>Class{} + function() = Programs</p>
+</blockquote>
+<p>Recursion的意思是一直提及自己，透過這個方式可以traversal tree、object和DOM。如果寫下一個沒有停止條件的recursion的話，會導致stack overflow，可以透過以下的程式碼在chrome查看stack overflow：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//當瀏覽器看到debugger時會轉換成debug模式</span></span><br><span class="line">	<span class="keyword">debugger</span>;</span><br><span class="line">	loop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>寫下recursive function的三個方法：</p>
+<ol>
+<li>Identify the base case</li>
+<li>Identify the recursive case</li>
+<li>Get closer and closer and return when needed.Usually tou have 2 returns</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inception</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(counter)</span><br><span class="line">	<span class="comment">//base case</span></span><br><span class="line">	<span class="keyword">if</span>(counter &gt; <span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;done!&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">	counter++;</span><br><span class="line">	<span class="comment">//recursive case</span></span><br><span class="line">	<span class="keyword">return</span> inception();</span><br><span class="line">&#125;</span><br><span class="line">inception()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Factorial"><a href="#Exercise：Factorial" class="headerlink" title="Exercise：Factorial"></a>Exercise：Factorial</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialRecursive</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(number == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> number * findFactorialRecursive(number - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialIterative</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> answer = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt;= number ; i++)&#123;</span><br><span class="line">		answer *= i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> answer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Exercise：Fibonacci"><a href="#Exercise：Fibonacci" class="headerlink" title="Exercise：Fibonacci"></a>Exercise：Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciIterative</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> arr = [<span class="number">0</span> , <span class="number">1</span>]</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> arr[n];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> temp = arr[<span class="number">0</span>] + arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">0</span>] = arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">1</span>] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr[<span class="number">0</span>] + arr[<span class="number">1</span>]; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciIterative(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciRecursive</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(2^n)</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fibonacciRecursive(n - <span class="number">1</span>) + fibonacciRecursive(n - <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciRecursive(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Recursive-VS-Iterative"><a href="#Recursive-VS-Iterative" class="headerlink" title="Recursive VS Iterative"></a>Recursive VS Iterative</h2><table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DRY</td>
+<td>Large Stack</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>以下是幾點要使用recursion的時機：</p>
+<ol>
+<li> 當使用到樹的結構來解決問題時，要考慮到recursion的解法。</li>
+<li>當問題可分割並建立在相同的解法上時。</li>
+<li>當需要計算一些總和且計算的方式都相同時。</li>
+<li>當每個小問題可以結合來解決一個大問題的時候。</li>
+</ol>
+<p>2,3,4點可以總結成Divide and Conquer的問題能利用Recursion解決。</p>
+<p>所有可以利用recursion實作的例子都可以用loop解決。Ex：Merge Sort, Quick Sort, Tree Traversal, Graph Traversal。</p>
+<h2 id="Exercise：Reverse-String"><a href="#Exercise：Reverse-String" class="headerlink" title="Exercise：Reverse String"></a>Exercise：R<strong>everse String</strong></h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseString</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str.length == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> str[str.length - <span class="number">1</span>] + reverseString(str.slice(<span class="number">0</span> , -<span class="number">1</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverseString(<span class="string">&#x27;yoyo mastery&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>補充：<a href="https://2ality.com/2015/06/tail-call-optimization.html">Tail call optimization</a></p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[MasterThe Coding Interview]Algorithms:Searching + BFS + DFS</title>
     <url>/blog/2021/12/22/Master_The_Coding-A-Searching+BFS+DFS/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
@@ -69,87 +150,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[MasterThe Coding Interview]Algorithms:Recursion</title>
-    <url>/blog/2021/12/22/Master_The_Coding-A-Recursion/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
-<blockquote>
-<p>Data Structures + Algorithms = Programs<br>Class{} + function() = Programs</p>
-</blockquote>
-<p>Recursion的意思是一直提及自己，透過這個方式可以traversal tree、object和DOM。如果寫下一個沒有停止條件的recursion的話，會導致stack overflow，可以透過以下的程式碼在chrome查看stack overflow：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//當瀏覽器看到debugger時會轉換成debug模式</span></span><br><span class="line">	<span class="keyword">debugger</span>;</span><br><span class="line">	loop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>寫下recursive function的三個方法：</p>
-<ol>
-<li>Identify the base case</li>
-<li>Identify the recursive case</li>
-<li>Get closer and closer and return when needed.Usually tou have 2 returns</li>
-</ol>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inception</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(counter)</span><br><span class="line">	<span class="comment">//base case</span></span><br><span class="line">	<span class="keyword">if</span>(counter &gt; <span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;done!&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">	counter++;</span><br><span class="line">	<span class="comment">//recursive case</span></span><br><span class="line">	<span class="keyword">return</span> inception();</span><br><span class="line">&#125;</span><br><span class="line">inception()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Exercise：Factorial"><a href="#Exercise：Factorial" class="headerlink" title="Exercise：Factorial"></a>Exercise：Factorial</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialRecursive</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(number == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> number * findFactorialRecursive(number - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findFactorialIterative</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> answer = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt;= number ; i++)&#123;</span><br><span class="line">		answer *= i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> answer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Exercise：Fibonacci"><a href="#Exercise：Fibonacci" class="headerlink" title="Exercise：Fibonacci"></a>Exercise：Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciIterative</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> arr = [<span class="number">0</span> , <span class="number">1</span>]</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> arr[n];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> temp = arr[<span class="number">0</span>] + arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">0</span>] = arr[<span class="number">1</span>];</span><br><span class="line">		arr[<span class="number">1</span>] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr[<span class="number">0</span>] + arr[<span class="number">1</span>]; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciIterative(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciRecursive</span>(<span class="params">n</span>)</span>&#123; <span class="comment">//O(2^n)</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fibonacciRecursive(n - <span class="number">1</span>) + fibonacciRecursive(n - <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fibonacciRecursive(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Recursive-VS-Iterative"><a href="#Recursive-VS-Iterative" class="headerlink" title="Recursive VS Iterative"></a>Recursive VS Iterative</h2><table>
-<thead>
-<tr>
-<th>優點</th>
-<th>缺點</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>DRY</td>
-<td>Large Stack</td>
-</tr>
-<tr>
-<td>Readability</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>以下是幾點要使用recursion的時機：</p>
-<ol>
-<li> 當使用到樹的結構來解決問題時，要考慮到recursion的解法。</li>
-<li>當問題可分割並建立在相同的解法上時。</li>
-<li>當需要計算一些總和且計算的方式都相同時。</li>
-<li>當每個小問題可以結合來解決一個大問題的時候。</li>
-</ol>
-<p>2,3,4點可以總結成Divide and Conquer的問題能利用Recursion解決。</p>
-<p>所有可以利用recursion實作的例子都可以用loop解決。Ex：Merge Sort, Quick Sort, Tree Traversal, Graph Traversal。</p>
-<h2 id="Exercise：Reverse-String"><a href="#Exercise：Reverse-String" class="headerlink" title="Exercise：Reverse String"></a>Exercise：R<strong>everse String</strong></h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseString</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str.length == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> str[str.length - <span class="number">1</span>] + reverseString(str.slice(<span class="number">0</span> , -<span class="number">1</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverseString(<span class="string">&#x27;yoyo mastery&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>補充：<a href="https://2ality.com/2015/06/tail-call-optimization.html">Tail call optimization</a></p>
-]]></content>
-      <categories>
-        <category>MasterThe Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>Algorithms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[MasterThe Coding Interview]Algorithms:DynamicProgramming</title>
-    <url>/blog/2021/12/22/Master_The_Coding-A-DynamicProgramming/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
-<p>假設今天有一個function可以幫我們把數字加10，當我們輸入5的時候，他會輸出15，輸入3會輸出13等，儘管帶入的數字一樣，每執行一次函式，就會重新計算一次結果。如果今天這個function的計算需要花很長一段時間，透過原本的方法就會多了很多不必要的等待，這時候就可以用Dynamic programming的技巧，簡單來說就是把已經計算過的輸出記錄起來，避免掉二次、三次的重工。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">		cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">&#125;</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line">memopizedAddTo10(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面的方法雖然可以解決問題，但我們需要一個cache的全域變數</span></span><br><span class="line"><span class="comment">//下面示範透過closure來避免掉全域變數</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoizedAddTo10</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!(n <span class="keyword">in</span> cache)) </span><br><span class="line">			cache[n] = n + <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">return</span> cache[n]	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> memoized = memoizedAddTo10();</span><br><span class="line">memoized(<span class="number">5</span>);</span><br><span class="line">memoized(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-
-<p>只要問題符合以下五個條件，就可以嘗試用Dynamic programming解決：</p>
-<ol>
-<li>Can be divided into subproblem</li>
-<li>Recursive Solition</li>
-<li>Are there repetitive subproblem</li>
-<li>Memoize subproblem</li>
-<li>Demand a raise from your boss</li>
-</ol>
-<h2 id="Exercise：-Fibonacci"><a href="#Exercise：-Fibonacci" class="headerlink" title="Exercise： Fibonacci"></a>Exercise： Fibonacci</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciMaster</span>(<span class="params"></span>)</span>&#123; <span class="comment">//O(n)</span></span><br><span class="line">	<span class="keyword">let</span> cache = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(n <span class="keyword">in</span> cache) </span><br><span class="line">			<span class="keyword">return</span> cache[n]</span><br><span class="line">		<span class="keyword">if</span>(n &lt; <span class="number">2</span>) </span><br><span class="line">			<span class="keyword">return</span> n</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			cache[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">			<span class="keyword">return</span> cache[n];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fibonacci = fibonacciMaster();</span><br><span class="line">fibonacci(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>MasterThe Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>Algorithms</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[MasterThe Coding Interview]Algorithms:Sorting</title>
     <url>/blog/2021/12/22/Master_The_Coding-A-Sorting/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
@@ -198,6 +198,48 @@
       </categories>
       <tags>
         <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MasterThe Coding Interview] BigO介紹</title>
+    <url>/blog/2021/12/02/Master_The_Coding-BigO/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<h3 id="What-is-good-code"><a href="#What-is-good-code" class="headerlink" title="What is good code?"></a>What is good code?</h3><p>什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。</p>
+<h3 id="BigO"><a href="#BigO" class="headerlink" title="BigO"></a>BigO</h3><p>BigO為什麼會存在，因為當我們要判斷一個code好或不好的時候，如果用執行的時間來看的話，因為每個電腦CPU的不同，會有執行速度上的差異，同樣的code不同的設備會有不同的速度，所以不能以時間來做為依據，這時候我們就會用BigO來判斷code執行速度。</p>
+<p>BigO主要是利用程式執行多少步驟來做計算，拿以下的程式碼來說：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printHappy</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&quot;Happy&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printHappy(n);  <span class="comment">//O(n) --&gt;linear time</span></span><br></pre></td></tr></table></figure>
+
+<p>假設今天n是1，那這個for迴圈就會執行1次，n=2就會執行兩次，n=100就會執行100次，以此類推，我們可以發現n跟執行的次數呈現一個正比，並且是線性的增加，透過這個方式我們可以說這個printHappy的函式時間複雜度是O(n)。</p>
+<p>O(1)表示constant time，表示不管甚麼input進去，這個function都會執行一樣數量的步驟，是時間複雜部裡面最好的一種。</p>
+<p><strong>BigO Challenge</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funChallenge</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;  <span class="comment">//O(1)</span></span><br><span class="line">  a = <span class="number">50</span> + <span class="number">3</span>;  <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; input.length; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    anotherFunction(); <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">let</span> stranger = <span class="literal">true</span>; <span class="comment">//O(n)</span></span><br><span class="line">    a++; <span class="comment">//O(n)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a; <span class="comment">//O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，有些人說賦值不能算是一個步驟，但這邊先不討論這部分，所以賦值就給他O(1)，for迴圈的東西就是執行n次，接著將所有的BigO加起來，我們會得到O(3 + 4n)的時間複雜度的，接著我們就會簡化她，把常數消掉後，取最複雜的那個就好，所以這題的答案是O(n)。</p>
+<p>當然我們在面試的時候，不會一行一行的算出來，我們必須一眼就看出時間複雜度為何，以下有四個遵循的規則：</p>
+<ol>
+<li>Worst Case<br>永遠要設定成最糟的情況，因為BigO只會看最壞情況。</li>
+<li>Remove Constants<br>因為input要假設成一個很大很大的數字，所以常數對他們來說不重要。</li>
+<li>Different terms for inputs<br>不同的input要用不同的代數去寫，假設function裡面有兩個迴圈一個有m個element一個n個element的話，會把結果寫成O(m + n)，因為不會知道到你m多還是n多，所以都要寫上去。</li>
+</ol>
+<blockquote>
+<p>如果兩個迴圈都同樣有n個element，並且又是一個巢狀的話，我們就可以把結果寫成O(n^2)，這是一個不好的時間複雜度，很多面試就是要請你把O(^2)變成較好的時間複雜度。</p>
+</blockquote>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i,j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Drop Non Dominants<br>丟掉不重要的部分，假設function裡面有一個時間複雜度是O(n)，一個是O(n^2)，我們會取最複雜的，也就是O(n^2)。</li>
+</ol>
+<p>O(n!)這是最糟糕的時間複雜度，等於說每次執行loop都要加一個element，絕對要避免。</p>
+<p>到這邊已經介紹了3種時間複雜度，接著要回到Scalable這個點上，時間複雜度表示的是他的run time，但除了時間，memory也是注重的一個環節，要符合Scalable，必須考慮時間跟空間，雖然現在的memory越來越大，但她不是無限的，我們仍然要注意使用的大小。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">boo</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">boo(<span class="number">5</span>) <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrayOfHiNTimes</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> hiArray = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    hiArray[i] = <span class="string">&#x27;hi&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arrayOfHiNTimes(<span class="number">6</span>)  <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
+
+<p>第一個function裡面，雖然是一個迴圈，但我們只有在for迴圈裡面宣告一個i，整個函式也只有宣告這個東西，可以說boo function的空間複雜度為O(1)。第二個就不一樣了，因為我們宣告了一個陣列，並且在陣列加入了n個elements，所以arrayOfHiNTimes function的空間複雜度為O(n)。</p>
+<p>通常我們會用空間換取時間或時間換取空間，這沒有甚麼對或錯，看當下的project要怎麼做就好。</p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>BigO</tag>
       </tags>
   </entry>
   <entry>
@@ -273,48 +315,6 @@
       </categories>
       <tags>
         <tag>Data structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[MasterThe Coding Interview] BigO介紹</title>
-    <url>/blog/2021/12/02/Master_The_Coding-BigO/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
-<h3 id="What-is-good-code"><a href="#What-is-good-code" class="headerlink" title="What is good code?"></a>What is good code?</h3><p>什麼是好的程式碼，好的程式碼是Readable和Scalable的，BigO可以拿來測量程式的執行速度，所以這章會著重在Scalable的部分。</p>
-<h3 id="BigO"><a href="#BigO" class="headerlink" title="BigO"></a>BigO</h3><p>BigO為什麼會存在，因為當我們要判斷一個code好或不好的時候，如果用執行的時間來看的話，因為每個電腦CPU的不同，會有執行速度上的差異，同樣的code不同的設備會有不同的速度，所以不能以時間來做為依據，這時候我們就會用BigO來判斷code執行速度。</p>
-<p>BigO主要是利用程式執行多少步驟來做計算，拿以下的程式碼來說：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printHappy</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&quot;Happy&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printHappy(n);  <span class="comment">//O(n) --&gt;linear time</span></span><br></pre></td></tr></table></figure>
-
-<p>假設今天n是1，那這個for迴圈就會執行1次，n=2就會執行兩次，n=100就會執行100次，以此類推，我們可以發現n跟執行的次數呈現一個正比，並且是線性的增加，透過這個方式我們可以說這個printHappy的函式時間複雜度是O(n)。</p>
-<p>O(1)表示constant time，表示不管甚麼input進去，這個function都會執行一樣數量的步驟，是時間複雜部裡面最好的一種。</p>
-<p><strong>BigO Challenge</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funChallenge</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;  <span class="comment">//O(1)</span></span><br><span class="line">  a = <span class="number">50</span> + <span class="number">3</span>;  <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; input.length; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    anotherFunction(); <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">let</span> stranger = <span class="literal">true</span>; <span class="comment">//O(n)</span></span><br><span class="line">    a++; <span class="comment">//O(n)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a; <span class="comment">//O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>首先，有些人說賦值不能算是一個步驟，但這邊先不討論這部分，所以賦值就給他O(1)，for迴圈的東西就是執行n次，接著將所有的BigO加起來，我們會得到O(3 + 4n)的時間複雜度的，接著我們就會簡化她，把常數消掉後，取最複雜的那個就好，所以這題的答案是O(n)。</p>
-<p>當然我們在面試的時候，不會一行一行的算出來，我們必須一眼就看出時間複雜度為何，以下有四個遵循的規則：</p>
-<ol>
-<li>Worst Case<br>永遠要設定成最糟的情況，因為BigO只會看最壞情況。</li>
-<li>Remove Constants<br>因為input要假設成一個很大很大的數字，所以常數對他們來說不重要。</li>
-<li>Different terms for inputs<br>不同的input要用不同的代數去寫，假設function裡面有兩個迴圈一個有m個element一個n個element的話，會把結果寫成O(m + n)，因為不會知道到你m多還是n多，所以都要寫上去。</li>
-</ol>
-<blockquote>
-<p>如果兩個迴圈都同樣有n個element，並且又是一個巢狀的話，我們就可以把結果寫成O(n^2)，這是一個不好的時間複雜度，很多面試就是要請你把O(^2)變成較好的時間複雜度。</p>
-</blockquote>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i,j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>Drop Non Dominants<br>丟掉不重要的部分，假設function裡面有一個時間複雜度是O(n)，一個是O(n^2)，我們會取最複雜的，也就是O(n^2)。</li>
-</ol>
-<p>O(n!)這是最糟糕的時間複雜度，等於說每次執行loop都要加一個element，絕對要避免。</p>
-<p>到這邊已經介紹了3種時間複雜度，接著要回到Scalable這個點上，時間複雜度表示的是他的run time，但除了時間，memory也是注重的一個環節，要符合Scalable，必須考慮時間跟空間，雖然現在的memory越來越大，但她不是無限的，我們仍然要注意使用的大小。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">boo</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">boo(<span class="number">5</span>) <span class="comment">//O(1)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrayOfHiNTimes</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> hiArray = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; <span class="comment">//O(n)</span></span><br><span class="line">    hiArray[i] = <span class="string">&#x27;hi&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arrayOfHiNTimes(<span class="number">6</span>)  <span class="comment">//O(n)</span></span><br></pre></td></tr></table></figure>
-
-<p>第一個function裡面，雖然是一個迴圈，但我們只有在for迴圈裡面宣告一個i，整個函式也只有宣告這個東西，可以說boo function的空間複雜度為O(1)。第二個就不一樣了，因為我們宣告了一個陣列，並且在陣列加入了n個elements，所以arrayOfHiNTimes function的空間複雜度為O(n)。</p>
-<p>通常我們會用空間換取時間或時間換取空間，這沒有甚麼對或錯，看當下的project要怎麼做就好。</p>
-]]></content>
-      <categories>
-        <category>MasterThe Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>BigO</tag>
       </tags>
   </entry>
   <entry>
@@ -532,85 +532,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[MasterThe Coding Interview]Non Technical Interviews</title>
-    <url>/blog/2021/12/22/Master_The_Coding-NonTechnicalInterviews/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
-<h2 id="Mindset"><a href="#Mindset" class="headerlink" title="Mindset"></a>Mindset</h2><p>面試不是只有通過跟不通過，要把他想成是一個學習的經驗，透過面試去了解你的弱點和強項，這不是你唯一的一個機會，把面試想像成你要去找你的朋友聊聊天，減少緊張的成分，會讓面試的整個過程更加愉快。</p>
-<p>通常面試會以下的3個問題：</p>
-<ol>
-<li>Can you do the job?</li>
-<li>Can I work with you?</li>
-<li>Are you going to improve?</li>
-</ol>
-<p>第一個問題很簡單就是技術層面，面試會透過一些技術問答來檢視面試者是否勝任，第二、三題就是要在面試的時候透過一些技巧表現出來，可以準備2~4個小故事，並在故事內講到自己包含以下4項特質，並不是直接說我是個很成功的人，我是個很有領導能力的人等，而是用故事的方式帶出自己的性格。</p>
-<ol>
-<li>Techical →透過作品級或履歷呈現出自己的技術含量跟層面到哪裡。</li>
-<li>Success → 表現出自己成功的一面，不管是自己的app有很多users，自己的社團經歷等都可以。</li>
-<li>Leadership →主動，積極的一面</li>
-<li>Challenge →有沒有接受挑戰和克服困難的決心</li>
-</ol>
-<h2 id="Tell-me-about-yourself"><a href="#Tell-me-about-yourself" class="headerlink" title="Tell me about yourself"></a>Tell me about yourself</h2><p>通常是面試的第一個問題，也是一個把話題導到你想要的地方的一個機會，記住整段不要太長也不要太短，太長會讓面試越變越無聊，太短會讓面試官不知道該問你甚麼問題，還是上面的策略，盡量在這段發揮的時間把四個特質帶入，並且提及一點自己想要跟面試官聊的方向，例如自己過往成功的經歷、公司、學習歷程等，聊到技術的時候也要記得要跟應徵的職位相關。最後要記得盡量把自己特殊的經歷都拿出來說，要讓自己跟其他面試者不一樣。</p>
-<h2 id="Why-Us？"><a href="#Why-Us？" class="headerlink" title="Why Us？"></a>Why Us？</h2><p>讓面試官感受到你真的真的很想要這間公司的offer，表現出非常欽佩這間公司，具體一點可以透過觀察他們的技術、部落格，了解他們現在正在解決的問題，加深自己如果進入公司可以跟幫公司創造價值的表現，並且表現出你想要跟公司一起成長的決心，公司想要的是未來可以一起走下去的夥伴，而不是只做一年就要提開的人。總結還是持續表現出上面的四個特質，讓公司看出你是最優秀的。</p>
-<p>除此之外，還有一個問題是Why did you leave your job?，這個問題只要誠實回答就好，千萬千萬不要說前一間公司的壞話，沒有人會想要一個抱怨同事，抱怨東抱怨西的人，最簡單的回答就是想要持續增進自己即可。 </p>
-<h2 id="Tell-me-about-problem-how-you-sloved-it"><a href="#Tell-me-about-problem-how-you-sloved-it" class="headerlink" title="Tell me about problem + how you sloved it"></a>Tell me about problem + how you sloved it</h2><p>這時候就要搬出我們在作品集上的project或是前公司的project，利用SAR方法來回答，Situation、action、result，第一步先介紹project和遇到的問題為何，第二步就是說明如何解決問題，用了甚麼方法搞定或測試，最後一步就是說明解決後的成效，並且盡量量化成效，利用數字或percent來說明會讓人印象深刻。還有就是把問題圍繞在規模、表現或是安全性上這種真實的問題，而不是todo list花很久時間debug的這種問題。</p>
-<p>有時候還會有問題是Tell me about an interesting project，跟上述問題類似，簡單來說就是展現出最好玩的專案並且圍繞在你的職缺上，不要面試工程師然後說一些廣告行銷的案例等就好。</p>
-<h2 id="What-is-your-biggest-weakness？"><a href="#What-is-your-biggest-weakness？" class="headerlink" title="What is your biggest weakness？"></a>What is your biggest weakness？</h2><p>千萬不要甚麼自己太努力太認真這種玩笑的答案，講出自己真的的弱項，並且說明自己如何補強他，讓面試官認為他可以跟這個人一起工作是最大的重點。</p>
-<h2 id="Any-questions-for-me？"><a href="#Any-questions-for-me？" class="headerlink" title="Any questions for me？"></a>Any questions for me？</h2><p>當整個面試都是呈現他問妳答的情況下，會讓整場面試不突出，就像第一點講的，把面試當成是來找朋友聊天，聊天一定是互相問答，所以當面試官問你這個問題的時候，請記得是聚焦在他們身上而不是公司，可以的話提出一些前面他講過的東西，表示你很認真的在聽他們講話，加深他們對你的好印象。以下是幾個蠻好玩的問題，讓面試官了解你不是一個機器人，而是一個真正想要了解公司的一個人。</p>
-<ol>
-<li>你當初來公司的前一個月有犯錯嗎，你怎麼解決</li>
-<li>你覺得公司未來三五年的走向會是甚麼</li>
-<li>你當初為什麼會進來這間公司</li>
-<li>你覺得這幾年你的技術有增進嗎</li>
-<li>上一次搞砸的時候公司是怎麼處理的</li>
-<li>你們會希望剛進公司的新人怎麼融入公司的工作</li>
-</ol>
-<h2 id="Secret-Weapon"><a href="#Secret-Weapon" class="headerlink" title="Secret Weapon"></a>Secret Weapon</h2><ol>
-<li>Simplicity over  complexity 越簡單越好，不管是code還是面試時回答的問題，要簡潔有力。</li>
-<li>Premature optimization is the root of all evil 過早的優化不是好主意</li>
-<li>Overall goal, not myopic 目標才是重點，如果今天有個急件只剩一個星期，但你還為了保持好的code而慢慢做，會導致東西遲交，要避免。</li>
-<li>No complaining about client/code/etc 對於所有的東西不要抱怨，如果可以試圖解決那會是很加分的行為。</li>
-<li>No ego 要以公司為優先，不要有太多的自我中心思想。</li>
-</ol>
-<h2 id="After-the-interview"><a href="#After-the-interview" class="headerlink" title="After the interview"></a>After the interview</h2><p>一個強而有力的結尾，不要用太多的我，並且跟面試官多聊聊天，盡量的表現出自己是最優秀的人選和想要這份工作的決心，最後記住，千萬不要說謊，並且可以再回家後發一封感謝信給公司，讓公司對你的印象多留幾天。</p>
-]]></content>
-      <categories>
-        <category>MasterThe Coding Interview</category>
-      </categories>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Complete React Developer in 2022]React介紹</title>
-    <url>/blog/2021/11/30/React-Tutorial-01/</url>
-    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
-<p>傳統的網頁呈現方式，是將所有的HTML、CSS、JS的檔案上傳到server，等到使用者要讀取網頁的時候再從server呼叫出來顯示在瀏覽器上，每一次有一個新的頁面時就會再重複一次從server讀取檔案的這個步驟，這是一套行之有年的網頁模式。但漸漸的問題來了，越來越多種瀏覽器問世，每種瀏覽器又有不同的編譯方式，導致開發者需要開發許多種網頁來因應每種瀏覽器，讓網頁開發增加了許多難度。</p>
-<p>接著，jQuery問世了，他整合了所有瀏覽器的問題，做出了非常簡單的API工具，透過jQuery可以快速的讓使用者與網頁互動，並且大大縮短開發速度。但人的慾望沒有極限，工程師開始會想要開發更大的專案，功能開始變的複雜，像是Facebook，有帳戶、可以線上即時聊天、寄信等，不再只是像blog一樣發發文章做做新的頁面了。</p>
-<p>當jQuery沒辦法再應付大型專案的時候，backbone.js出來了，SPA(single page application)的概念也跟著出來，網頁不再只是每次要新的就去server load，而是變成放大js的功能，縮小html的地位，利用js來改變當前html的內容，達到SPA的一個概念，這也是為什麼網頁不再只是一個頁面而是稱為應用程式了。</p>
-<p>2010年，由Google創造的Angular.js出現，不同於jQuery，有了MVC的概念，把每一塊程式碼都變成一個包裹的概念，讓其不會互相干擾，讓工程師之間更容易合作。但很快就有一個問題出現了，網頁上的每個部份都會互相影響，迎來的是資料越來越散落在各個包裹裡，讓Debug越來越難。</p>
-<p>2013年，Facebook是出了第一版的React，解決了資料流的問題，讓資料不會散落在各地，也是因為如此，2014年的時候Angular.js意識到自己沒辦法再創造出好的SPA後，他們直接重寫了library，並改名為Angular，的確就是把js拿掉，但也因為這個重寫，很多開發者直接轉向投入React，也讓現今一堆大公司都使用了React來作為主要框架。</p>
-<p>以下是react的幾個原則：</p>
-<ol>
-<li>Don’t touch the DOM. I’ll do it.<br>只要給React資料，就可以利用他幫忙套入資料，不需要更改DOM來達到更換頁面呈現的資料。</li>
-<li>Build websites like lego blocks<br>React的一大特性就是components，模組化跟樂高一樣，一個網頁就像是很多樂高很多組件拼湊而成的，開發的components還可以到處重複利用，十分彈性。</li>
-<li>Unidirectional data flow<br>react的資料流向，有一個限制就是只能往下不能往上，資料只能單向溝通，這讓開發者可以更清楚知道資料在app裡面的流向，更容易去處理bug。</li>
-<li>UI, The rest is up to you<br>React專注於ocmponenet的產生，只要有這個React的藍圖，我們就可以在任何地方建置他，手機、電腦、terminal等等都可以，這就是React跨平台的應用，當然，如果是一般的網頁，我們就要用到React何React-DOM</li>
-</ol>
-<p>如果要成為一個成熟的React工程師，要記得以下三點開發的原則</p>
-<ol>
-<li>Decide on Components</li>
-<li>Decide the State and where it lives</li>
-<li>What changes when state changes</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Complete React Developer in 2022</category>
-      </categories>
-      <tags>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[MasterThe Coding Interview]資料結構介紹</title>
     <url>/blog/2021/12/07/Master_The_Coding-DSIntro/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
@@ -719,6 +640,55 @@
       </tags>
   </entry>
   <entry>
+    <title>[MasterThe Coding Interview]Non Technical Interviews</title>
+    <url>/blog/2021/12/22/Master_The_Coding-NonTechnicalInterviews/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
+<h2 id="Mindset"><a href="#Mindset" class="headerlink" title="Mindset"></a>Mindset</h2><p>面試不是只有通過跟不通過，要把他想成是一個學習的經驗，透過面試去了解你的弱點和強項，這不是你唯一的一個機會，把面試想像成你要去找你的朋友聊聊天，減少緊張的成分，會讓面試的整個過程更加愉快。</p>
+<p>通常面試會以下的3個問題：</p>
+<ol>
+<li>Can you do the job?</li>
+<li>Can I work with you?</li>
+<li>Are you going to improve?</li>
+</ol>
+<p>第一個問題很簡單就是技術層面，面試會透過一些技術問答來檢視面試者是否勝任，第二、三題就是要在面試的時候透過一些技巧表現出來，可以準備2~4個小故事，並在故事內講到自己包含以下4項特質，並不是直接說我是個很成功的人，我是個很有領導能力的人等，而是用故事的方式帶出自己的性格。</p>
+<ol>
+<li>Techical →透過作品級或履歷呈現出自己的技術含量跟層面到哪裡。</li>
+<li>Success → 表現出自己成功的一面，不管是自己的app有很多users，自己的社團經歷等都可以。</li>
+<li>Leadership →主動，積極的一面</li>
+<li>Challenge →有沒有接受挑戰和克服困難的決心</li>
+</ol>
+<h2 id="Tell-me-about-yourself"><a href="#Tell-me-about-yourself" class="headerlink" title="Tell me about yourself"></a>Tell me about yourself</h2><p>通常是面試的第一個問題，也是一個把話題導到你想要的地方的一個機會，記住整段不要太長也不要太短，太長會讓面試越變越無聊，太短會讓面試官不知道該問你甚麼問題，還是上面的策略，盡量在這段發揮的時間把四個特質帶入，並且提及一點自己想要跟面試官聊的方向，例如自己過往成功的經歷、公司、學習歷程等，聊到技術的時候也要記得要跟應徵的職位相關。最後要記得盡量把自己特殊的經歷都拿出來說，要讓自己跟其他面試者不一樣。</p>
+<h2 id="Why-Us？"><a href="#Why-Us？" class="headerlink" title="Why Us？"></a>Why Us？</h2><p>讓面試官感受到你真的真的很想要這間公司的offer，表現出非常欽佩這間公司，具體一點可以透過觀察他們的技術、部落格，了解他們現在正在解決的問題，加深自己如果進入公司可以跟幫公司創造價值的表現，並且表現出你想要跟公司一起成長的決心，公司想要的是未來可以一起走下去的夥伴，而不是只做一年就要提開的人。總結還是持續表現出上面的四個特質，讓公司看出你是最優秀的。</p>
+<p>除此之外，還有一個問題是Why did you leave your job?，這個問題只要誠實回答就好，千萬千萬不要說前一間公司的壞話，沒有人會想要一個抱怨同事，抱怨東抱怨西的人，最簡單的回答就是想要持續增進自己即可。 </p>
+<h2 id="Tell-me-about-problem-how-you-sloved-it"><a href="#Tell-me-about-problem-how-you-sloved-it" class="headerlink" title="Tell me about problem + how you sloved it"></a>Tell me about problem + how you sloved it</h2><p>這時候就要搬出我們在作品集上的project或是前公司的project，利用SAR方法來回答，Situation、action、result，第一步先介紹project和遇到的問題為何，第二步就是說明如何解決問題，用了甚麼方法搞定或測試，最後一步就是說明解決後的成效，並且盡量量化成效，利用數字或percent來說明會讓人印象深刻。還有就是把問題圍繞在規模、表現或是安全性上這種真實的問題，而不是todo list花很久時間debug的這種問題。</p>
+<p>有時候還會有問題是Tell me about an interesting project，跟上述問題類似，簡單來說就是展現出最好玩的專案並且圍繞在你的職缺上，不要面試工程師然後說一些廣告行銷的案例等就好。</p>
+<h2 id="What-is-your-biggest-weakness？"><a href="#What-is-your-biggest-weakness？" class="headerlink" title="What is your biggest weakness？"></a>What is your biggest weakness？</h2><p>千萬不要甚麼自己太努力太認真這種玩笑的答案，講出自己真的的弱項，並且說明自己如何補強他，讓面試官認為他可以跟這個人一起工作是最大的重點。</p>
+<h2 id="Any-questions-for-me？"><a href="#Any-questions-for-me？" class="headerlink" title="Any questions for me？"></a>Any questions for me？</h2><p>當整個面試都是呈現他問妳答的情況下，會讓整場面試不突出，就像第一點講的，把面試當成是來找朋友聊天，聊天一定是互相問答，所以當面試官問你這個問題的時候，請記得是聚焦在他們身上而不是公司，可以的話提出一些前面他講過的東西，表示你很認真的在聽他們講話，加深他們對你的好印象。以下是幾個蠻好玩的問題，讓面試官了解你不是一個機器人，而是一個真正想要了解公司的一個人。</p>
+<ol>
+<li>你當初來公司的前一個月有犯錯嗎，你怎麼解決</li>
+<li>你覺得公司未來三五年的走向會是甚麼</li>
+<li>你當初為什麼會進來這間公司</li>
+<li>你覺得這幾年你的技術有增進嗎</li>
+<li>上一次搞砸的時候公司是怎麼處理的</li>
+<li>你們會希望剛進公司的新人怎麼融入公司的工作</li>
+</ol>
+<h2 id="Secret-Weapon"><a href="#Secret-Weapon" class="headerlink" title="Secret Weapon"></a>Secret Weapon</h2><ol>
+<li>Simplicity over  complexity 越簡單越好，不管是code還是面試時回答的問題，要簡潔有力。</li>
+<li>Premature optimization is the root of all evil 過早的優化不是好主意</li>
+<li>Overall goal, not myopic 目標才是重點，如果今天有個急件只剩一個星期，但你還為了保持好的code而慢慢做，會導致東西遲交，要避免。</li>
+<li>No complaining about client/code/etc 對於所有的東西不要抱怨，如果可以試圖解決那會是很加分的行為。</li>
+<li>No ego 要以公司為優先，不要有太多的自我中心思想。</li>
+</ol>
+<h2 id="After-the-interview"><a href="#After-the-interview" class="headerlink" title="After the interview"></a>After the interview</h2><p>一個強而有力的結尾，不要用太多的我，並且跟面試官多聊聊天，盡量的表現出自己是最優秀的人選和想要這份工作的決心，最後記住，千萬不要說謊，並且可以再回家後發一封感謝信給公司，讓公司對你的印象多留幾天。</p>
+]]></content>
+      <categories>
+        <category>MasterThe Coding Interview</category>
+      </categories>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[MasterThe Coding Interview] 解決問題</title>
     <url>/blog/2021/12/06/Master_The_Coding-slove_coding/</url>
     <content><![CDATA[<p><strong><font color=#FF6600>本篇為MasterThe Coding Interview教學影片筆記文</font></strong></p>
@@ -754,6 +724,36 @@
       </categories>
       <tags>
         <tag>Coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Complete React Developer in 2022]React介紹</title>
+    <url>/blog/2021/11/30/React-Tutorial-01/</url>
+    <content><![CDATA[<p><strong><font color=#FF6600>本篇為Complete React Developer in 2022教學影片筆記文</font></strong></p>
+<p>傳統的網頁呈現方式，是將所有的HTML、CSS、JS的檔案上傳到server，等到使用者要讀取網頁的時候再從server呼叫出來顯示在瀏覽器上，每一次有一個新的頁面時就會再重複一次從server讀取檔案的這個步驟，這是一套行之有年的網頁模式。但漸漸的問題來了，越來越多種瀏覽器問世，每種瀏覽器又有不同的編譯方式，導致開發者需要開發許多種網頁來因應每種瀏覽器，讓網頁開發增加了許多難度。</p>
+<p>接著，jQuery問世了，他整合了所有瀏覽器的問題，做出了非常簡單的API工具，透過jQuery可以快速的讓使用者與網頁互動，並且大大縮短開發速度。但人的慾望沒有極限，工程師開始會想要開發更大的專案，功能開始變的複雜，像是Facebook，有帳戶、可以線上即時聊天、寄信等，不再只是像blog一樣發發文章做做新的頁面了。</p>
+<p>當jQuery沒辦法再應付大型專案的時候，backbone.js出來了，SPA(single page application)的概念也跟著出來，網頁不再只是每次要新的就去server load，而是變成放大js的功能，縮小html的地位，利用js來改變當前html的內容，達到SPA的一個概念，這也是為什麼網頁不再只是一個頁面而是稱為應用程式了。</p>
+<p>2010年，由Google創造的Angular.js出現，不同於jQuery，有了MVC的概念，把每一塊程式碼都變成一個包裹的概念，讓其不會互相干擾，讓工程師之間更容易合作。但很快就有一個問題出現了，網頁上的每個部份都會互相影響，迎來的是資料越來越散落在各個包裹裡，讓Debug越來越難。</p>
+<p>2013年，Facebook是出了第一版的React，解決了資料流的問題，讓資料不會散落在各地，也是因為如此，2014年的時候Angular.js意識到自己沒辦法再創造出好的SPA後，他們直接重寫了library，並改名為Angular，的確就是把js拿掉，但也因為這個重寫，很多開發者直接轉向投入React，也讓現今一堆大公司都使用了React來作為主要框架。</p>
+<p>以下是react的幾個原則：</p>
+<ol>
+<li>Don’t touch the DOM. I’ll do it.<br>只要給React資料，就可以利用他幫忙套入資料，不需要更改DOM來達到更換頁面呈現的資料。</li>
+<li>Build websites like lego blocks<br>React的一大特性就是components，模組化跟樂高一樣，一個網頁就像是很多樂高很多組件拼湊而成的，開發的components還可以到處重複利用，十分彈性。</li>
+<li>Unidirectional data flow<br>react的資料流向，有一個限制就是只能往下不能往上，資料只能單向溝通，這讓開發者可以更清楚知道資料在app裡面的流向，更容易去處理bug。</li>
+<li>UI, The rest is up to you<br>React專注於ocmponenet的產生，只要有這個React的藍圖，我們就可以在任何地方建置他，手機、電腦、terminal等等都可以，這就是React跨平台的應用，當然，如果是一般的網頁，我們就要用到React何React-DOM</li>
+</ol>
+<p>如果要成為一個成熟的React工程師，要記得以下三點開發的原則</p>
+<ol>
+<li>Decide on Components</li>
+<li>Decide the State and where it lives</li>
+<li>What changes when state changes</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Complete React Developer in 2022</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
       </tags>
   </entry>
   <entry>
@@ -897,7 +897,7 @@
 <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>從這堂課開始，會實際做出一個電商網站，並從中學習關於React的知識。通常大型專案都會運用到git來做版本控管，這邊會介紹幾個簡單的Git指令。</p>
 <p>當我們要把別人的專案clone一份到本地端的時候，我們會用以下指令，第三個參數是專案的位置，第四個是package name</p>
 <blockquote>
-<p>git clone <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:ZhangMYihua/lesson-3.git cloned-repo</p>
 </blockquote>
 <p>當我們把檔案pull時，會在本地端有一份相同的檔案，但因為這是別人的git，我們不能直接Push上去更改檔案，所以我們必須改變remote。</p>
 <p>當我們輸入git remote的時候會出現本地端的分支(origin)，這個分支是動連到別人的git。改變的方式就是先刪掉再新建。</p>
@@ -905,7 +905,7 @@
 <p>git remote remove origin</p>
 </blockquote>
 <blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#x6d;</a>:tony11tony11t/reactLesson-Ecommerce.git</p>
 </blockquote>
 <p>接著就可以push檔案到分支上了，第三個參數是remote的名稱，第四個參數是分支名稱</p>
 <blockquote>
@@ -918,7 +918,7 @@
 </blockquote>
 <p>這裡可能會遇到一個版本問題，可以在下指令的時候加入版本號來解決問題，如下面的範例：</p>
 <blockquote>
-<p>yarn add <a href="mailto:&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;">&#x6e;&#111;&#x64;&#x65;&#x2d;&#115;&#x61;&#115;&#x73;&#x40;&#x36;&#x2e;&#48;&#46;&#48;</a></p>
+<p>yarn add <a href="mailto:&#x6e;&#x6f;&#100;&#x65;&#x2d;&#x73;&#x61;&#x73;&#115;&#x40;&#54;&#x2e;&#x30;&#46;&#48;">&#x6e;&#x6f;&#100;&#x65;&#x2d;&#x73;&#x61;&#x73;&#115;&#x40;&#54;&#x2e;&#x30;&#46;&#48;</a></p>
 </blockquote>
 <h2 id="yarn-lock"><a href="#yarn-lock" class="headerlink" title="yarn.lock"></a>yarn.lock</h2><p>我們在與他人共同協作的時候，因為大家各自在各自的電腦，開發環境中的每個package版本會有所不同，這個文件幫project鎖定住所有package的版本，讓大家的開發環境統一。</p>
 <h2 id="Update-Version"><a href="#Update-Version" class="headerlink" title="Update Version"></a>Update Version</h2><p>當我們要把project的所有package都更新到最新版的時候，可以依照以下的步驟來執行：</p>
